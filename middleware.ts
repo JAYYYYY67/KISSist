@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
     }
 
     try {
-        let supabaseResponse = NextResponse.next({
+        let res = NextResponse.next({
             request,
         })
 
@@ -28,11 +28,11 @@ export async function middleware(request: NextRequest) {
                         cookiesToSet.forEach(({ name, value }) =>
                             request.cookies.set(name, value)
                         )
-                        supabaseResponse = NextResponse.next({
+                        res = NextResponse.next({
                             request,
                         })
                         cookiesToSet.forEach(({ name, value, options }) =>
-                            supabaseResponse.cookies.set(name, value, options)
+                            res.cookies.set(name, value, options)
                         )
                     },
                 },
@@ -45,9 +45,13 @@ export async function middleware(request: NextRequest) {
 
         // 보호된 경로(matcher)에 접근했는데 로그인 안 된 경우
         if (!user) {
-            const url = request.nextUrl.clone()
-            url.pathname = '/login'
-            return NextResponse.redirect(url)
+            const redirectUrl = request.nextUrl.clone()
+            redirectUrl.pathname = '/login'
+            const redirectResponse = NextResponse.redirect(redirectUrl)
+
+            // 핵심: 로그인 만료/리다이렉트 전 갱신된 쿠키를 방출될 응답에 그대로 복사해줍니다.
+            redirectResponse.cookies.setAll(res.cookies.getAll())
+            return redirectResponse
         }
 
         // admin 경로 권한 체크
@@ -57,16 +61,20 @@ export async function middleware(request: NextRequest) {
 
             if (!adminEmails.includes(userEmail)) {
                 if (request.nextUrl.pathname.startsWith('/api/')) {
-                    return NextResponse.json({ error: 'Forbidden: Admins only' }, { status: 403 })
+                    const jsonRes = NextResponse.json({ error: 'Forbidden: Admins only' }, { status: 403 })
+                    jsonRes.cookies.setAll(res.cookies.getAll())
+                    return jsonRes
                 } else {
-                    const url = request.nextUrl.clone()
-                    url.pathname = '/assistant'
-                    return NextResponse.redirect(url)
+                    const redirectUrl = request.nextUrl.clone()
+                    redirectUrl.pathname = '/assistant'
+                    const redirectResponse = NextResponse.redirect(redirectUrl)
+                    redirectResponse.cookies.setAll(res.cookies.getAll())
+                    return redirectResponse
                 }
             }
         }
 
-        return supabaseResponse
+        return res
 
     } catch (error) {
         // 2. 예외 발생 시 죽지 않게 (fail-open)

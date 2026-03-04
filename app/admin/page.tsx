@@ -16,7 +16,9 @@ export default async function AdminPage() {
         redirect('/login')
     }
 
-    const role = user.email === process.env.ADMIN_EMAIL ? 'admin' : 'assistant'
+    const adminEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase())
+    const userEmail = user.email?.toLowerCase() || ''
+    const role = adminEmails.includes(userEmail) ? 'admin' : 'assistant'
 
     if (role !== 'admin') {
         redirect('/')
