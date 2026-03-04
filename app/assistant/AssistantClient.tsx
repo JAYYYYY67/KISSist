@@ -231,21 +231,28 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
     const showLowConfidenceWarning = (answer && lowConfidence)
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+        <div className="font-sans bg-[#f6f6f8] text-slate-900 min-h-screen relative overflow-hidden flex flex-col dark:bg-[#161121] dark:text-slate-100">
+            {/* Abstract Background Elements */}
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#5417cf]/20 blur-[120px]"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-900/30 blur-[150px]"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-[#161121] via-[#161121] to-[#201633] opacity-0 dark:opacity-100 transition-opacity"></div>
+            </div>
+
             {/* Header */}
-            <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+            <header className="relative z-10 bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border-b border-slate-200 dark:border-slate-700/50 px-6 py-4 flex items-center justify-between sticky top-0">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+                        <div className="w-8 h-8 bg-[#5417cf] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#5417cf]/30">
                             K
                         </div>
-                        <h1 className="text-xl font-semibold text-gray-800 tracking-tight">KissEng Assistant</h1>
+                        <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KissEng Assistant</h1>
                     </div>
                     {/* Back to Admin Label - Only visible if Admin */}
                     {isAdmin && (
                         <Link
                             href="/admin"
-                            className="text-xs font-medium text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors flex items-center gap-1"
+                            className="text-xs font-bold text-[#5417cf] dark:text-[#8253f0] bg-[#5417cf]/10 dark:bg-[#5417cf]/20 px-3 py-1.5 rounded-full hover:bg-[#5417cf]/20 transition-colors flex items-center gap-1"
                         >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Back to Admin
@@ -254,23 +261,23 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                 </div>
                 <button
                     onClick={handleLogout}
-                    className="text-sm text-gray-500 hover:text-gray-800 transition-colors"
+                    className="text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 transition-colors"
                 >
                     Sign Out
                 </button>
             </header>
 
             {/* Main Content */}
-            <main className="flex-1 max-w-7xl mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <main className="relative z-10 flex-1 max-w-7xl mx-auto w-full p-4 md:p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {/* Left Column: Input */}
                 <section className="flex flex-col gap-4">
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col h-[60vh] transition-all overflow-hidden">
+                    <div className="bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl shadow-xl flex flex-col h-[60vh] transition-all overflow-hidden">
 
                         {/* Course Selector Header */}
-                        <div className="px-4 py-3 border-b border-gray-100 bg-gray-50">
-                            <div className="flex items-center justify-between mb-1">
-                                <label className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Course Context</label>
+                        <div className="px-5 py-4 border-b border-slate-200/60 dark:border-slate-700/50 bg-white/40 dark:bg-slate-800/40">
+                            <div className="flex items-center justify-between mb-2">
+                                <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Course Context</label>
                                 {courseError && <span className="text-xs text-red-500 font-medium">{courseError}</span>}
                             </div>
                             <div className="relative">
@@ -278,7 +285,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                     value={selectedCourse}
                                     onChange={handleCourseChange}
                                     disabled={loadingCourses}
-                                    className="appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 pl-3 pr-8 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 cursor-pointer disabled:bg-gray-100 disabled:text-gray-400"
+                                    className="appearance-none w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 py-2.5 pl-4 pr-10 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#5417cf]/50 focus:border-[#5417cf] cursor-pointer disabled:opacity-50 transition-all"
                                 >
                                     <option value="">All Courses</option>
                                     {courses.map(c => (
@@ -301,28 +308,28 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                         </div>
 
                         <textarea
-                            className="flex-1 w-full p-6 resize-none focus:outline-none text-gray-700 placeholder-gray-400 text-lg leading-relaxed"
+                            className="flex-1 w-full p-6 resize-none bg-transparent focus:outline-none text-slate-800 dark:text-slate-100 placeholder-slate-400 text-lg leading-relaxed"
                             placeholder="Enter the student's question here..."
                             value={question}
                             onChange={(e) => setQuestion(e.target.value)}
                         />
-                        <div className="p-4 border-t border-gray-100 flex justify-between items-center bg-white">
+                        <div className="p-5 border-t border-slate-200/60 dark:border-slate-700/50 flex justify-between items-center bg-white/40 dark:bg-slate-800/40">
                             <span className={`text-xs ${question.trim().length === 0 ? 'text-red-400' : 'text-gray-400'}`}>
                                 {question.length} chars {question.trim().length === 0 && '(Required)'}
                             </span>
                             <div className="flex items-center gap-3">
                                 {loading && (
-                                    <span className="text-xs font-medium text-blue-600 animate-pulse">
+                                    <span className="text-xs font-bold text-[#5417cf] dark:text-[#8253f0] animate-pulse">
                                         {loadingMessage}
                                     </span>
                                 )}
                                 <button
                                     onClick={handleGenerate}
                                     disabled={loading || !question.trim()}
-                                    className={`px-8 py-2.5 rounded-lg font-medium text-white transition-all shadow-sm
+                                    className={`px-8 py-3 rounded-xl font-bold text-white transition-all shadow-lg
                                         ${loading || !question.trim()
-                                            ? 'bg-blue-300 cursor-not-allowed'
-                                            : 'bg-blue-600 hover:bg-blue-700 hover:shadow-md active:transform active:scale-95'
+                                            ? 'bg-slate-300 dark:bg-slate-700 text-slate-500 cursor-not-allowed shadow-none'
+                                            : 'bg-gradient-to-r from-[#5417cf] to-indigo-600 hover:from-[#4914b5] hover:to-indigo-500 shadow-[#5417cf]/30 active:scale-[0.98]'
                                         }`}
                                 >
                                     {loading ? 'Processing...' : 'Generate Draft'}
@@ -341,17 +348,17 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                 <section className="flex flex-col gap-6 h-[calc(100vh-140px)] overflow-y-auto pr-1">
 
                     {/* Answer Area */}
-                    <div className={`bg-white rounded-xl shadow-sm border border-gray-200 flex flex-col min-h-[400px] transition-all ${loading ? 'opacity-70 pointer-events-none' : ''}`}>
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50 rounded-t-xl">
-                            <div className="flex items-center gap-2">
-                                <span className="text-sm font-semibold text-gray-600 uppercase tracking-wider">Answer Draft</span>
+                    <div className={`bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl shadow-xl flex flex-col min-h-[400px] transition-all ${loading ? 'opacity-70 pointer-events-none' : ''}`}>
+                        <div className="flex items-center justify-between px-5 py-4 border-b border-slate-200/60 dark:border-slate-700/50 bg-white/40 dark:bg-slate-800/40 rounded-t-2xl">
+                            <div className="flex items-center gap-3">
+                                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Answer Draft</span>
                                 {selectedCourse && (
-                                    <span className="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded border border-blue-200">
+                                    <span className="text-[10px] font-bold bg-[#5417cf]/10 text-[#5417cf] dark:text-[#8253f0] px-2.5 py-1 rounded-md border border-[#5417cf]/20">
                                         {selectedCourseName}
                                     </span>
                                 )}
                                 {showLowConfidenceWarning && (
-                                    <span className="text-[10px] font-bold bg-orange-100 text-orange-700 px-2 py-0.5 rounded border border-orange-200">
+                                    <span className="text-[10px] font-bold bg-orange-100 text-orange-700 px-2.5 py-1 rounded-md border border-orange-200">
                                         참고 페이지 부족
                                     </span>
                                 )}
@@ -360,7 +367,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                 {originalAnswer && answer !== originalAnswer && (
                                     <button
                                         onClick={resetToDraft}
-                                        className="text-xs font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 px-3 py-1.5 rounded transition-colors"
+                                        className="text-xs font-bold text-slate-500 hover:text-[#5417cf] hover:bg-[#5417cf]/10 px-3 py-1.5 rounded-lg transition-colors"
                                     >
                                         Reverse Changes
                                     </button>
@@ -368,17 +375,17 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                 <button
                                     onClick={copyToClipboard}
                                     disabled={!answer}
-                                    className={`text-xs font-medium px-3 py-1.5 rounded transition-all disabled:opacity-50
+                                    className={`text-xs font-bold px-4 py-1.5 rounded-lg transition-all disabled:opacity-50
                                         ${copied
                                             ? 'bg-green-100 text-green-700'
-                                            : 'text-blue-600 hover:bg-blue-50'
+                                            : 'text-[#5417cf] dark:text-[#8253f0] hover:bg-[#5417cf]/10 bg-white/50 dark:bg-transparent shadow-sm'
                                         }`}
                                 >
                                     {copied ? 'Copied!' : 'Copy'}
                                 </button>
                                 <button
                                     onClick={clearAll}
-                                    className="text-xs font-medium text-gray-500 hover:bg-gray-100 px-3 py-1.5 rounded transition-colors"
+                                    className="text-xs font-bold text-slate-500 hover:bg-slate-200/50 dark:hover:bg-slate-700/50 px-3 py-1.5 rounded-lg transition-colors"
                                 >
                                     Clear
                                 </button>
@@ -403,7 +410,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
 
                         <textarea
                             ref={answerRef}
-                            className="w-full p-6 focus:outline-none text-gray-800 leading-relaxed text-base min-h-[300px] resize-y overflow-y-auto"
+                            className="w-full text-slate-800 dark:text-slate-100 bg-transparent p-6 focus:outline-none leading-relaxed text-base min-h-[300px] resize-y overflow-y-auto"
                             placeholder="Generated answer will appear here..."
                             value={answer}
                             onChange={(e) => setAnswer(e.target.value)}
@@ -412,15 +419,15 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
 
                     {/* Content References */}
                     {(!lowConfidence && references.length > 0) && (
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-                            <div className="px-4 py-3 border-b border-gray-100 bg-gray-50 rounded-t-xl flex justify-between items-center">
-                                <h3 className="text-sm font-semibold text-gray-700">Textbook References</h3>
-                                <div className="text-xs text-gray-400">
+                        <div className="bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl shadow-xl overflow-hidden">
+                            <div className="px-5 py-3 border-b border-slate-200/60 dark:border-slate-700/50 bg-white/40 dark:bg-slate-800/40 flex justify-between items-center">
+                                <h3 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Textbook References</h3>
+                                <div className="text-xs font-bold text-slate-400">
                                     {references.length} pages
                                 </div>
                             </div>
-                            <div className="p-4">
-                                <div className="flex flex-col gap-4">
+                            <div className="p-5">
+                                <div className="flex flex-col gap-5">
                                     {(() => {
                                         // 1. Group by book
                                         const groups = references.reduce((acc, ref) => {
@@ -449,15 +456,17 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                         }
 
                                         return renderingGroups.map((group, i) => (
-                                            <div key={i} className="flex flex-col gap-2 mb-4 last:mb-0">
-                                                <div className="text-sm font-semibold text-gray-800">
-                                                    {group.title} <span className="text-gray-500 font-normal">({group.courseKey || 'All Courses'})</span>
+                                            <div key={i} className="flex flex-col gap-2.5 mb-5 last:mb-0">
+                                                <div className="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                                                    <div className="w-1.5 h-4 bg-[#5417cf] rounded-full"></div>
+                                                    {group.title} <span className="text-slate-400 dark:text-slate-500 font-medium">({group.courseKey || 'All Courses'})</span>
                                                 </div>
-                                                <div className="flex flex-col gap-1">
+                                                <div className="flex flex-col gap-1.5 pl-3.5">
                                                     {group.pages.map((p, j) => (
-                                                        <div key={j} className="text-sm text-gray-600 flex gap-2 items-start py-1 border-b border-gray-50 last:border-0">
-                                                            <span className="font-bold min-w-[2.5rem] shrink-0 text-blue-700">p.{p.page}</span>
-                                                            <span className="text-gray-500 flex-1 leading-snug break-all sm:break-normal">→ {p.highlightText || '내용 요약 없음'}</span>
+                                                        <div key={j} className="text-sm text-slate-600 dark:text-slate-300 flex gap-3 items-start py-1.5 border-b border-slate-100 dark:border-slate-700/50 last:border-0 relative">
+                                                            <div className="absolute left-[-15px] top-3.5 w-[6px] h-[6px] border-l-2 border-b-2 border-slate-300 dark:border-slate-600 rounded-bl-sm pointer-events-none"></div>
+                                                            <span className="font-bold min-w-[2.5rem] shrink-0 text-[#5417cf] dark:text-[#8253f0]">p.{p.page}</span>
+                                                            <span className="text-slate-500 dark:text-slate-400 flex-1 leading-snug break-all sm:break-normal">{p.highlightText || '내용 요약 없음'}</span>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -471,7 +480,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
 
                     {/* Feedback Panel */}
                     {originalAnswer && (
-                        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mt-2 flex-shrink-0">
+                        <div className="bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-700/50 rounded-2xl shadow-xl overflow-hidden mt-2 flex-shrink-0">
                             {!feedbackVisible ? (
                                 <button
                                     onClick={() => {
@@ -479,55 +488,56 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                         setFeedbackVisible(true);
                                         setFeedbackSuccess(false);
                                     }}
-                                    className="w-full text-center py-3 text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors"
+                                    className="w-full text-center py-4 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-[#5417cf] dark:hover:text-[#8253f0] hover:bg-white/40 dark:hover:bg-slate-800/40 transition-all flex justify-center items-center gap-2"
                                 >
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                     조교 피드백 작성하기
                                 </button>
                             ) : (
-                                <div className="p-4 border-t border-gray-100 bg-gray-50 transition-all flex flex-col gap-4">
+                                <div className="p-5 border-t border-slate-200/60 dark:border-slate-700/50 bg-white/40 dark:bg-slate-800/40 transition-all flex flex-col gap-5">
                                     <div className="flex justify-between items-center">
-                                        <h3 className="text-sm font-bold text-gray-700">답변 평가 및 수정</h3>
-                                        <button onClick={() => setFeedbackVisible(false)} className="text-gray-400 hover:text-gray-600 text-sm">
+                                        <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider">답변 평가 및 수정</h3>
+                                        <button onClick={() => setFeedbackVisible(false)} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 font-bold text-xs bg-slate-200/50 dark:bg-slate-700/50 px-3 py-1.5 rounded-lg">
                                             닫기
                                         </button>
                                     </div>
 
                                     {/* Edited Answer */}
                                     <div>
-                                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                                        <label className="block text-[10px] font-bold text-[#5417cf] dark:text-[#8253f0] uppercase tracking-wider mb-2">
                                             조교 최종 답안 (핵심 정리 + 설명)
                                         </label>
                                         <textarea
                                             value={finalAnswer}
                                             onChange={(e) => setFinalAnswer(e.target.value)}
-                                            className="w-full text-sm p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 min-h-[150px] resize-y overflow-y-auto"
+                                            className="w-full text-sm p-4 bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 focus:outline-none focus:border-[#5417cf] focus:ring-1 focus:ring-[#5417cf] min-h-[150px] resize-y overflow-y-auto shadow-inner"
                                             placeholder="학생에게 노출될 이상적인 답안 형태로 수정해주세요."
                                         />
                                     </div>
 
                                     {/* Comment */}
                                     <div>
-                                        <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">
+                                        <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">
                                             코멘트 (개발자/관리자 참고용)
                                         </label>
                                         <textarea
                                             value={feedbackComment}
                                             onChange={(e) => setFeedbackComment(e.target.value)}
-                                            className="w-full text-sm p-3 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 min-h-[80px] resize-y"
+                                            className="w-full text-sm p-4 bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 focus:outline-none focus:border-[#5417cf] focus:ring-1 focus:ring-[#5417cf] min-h-[80px] resize-y shadow-inner"
                                             placeholder="어떤 부분이 부족했는지, 왜 수정했는지 간략히 적어주세요."
                                         />
                                     </div>
 
                                     <div className="flex justify-end mt-2">
                                         {feedbackSuccess ? (
-                                            <span className="text-sm text-green-600 font-bold px-4 py-2">
+                                            <span className="text-sm bg-green-100 text-green-700 border border-green-200 font-bold px-4 py-2 rounded-xl">
                                                 ✅ 피드백이 저장되었습니다!
                                             </span>
                                         ) : (
                                             <button
                                                 onClick={submitFeedback}
                                                 disabled={feedbackSubmitting}
-                                                className="px-4 py-2 bg-blue-600 text-white rounded text-sm font-semibold hover:bg-blue-700 disabled:opacity-50"
+                                                className="px-6 py-2.5 bg-gradient-to-r from-[#5417cf] to-indigo-600 hover:from-[#4914b5] hover:to-indigo-500 text-white rounded-xl shadow-lg shadow-[#5417cf]/20 text-sm font-bold active:scale-95 disabled:opacity-50 disabled:active:scale-100 transition-all"
                                             >
                                                 {feedbackSubmitting ? '저장 중...' : '저장하기'}
                                             </button>

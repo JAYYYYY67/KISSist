@@ -344,14 +344,6 @@ ${contextText}`;
         if (lowConfidence) {
             referencesPages = []
             references.length = 0 // Clear references as well
-        } else {
-            // Add final line for [참고 페이지]
-            answer += '\n\n[참고 페이지]\n'
-            if (referencesPages.length > 0) {
-                answer += referencesPages.join(', ')
-            } else {
-                answer += '교재 업로드 후 자동 연결됩니다.'
-            }
         }
 
         return NextResponse.json({
