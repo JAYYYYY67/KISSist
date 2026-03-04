@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { updateSession } from '@/lib/supabase/auth-guard'
+import { updateSession } from './lib/supabase/auth-guard'
 
 export async function middleware(request: NextRequest) {
     if (request.nextUrl.pathname === "/api/admin/pin" || request.nextUrl.pathname === "/api/health") {
