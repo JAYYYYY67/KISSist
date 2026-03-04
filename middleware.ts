@@ -76,7 +76,7 @@ export async function middleware(request: NextRequest) {
                 message: error?.message || String(error),
                 stack: error?.stack
             }),
-            { status: 500, headers: { 'content-type': 'application/json' } }
+            { status: 200, headers: { 'content-type': 'application/json' } }
         )
     }
 }
