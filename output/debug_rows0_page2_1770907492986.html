@@ -1,0 +1,1008 @@
+<!DOCTYPE html><html lang="ko"><head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="Digital 大成 관리자" name="description">
+		<meta content="Digital 大成 관리자" name="keywords">
+		<meta content="Digital 大成 관리자" name="subject">
+		<link rel="stylesheet" type="text/css" href="https://img.mimacstudy.com/ADMIN/css/daesung.css">
+		<style>
+		  ul.leftmenu .expand ul{
+		    display:block;
+		  }
+		  ul.leftmenu .on ul{
+		    display:block;
+		  }
+		  ul.leftmenu ul{
+		    display:none;
+  	  }
+		</style>
+		<script src="https://pnp-appdn.cdnetworks.com/modules/agent.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="/admin/js/html5shiv.js"></script>
+		<script type="text/javascript" src="/admin/js/common.js?251121"></script>
+		<script type="text/javascript" src="/admin/js/page_util.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(event){
+	        
+
+			  $("ul.leftmenu>li>a").click(function() {
+				  if ($(this).hasClass("plus")){
+				    $(this).removeClass().addClass("minus");
+				    $(this).parent().addClass("expand");
+				  }else if ($(this).hasClass("minus")){
+				    $(this).removeClass().addClass("plus");
+				    $(this).parent().removeClass();
+				  }
+				});
+				$("ul.leftmenu ul.submenu li>a").click(function() {
+				});
+
+			  $("#logoutBtn").bind("click", logoutAction);
+
+			  $("ul.leftmenu>li>a").each(function(event){
+				  if ($(this).hasClass("minus")){
+					  $(this).parent().addClass("expand");
+				  }
+			  });
+
+
+			// 레프트 메뉴 토글
+			var leftMenuOpen = $.cookie('leftMenuOpenYN');
+
+			if(leftMenuOpen == 'Y')
+				$('.adminwrap').toggleClass('hideleft');
+
+			$('.jq_toggle_left').click(function(e) {
+				$('.adminwrap').toggleClass('hideleft');
+
+				if($('.adminwrap').hasClass("hideleft"))
+					$.cookie('leftMenuOpenYN' , 'Y', { path : '/' });
+				else
+					$.cookie('leftMenuOpenYN' , 'N', { path : '/' });
+
+			});
+		});
+
+
+        $(document).on("click", "a[name=linkAdminNm]", function(event) {
+            location.href="/admin/operation/updatePersonalInfoView.ds";
+        });
+
+
+		function menuMover(menuId, upMenuId){
+			if(upMenuId != undefined) {
+				location.href="/admin/common/getMenuContainer.ds?requestMenuId="+menuId + "&leftMainMenuId=" + upMenuId;
+			} else {
+				location.href="/admin/common/getMenuContainer.ds?requestMenuId="+menuId;
+			}
+		}
+
+		function menuPopMover(menuId){
+			var serverMode = "real";
+			if((serverMode == 'dev' && menuId == "O000000332") || (serverMode == 'real' && menuId == 'O000000387') ){
+				window.open("/admin/common/getMenuContainer.ds?requestMenuId="+menuId,'_calSys');
+			}else{
+				window.open("/admin/common/getMenuContainer.ds?requestMenuId="+menuId);
+
+			}
+		}
+
+		function logoutAction(event){
+			  location.href="/admin/member/logout.ds";
+		}
+		</script>
+		
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="Digital 大成 관리자" name="description">
+<meta content="Digital 大成 관리자" name="keywords">
+<meta content="Digital 大成 관리자" name="subject">
+
+<link rel="stylesheet" href="/admin/css/jqwidgets/styles/jqx.base.css" type="text/css">
+<link rel="stylesheet" href="/admin/css/jqwidgets/styles/jqx_customize.css" type="text/css">
+<script type="text/javascript" src="/admin/js/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="/admin/js/jqwidgets/jqxdatetimeinput.js"></script>
+<script type="text/javascript" src="/admin/js/jqwidgets/jqxcalendar.js"></script>
+<script type="text/javascript" src="/admin/js/jqwidgets/globalization/globalize.js"></script>
+
+<script class="code" type="text/javascript">
+    var loading = null;
+    $(document).ready(function(){
+    	//loadLctrListByAjax();
+    	loading = $('<div class="transparents-layer"></div>').appendTo(document.body).hide();		
+    	
+	       		loadLctrListByAjax();
+	       		loadLctrSubjectByAjax();
+	        
+
+//         var choiceSearchStart = $.trim("");
+//         var choiceSearchEnd = $.trim("");
+//         var today = getYearMonthDay();
+        
+//         if(choiceSearchStart == "") {
+//             choiceSearchStart = today;
+//             choiceSearchEnd  = today;
+//         }
+        
+        $("#searchStartDt").jqxDateTimeInput({ animationType: 'none', width: '110px', height: '22px', dropDownHorizontalAlignment: 'left', formatString: 'yyyy/MM/dd', allowNullDate: true});
+        $("#searchEndDt").jqxDateTimeInput({ animationType: 'none', width: '110px', height: '22px', dropDownHorizontalAlignment: 'left', formatString: 'yyyy/MM/dd', allowNullDate: true});
+         
+        $("#inputsearchStartDt").attr("name", "searchStartDt");
+        $("#inputsearchEndDt").attr("name", "searchEndDt");
+        
+//         if("2025/12/07" != "") $("#searchStartDt").val("2025/12/07");
+//         else $("#searchStartDt").val(getYearMonthDay(-31));
+        
+//         if("2025/12/09" != "") $("#searchEndDt").val("2025/12/09");
+//         else $("#searchEndDt").val(today);
+        
+        $("#searchStartDt").val("2025/12/07");
+        $("#searchEndDt").val("2025/12/09");
+        
+        $("#searchText").keydown(function(){
+    		if(event.keyCode == 13) pageMove("1");
+    	});
+        
+        
+    });
+    $(document).on("click", "#resetBtn", function() {
+     	$.ajax({
+		      type : "POST",
+		      data : {tcd : "359"},
+		      async : false,
+		      url : "/admin/tzone/resetQnaReplayStatusAjax.ds",
+		      success : function(data){
+		    	  if(data.code == "01")
+				  {
+			        	alert("작성중 상태가 리셋됐습니다.");
+			        	location.reload();
+				  }
+			      else
+				  {
+						alert("오류가 발생했습니다.");
+				  }  
+		      },
+		      complete:function(status){
+		      },
+		      error: function(xhr,  Status, error) {
+		        alert("통신중 장애 발생");
+		        //console.log(error);
+		      }
+	    });
+        	
+    });
+    $(document).on("click", "button[name=btnSearch]", function(event) {
+        pageMove(1);
+    });
+    
+    $(document).on("change", "select[name=pagePerCnt]", function() {
+        $("#currPage").val("1");
+        pageMove(1);
+    });
+
+    $(document).on("click", "a[name=linkBTitle]",  function() {
+    	var qnaType = $(this).attr("qnaType");
+    	
+    	$("#selectBNo").val($(this).attr("bNo"));
+        if(qnaType=="Q") $("#frm").attr('action',"/admin/tzone/tzoneStudyQnaUpdatePage.ds");
+        if(qnaType=="N") $("#frm").attr('action',"/admin/tzone/tzoneStudyQnaNotiWrite.ds");
+        $("#frm").attr('method',"post");
+        $("#frm").submit();
+    });
+    
+    $(document).on("click", "input:checkbox[name=chkToggle]", function(event) {
+        $("input:checkbox[name=chkRow]:enabled").prop("checked", $(this).is(":checked"));
+    });
+    
+    $(document).on("change", "select[name=searchRelm]", function(event) {
+        if($(this).val() == ""){
+            new SelectBoxUtil($("#searchSubj")).setSelectBox('{}', {"initMsg":"과목전체"});
+            new SelectBoxUtil($("#searchTcd")).setSelectBox('{}', {"initMsg":"선생님전체"});
+        } else {
+            var upGrpCd = $("#searchRelm option:selected").attr("grpCd");
+            var upDetlCd  = $("#searchRelm option:selected").val();
+            new SelectBoxUtil($("#searchSubj")).setAjaxSelectBox({"contextPath":"/admin","upGrpCd":upGrpCd, "upDetlCd":upDetlCd}, {"initMsg":"과목전체"});  
+            loadTeacherListByAjax($(this).val(), '');
+        }
+    	$("#searchTcdLec").html("");
+        $("#searchTcdLec").hide();
+        $("#searchSubject").html("");
+        $("#searchSubject").hide("");
+    });
+
+    $(document).on("change", "select[name=searchSubj]", function(event) {
+        var realm = $("#searchRelm option:selected").val();
+        if($(this).val() == ""){
+            loadTeacherListByAjax(realm, '');
+        } else {
+            loadTeacherListByAjax(realm, $(this).val());
+        }
+    });
+    
+    $(document).on("change", "select[name=searchTcd]", function(event) {
+        if($(this).val() == ""){
+        	$("#searchTcdLec").html("");
+            $("#searchTcdLec").hide();
+            $("#searchSubject").html("");
+            $("#searchSubject").hide("");
+        } else {
+        	loadLctrListByAjax();
+        	loadLctrSubjectByAjax();
+        }
+    });
+    
+/*     $(document).on("change", "select[name=searchTcd]", function(event) {
+        loadLectureListByAjax($("#searchTcd option:selected").val(), '');
+    }); */
+    
+    function loadTeacherListByAjax(realm, subject) {
+        $.ajax({
+            type : "POST",
+            async : false,
+            dataType : "json",
+            data : {"realm" : realm, "subject" : subject},
+            url : "/admin/common/selectTeacherListByAjax.ds",
+            success : function(data){
+                setTeacherSelectBox(data,"");
+            },
+            complete:function(status){
+            },
+            error: function(xhr,  Status, error) {
+                //console.log("통신중 장애 발생");
+                //console.log(error);
+            }
+        });
+    }
+
+    
+    
+    function loadLctrListByAjax() {
+    	//alert("");
+    	//alert($("#searchTcd").val());
+        $.ajax({
+            type : "POST",
+            async : false,           
+            dataType : "json",
+            data : {"tcd" : $("#searchTcd").val()},
+            url : "/admin/tzone/selectTeacherLecInfoAjax.ds",
+            success : function(data){               
+                var optionTag = "<option value=''>강좌 전체</option>";
+                $.each(data, function(idx, value){
+                    optionTag += "<option value='"+value.pid+"' ";
+                    if(value.pid == "")
+                    {
+                    	//alert(1);
+                    	optionTag += "selected ";
+                    }
+                    optionTag += ">"+value.prodName + "</option>";
+                });
+                $("#searchTcdLec").html(optionTag);
+                $("#searchTcdLec").show();
+            },
+            complete:function(status){
+            },
+            error: function(xhr,  Status, error) {
+                //console.log("통신중 장애 발생");
+                //console.log(error);
+            }
+        });
+    }
+    function loadLctrSubjectByAjax() {
+    	//alert("");
+    	//alert($("#searchTcd").val());
+        $.ajax({
+            type : "POST",
+            async : false,           
+            dataType : "json",
+            data : {"tcd" : $("#searchTcd").val()},
+            url : "/admin/tzone/selectTeacherLecSubjectInfoAjax.ds",
+            success : function(data){               
+                var optionTag = "<option value=''>과목 전체</option>";
+                $.each(data, function(idx, value){
+                    optionTag += "<option value='"+value.detlCdName+"' ";  
+                    if(value.detlCdName == "")
+                    {                    	
+                    	optionTag += "selected ";
+                    }
+                    optionTag += ">"+value.detlCdName + "</option>";
+                });
+                $("#searchSubject").html(optionTag);
+                $("#searchSubject").show();
+            },
+            complete:function(status){
+            },
+            error: function(xhr,  Status, error) {
+                //console.log("통신중 장애 발생");
+                //console.log(error);
+            }
+        });
+    }
+    function setTeacherSelectBox(data, selectedVal) {
+        var optionTag = "<option value=''>선생님전체</option>";
+        //alert(selectedVal);
+        $.each(data, function(idx, value){
+            optionTag += "<option value='"+value.tcd+"' ";
+            if(value.tcd == "983")
+            {
+            	//alert(1);
+            	optionTag += "selected ";
+            }
+            optionTag += ">"+value.tchrName + "</option>";
+        });
+
+        $("#searchTcd").html("");
+        $("#searchTcd").html(optionTag);
+        $("#searchTcd").val(selectedVal);
+        loadLctrListByAjax();
+    }
+    
+    function pageMove(pageIndex){
+        $("#currPage").val(pageIndex);
+        $("#frm").attr('action',"/admin/tzone/tzoneStudyQnaList.ds");
+        $("#frm").attr('method',"post");
+        $("#frm").submit();
+    }
+    
+ 	// 학습Q&A공지사항 등록
+    $(document).on("click", "#regBtn",  function() {
+    	$("#frm").attr('action',"/admin/tzone/tzoneStudyQnaNotiWrite.ds");
+        $("#frm").attr('method',"post");
+        $("#frm").submit();
+    });
+
+    //날짜 버튼 클릭 이벤트
+	$(document).on("click", "button[name=btnLastMonth]", function(event) {
+		var lastMonth = getLastMonthPeriod("/");
+		$("#searchStartDt").val(getYearMonth(this.value));
+		$("#searchEndDt").val(getYearMonthDay());
+	});
+
+</script>
+
+	</head>
+<body id="" class="operation"> <!--oncopy="return false" oncut="return false" --> <!-- class는 공통 폴더명 -->
+<!-- S: adminwrap -->
+  <div class="adminwrap">
+    <!-- S: header -->
+    <div class="header">
+      <!-- S: toparea -->
+      <div class="toparea">
+        <h1><a href="/admin/simple/simple/operIndex.ds"><img src="https://img.mimacstudy.com/ADMIN/common/img_logo.png" alt="Digital 大成"></a></h1>
+        <ul class="topmenu">
+          <li class="on">
+              <a href="javascript:menuMover('TO00003103')"><span>이서현선생님 관리자홈</span></a>
+               </li>
+            </ul>
+
+      </div>
+      <!-- //E: toparea -->
+	  <button type="button" class="jq_toggle_left">열기/닫기</button>
+    </div>
+    <!-- //E: header -->
+    <!-- S: midarea -->
+    <div class="midarea">
+      <!-- S: leftarea -->
+      <div class="leftarea">
+
+        <p class="userinfo">
+            <a href="javascript:;" name="linkAdminNm"><em>이용재</em></a>님 환영합니다.
+            <button type="button" id="logoutBtn" name="logoutBtn" class="btn_logout">로그아웃</button>
+        </p>
+        <ul class="leftmenu">
+          <li>
+	             <a href="javascript:menuMover('TO00003104', 'TO00003104')"><span>강의자료실관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003112', 'TO00003112')"><span>공지사항관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003113', 'TO00003113')"><span>학습Q&amp;A관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003106', 'TO00003106')"><span>강좌제작관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003117', 'TO00003117')"><span>수강생현황</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00004963', 'TO00004963')"><span>KISS ESSENCE 자료게시판</span></a>
+	                 </li>
+	          </ul>
+      </div>
+      <!-- //E: leftarea -->
+      <!-- S: contentsarea -->
+      <div class="contentsarea">
+        <!-- class는 공통 폴더명 -->
+	<div class="studyqnalist"><!-- 페이지 별 구분 class -->
+	    <h3>학습 Q&amp;A</h3>
+	    <p class="pagenavi"><span>T-Zone</span><span>학습 Q&amp;A</span><strong>목록</strong></p>
+	    <!-- S: contentsbox -->
+	    <div class="contentsbox">
+	        <form id="frm" name="frm" action="/admin/tzone/tzoneStudyQnaList.ds" method="post">
+	        <input type="hidden" id="selectBNo" name="selectBNo" style="">
+	        <input type="hidden" id="searchCompany" name="searchCompany" value="M" style="">
+	        
+	        <table cellpadding="0" cellspacing="0" class="boardwrite" summary="계정을 소속, 구분, 상태, 검색별로 하실 수 있는 검색 폼입니다.">
+		        <caption>학습 Q&amp;A</caption>
+		        <colgroup>
+		            <col width="110px">
+					<col width="325px">
+					<col width="110px">
+					<col width="345px">
+		        </colgroup>
+		        <tbody>
+			        <tr>
+			            <th scope="row">선생님선택</th>
+			            <td colspan="3">
+					    <input type="text" name="relmNm" value="영어" class="txt" style="min-width: 100px; width: 150px;" readonly="readonly">
+								<input type="hidden" id="searchRelm" name="searchRelm" value="03" style="">
+								<input type="text" name="subjNm" value="" class="txt" style="min-width: 100px; width: 150px;" readonly="readonly">
+								<input type="hidden" id="searchSubj" name="searchSubj" value="" style="">
+								<input type="text" name="tcdNm" value="션티" class="txt" style="min-width: 100px; width: 150px;" readonly="readonly">
+								<input type="hidden" id="searchTcd" name="searchTcd" value="983" style="">
+					        <select id="searchTcdLec" name="searchTcdLec" style=""><option value="">강좌 전체</option><option value="PL00047818">2023학년도 5월 전국연합학력평가 영어 해설강의 [2023.05.10 시행]</option><option value="PL00052921">2024학년도 10월 전국연합학력평가 영어 해설강의 [2024.10.15 시행]</option><option value="PL00051685">2024학년도 5월 전국연합학력평가 해설강의_영어 [2024.05.08 시행]</option><option value="PL00052212">2024학년도 7월 전국연합학력평가 영어 해설강의 [2024.07.11 시행]</option><option value="PL00056735">2025학년도 10월 전국연합학력평가 영어 해설강의 [2025.10.14 시행]</option><option value="PL00055344">2025학년도 5월 전국연합학력평가 영어 해설강의 [2025.05.08 시행]</option><option value="PL00056012">2025학년도 7월 전국연합학력평가 영어 해설강의 [2025.07.10 시행]</option><option value="PL00056426">2026학년도 9월 평가원 모의고사 영어 해설강의 [2025.09.03 시행]</option><option value="PL00055402">[2026] 마스터피스 모의고사 Classic</option><option value="PL00057454">[2027] Frequency [어휘]<br><font color="#8B4513">빈도수대로, 가장 중요한 단어부터!</font></option><option value="PL00058100">[2027] KISS Logic<br><font color="#DC143C">1등급 달성을 위한, 유형별 논리독해</font></option><option value="PL00057362">[2027] KISSAVE <br><font color="#DC143C">노베이스의 구원 키트</font></option><option value="PL00057555">[2027] 매달 KISS <font color="#ef007c">FULL Season(기출+파이널)</font><br><font color="#1E90FF">꾸준히 매달리는 영어 학습</font></option><option value="PL00057556">[2027] 매달 KISS <font color="green">기출 Season</font><br><font color="#1E90FF">꾸준히 매달리는 영어 학습</font></option><option value="PL00057660">[2027] 키스키마<br><font color="#DC143C">2등급 도약을 위한 구문ㆍ독해 스키마</font></option><option value="PL00057453">[듣보잡 original] 듣기를 보면서 잡는다<br><font color="#8B4513">3주만에 끝내는 듣기 독학서</font></option></select>
+			            </td>
+			        </tr>
+			        <tr>
+			            <th scope="row">추가과목선택</th>
+			            <td>
+				           <select id="searchSubject" name="searchSubject" style=""><option value="">과목 전체</option><option value="영어">영어</option><option value="영어종합">영어종합</option><option value="어법">어법</option><option value="독해">독해</option><option value="어휘">어휘</option><option value="듣기">듣기</option><option value="구문">구문</option><option value="EBS 분석">EBS 분석</option><option value="[고1·2 전문]">[고1·2 전문]</option></select>
+			            </td>
+			            
+			            <th scope="row">기간검색</th>
+			            <td>
+			            	<div id="jqxWidget" class="calendar">
+			                    <div id="searchStartDt" class="dateInput jqx-widget jqx-datetimeinput jqx-input jqx-overflow-hidden jqx-rc-all jqx-reset jqx-clear jqx-widget-content" value="2025/12/07" data-role="input" role="textbox" style="width: 110px; height: 22px;" aria-owns="calendarjqxWidget1725c2d5" aria-haspopup="true" aria-readonly="false" aria-valuenow="Sun Dec 07 2025 00:00:00 GMT+0900 (한국 표준시)" aria-valuetext="2025/12/07" aria-valuemin="Mon Jan 01 1900 00:00:00 GMT+0827 (한국 표준시)" aria-valuemax="Fri Jan 01 2100 00:00:00 GMT+0900 (한국 표준시)" aria-disabled="false" aria-label="Current focused date is 2025. 12. 7. 오전 12:00:00"><div class="jqx-max-size jqx-position-relative"><input class="jqx-position-absolute jqx-reset jqx-clear jqx-input-content jqx-widget-content jqx-rc-all" id="inputsearchStartDt" autocomplete="off" type="textarea" name="searchStartDt" style="width: 90px; left: 0px; top: 0px; margin-top: 1px; text-align: left;"><div style="height: 100%; width: 19px; left: 91px;" class="jqx-position-absolute jqx-action-button jqx-fill-state-normal jqx-rc-r"><div class="jqx-icon jqx-icon-calendar"></div></div></div></div><em class="period">~</em>
+			                    <div id="searchEndDt" class="dateInput jqx-widget jqx-datetimeinput jqx-input jqx-overflow-hidden jqx-rc-all jqx-reset jqx-clear jqx-widget-content" value="2025/12/09" data-role="input" role="textbox" style="width: 110px; height: 22px;" aria-owns="calendarjqxWidgetc753cf30" aria-haspopup="true" aria-readonly="false" aria-valuenow="Tue Dec 09 2025 00:00:00 GMT+0900 (한국 표준시)" aria-valuetext="2025/12/09" aria-valuemin="Mon Jan 01 1900 00:00:00 GMT+0827 (한국 표준시)" aria-valuemax="Fri Jan 01 2100 00:00:00 GMT+0900 (한국 표준시)" aria-disabled="false" aria-label="Current focused date is 2025. 12. 9. 오전 12:00:00"><div class="jqx-max-size jqx-position-relative"><input class="jqx-position-absolute jqx-reset jqx-clear jqx-input-content jqx-widget-content jqx-rc-all" id="inputsearchEndDt" autocomplete="off" type="textarea" name="searchEndDt" style="width: 90px; left: 0px; top: 0px; margin-top: 1px; text-align: left;"><div style="height: 100%; width: 19px; left: 91px;" class="jqx-position-absolute jqx-action-button jqx-fill-state-normal jqx-rc-r"><div class="jqx-icon jqx-icon-calendar"></div></div></div></div>
+			                    &nbsp;&nbsp;
+			                    <button type="button" id="btnLast1Month" name="btnLastMonth" class="btn_gray_01" value="-1">1개월</button>
+				            	<button type="button" id="btnLast3Month" name="btnLastMonth" class="btn_gray_01" value="-3">3개월</button>
+			            		<button type="button" id="btnLast6Month" name="btnLastMonth" class="btn_gray_01" value="-6">6개월</button>
+			                </div>								
+							</td>			                
+			            
+			        </tr>
+			        <tr>
+						<th scope="row">검색조건</th>
+			            <td class="sch">
+			                <select id="searchType" name="searchType" style="width:12%; min-width:80px">
+			                    <option value="01">제목</option>
+			                    <option value="02">작성자명</option>
+			                    <option value="03">작성자ID</option>
+			                    <option value="04">답변자명</option>
+			                    <option value="05">답변자ID</option>
+			                    <option value="06" selected="">선생님</option>
+			                    <option value="07">내용</option>
+			                </select>
+			                <input type="text" id="searchText" name="searchText" class="txt" style="width: 65%; min-width: 100px; margin-left: 5px;" value="">
+			            </td>
+						<th scope="row">Q&amp;A구분</th>
+			            <td>
+			            	<select name="searchQuestType" style="width:25%; min-width:10px">
+			            		<option value="" selected="">유형선택</option>
+				            	<option value="01">강좌</option>
+					            <option value="02">교재</option>
+					            <option value="03">학습법</option>
+					            <option value="04">기타</option>
+					            <option value="06">공지</option>
+					            </select>
+			            	<select name="searchQnaStatus" style="width:25%; min-width:10px">
+			            		<option value="">상태전체</option>
+				            	<option value="01">대기중</option>
+					            <option value="02" selected="">답변 완료</option>
+					            </select>
+				            <button type="button" id="btnSearch" name="btnSearch" class="btn_gray_01">검색</button>
+			            </td>
+			        </tr>
+		        </tbody>
+	        </table>
+	        <p class="total">총 건수:<em>100</em>
+	            <span class="right">
+	                <strong>검색목록</strong>
+	                <select id="pagePerCnt" name="pagePerCnt"><option value="10">10개</option><option value="20" selected="">20개</option><option value="30">30개</option><option value="50">50개</option><option value="100">100개</option></select></span>
+	        </p>
+	        <table cellpadding="0" cellspacing="0" class="databoard" summary="강사계정의 정보를 강사코드, 회사구분, 영역, 이름, 아이디, 상태, 순서, 관리, 담당자, 등록일(수정일) 순으로 확인하실 수 있습니다.">
+		        <caption>학습 Q&amp;A</caption>
+		        <colgroup>
+		            <col width="40px">
+					<col width="50px">
+					<col width="50px">	
+					<col width="280px">
+					<col width="60px">
+					<col width="60px">
+					<col width="60px">
+					<col width="40px">
+					<col width="40px">
+					<col width="50px">
+					<col width="60px">
+					<col width="60px">
+		        </colgroup>
+		        <thead>
+			        <tr>
+			            <th scope="col">No</th>
+			            <th scope="col">선생님</th>
+			            <th scope="col">과목</th>
+			            <th scope="col">제목</th>
+			            <th scope="col">유형</th>			            
+			            <th scope="col">상태</th>
+			            <th scope="col">활성화</th>
+			            <th scope="col">작성자</th>
+			            <th scope="col">답변자</th>
+			            <th scope="col">조회수</th>
+			            <th scope="col">등록일</th>
+			            <th scope="col">답변등록일</th>
+			        </tr>
+	        	</thead>
+	        	<tbody>
+					<tr>
+						            <td>100</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15191689" qnatype="Q">업로드</a>
+						            	</td>
+						            <td>기타</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>정*찬<br>(chanlove1***)</td>						            	
+						            	<td>
+						            연*실<br>(skim***)
+							            	</td>
+						            <td class="righttit">0</td>
+						            
+						            <td>2025/12/09 23:07</td>
+						            <td>
+						            2025/12/10 19:05</td>
+						        </tr>
+						    <tr>
+						            <td>99</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191687" qnatype="Q">플마랑 ps 차이</a>
+						            	</td>
+						            <td>학습법</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>문*완<br>(ansxodhks5***)</td>						            	
+						            	<td>
+						            연*실<br>(cocomini2***)
+							            	</td>
+						            <td class="righttit">4</td>
+						            
+						            <td>2025/12/09 23:06</td>
+						            <td>
+						            2025/12/10 19:16</td>
+						        </tr>
+						    <tr>
+						            <td>98</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15191652" qnatype="Q">어떤 커리를 타야할지 모르겠습니다</a>
+						            	</td>
+						            <td>학습법</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>정*원<br>(won080***)</td>						            	
+						            	<td>
+						            연*실<br>(cocomini2***)
+							            	</td>
+						            <td class="righttit">0</td>
+						            
+						            <td>2025/12/09 22:41</td>
+						            <td>
+						            2025/12/10 19:04</td>
+						        </tr>
+						    <tr>
+						            <td>97</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15191645" qnatype="Q">노베이스의 기준이 얼마 정도일까요..</a>
+						            	</td>
+						            <td>학습법</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>양*석<br>(wooseok1***)</td>						            	
+						            	<td>
+						            연*실<br>(cocomini2***)
+							            	</td>
+						            <td class="righttit">0</td>
+						            
+						            <td>2025/12/09 22:38</td>
+						            <td>
+						            2025/12/10 18:55</td>
+						        </tr>
+						    <tr>
+						            <td>96</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		영어</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191587" qnatype="Q">자/타동사</a>
+						            	</td>
+						            <td>교재</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>오*석<br>(hsoh080***)</td>						            	
+						            	<td>
+						            연*실<br>(cocomini2***)
+							            	</td>
+						            <td class="righttit">3</td>
+						            
+						            <td>2025/12/09 22:18</td>
+						            <td>
+						            2025/12/10 18:49</td>
+						        </tr>
+						    <tr>
+						            <td>95</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15191534" qnatype="Q">natural freedom 더 이상 못 듣나요?</a>
+						            	</td>
+						            <td>기타</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>조*규<br>(hyjm***)</td>						            	
+						            	<td>
+						            연*실<br>(cocomini2***)
+							            	</td>
+						            <td class="righttit">2</td>
+						            
+						            <td>2025/12/09 21:52</td>
+						            <td>
+						            2025/12/10 18:36</td>
+						        </tr>
+						    <tr>
+						            <td>94</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15191521" qnatype="Q">2등급?</a>
+						            	</td>
+						            <td>학습법</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>이*민<br>(eean***)</td>						            	
+						            	<td>
+						            연*실<br>(cocomini2***)
+							            	</td>
+						            <td class="righttit">5</td>
+						            
+						            <td>2025/12/09 21:47</td>
+						            <td>
+						            2025/12/10 18:32</td>
+						        </tr>
+						    <tr>
+						            <td>93</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191505" qnatype="Q">문장해석</a>
+						            	</td>
+						            <td>기타</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>김*현<br>(rkdrofl6***)</td>						            	
+						            	<td>
+						            연*실<br>(cocomini2***)
+							            	</td>
+						            <td class="righttit">4</td>
+						            
+						            <td>2025/12/09 21:42</td>
+						            <td>
+						            2025/12/10 18:23</td>
+						        </tr>
+						    <tr>
+						            <td>92</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15191405" qnatype="Q">쌩 노베이스</a>
+						            	</td>
+						            <td>학습법</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>심*솔<br>(sim495***)</td>						            	
+						            	<td>
+						            연*실<br>(skim***)
+							            	</td>
+						            <td class="righttit">0</td>
+						            
+						            <td>2025/12/09 21:00</td>
+						            <td>
+						            2025/12/10 19:00</td>
+						        </tr>
+						    <tr>
+						            <td>91</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191382" qnatype="Q">키스케마</a>
+						            	</td>
+						            <td>기타</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>하*훈<br>(i28092***)</td>						            	
+						            	<td>
+						            연*실<br>(skim***)
+							            	</td>
+						            <td class="righttit">4</td>
+						            
+						            <td>2025/12/09 20:49</td>
+						            <td>
+						            2025/12/10 18:56</td>
+						        </tr>
+						    <tr>
+						            <td>90</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		어휘</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191352" qnatype="Q">d33 p.374 payoff</a>
+						            	</td>
+						            <td>교재</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>윤*정<br>(jl6021***)</td>						            	
+						            	<td>
+						            연*실<br>(skim***)
+							            	</td>
+						            <td class="righttit">3</td>
+						            
+						            <td>2025/12/09 20:38</td>
+						            <td>
+						            2025/12/10 18:50</td>
+						        </tr>
+						    <tr>
+						            <td>89</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		구문</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191282" qnatype="Q">end up</a>
+						            	</td>
+						            <td>교재</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>황*소<br>(hwangyes***)</td>						            	
+						            	<td>
+						            연*실<br>(skim***)
+							            	</td>
+						            <td class="righttit">1</td>
+						            
+						            <td>2025/12/09 20:09</td>
+						            <td>
+						            2025/12/10 18:39</td>
+						        </tr>
+						    <tr>
+						            <td>88</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		영어</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191195" qnatype="Q">kisssave 3강 14번</a>
+						            	</td>
+						            <td>강좌</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>류*우<br>(ryoos2***)</td>						            	
+						            	<td>
+						            연*실<br>(skim***)
+							            	</td>
+						            <td class="righttit">6</td>
+						            
+						            <td>2025/12/09 19:22</td>
+						            <td>
+						            2025/12/10 18:30</td>
+						        </tr>
+						    <tr>
+						            <td>87</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		영어</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191174" qnatype="Q">그 방은 가격에 비해 믿을 수 없을 정도로 작았다</a>
+						            	</td>
+						            <td>강좌</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>오*현<br>(oyounghyu***)</td>						            	
+						            	<td>
+						            연*실<br>(kyjki***)
+							            	</td>
+						            <td class="righttit">11</td>
+						            
+						            <td>2025/12/09 19:03</td>
+						            <td>
+						            2025/12/10 11:11</td>
+						        </tr>
+						    <tr>
+						            <td>86</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		영어</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191157" qnatype="Q">9번 문장 부사 플마판단</a>
+						            	</td>
+						            <td>강좌</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>김*성<br>(kimys080***)</td>						            	
+						            	<td>
+						            연*실<br>(kyjki***)
+							            	</td>
+						            <td class="righttit">2</td>
+						            
+						            <td>2025/12/09 18:45</td>
+						            <td>
+						            2025/12/10 11:08</td>
+						        </tr>
+						    <tr>
+						            <td>85</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		영어</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191146" qnatype="Q">숙제 답은 어디에 있나요?</a>
+						            	</td>
+						            <td>교재</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>김*성<br>(mgim96***)</td>						            	
+						            	<td>
+						            연*실<br>(kyjki***)
+							            	</td>
+						            <td class="righttit">3</td>
+						            
+						            <td>2025/12/09 18:36</td>
+						            <td>
+						            2025/12/10 11:20</td>
+						        </tr>
+						    <tr>
+						            <td>84</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		영어</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue" bno="15191100" qnatype="Q">목적어 질문</a>
+						            	</td>
+						            <td>강좌</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>이*우<br>(tornadog0***)</td>						            	
+						            	<td>
+						            연*실<br>(kyjki***)
+							            	</td>
+						            <td class="righttit">2</td>
+						            
+						            <td>2025/12/09 17:56</td>
+						            <td>
+						            2025/12/10 11:26</td>
+						        </tr>
+						    <tr>
+						            <td>83</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15191036" qnatype="Q">키세이브 강의 하루 양</a>
+						            	</td>
+						            <td>학습법</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>황*이<br>(eeoo***)</td>						            	
+						            	<td>
+						            연*실<br>(kyjki***)
+							            	</td>
+						            <td class="righttit">0</td>
+						            
+						            <td>2025/12/09 17:19</td>
+						            <td>
+						            2025/12/10 11:32</td>
+						        </tr>
+						    <tr>
+						            <td>82</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15190984" qnatype="Q">수능까지 얼마 남지 않았고 경찰대학을 희망하는 학생입니다</a>
+						            	</td>
+						            <td>학습법</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>김*용<br>(kimsunyong0***)</td>						            	
+						            	<td>
+						            연*실<br>(kyjki***)
+							            	</td>
+						            <td class="righttit">4</td>
+						            
+						            <td>2025/12/09 16:46</td>
+						            <td>
+						            2025/12/10 11:43</td>
+						        </tr>
+						    <tr>
+						            <td>81</td>
+						            <td>션티<br>(sheanle***)</td>
+						            <td>
+						        
+						        		</td>
+						            <td class="lefttit ellipsis">
+						            <a href="javascript:;" name="linkBTitle" class="blue icon_lock" bno="15190943" qnatype="Q">패스 질문</a>
+						            	</td>
+						            <td>기타</td>
+						             <td>답변 완료</td>
+						            	<td>Y</td>
+						            <td>주*연<br>(wnwdus1***)</td>						            	
+						            	<td>
+						            연*실<br>(kyjki***)
+							            	</td>
+						            <td class="righttit">0</td>
+						            
+						            <td>2025/12/09 16:10</td>
+						            <td>
+						            2025/12/10 11:59</td>
+						        </tr>
+						    </tbody>
+	        </table>
+	        <p class="pagnation">
+		        <span><a href="#" class="on">1</a><a href="javascript:pageMove(2)">2</a><a href="javascript:pageMove(3)">3</a><a href="javascript:pageMove(4)">4</a><a href="javascript:pageMove(5)">5</a></span></p>
+	        <input type="hidden" name="currPage" id="currPage" value="1" style="">
+	        </form>
+	        <p class="btnright">		        
+		        <button type="button" class="btn_blue_01" id="regBtn">등록</button>
+	        </p>
+	    </div>
+	    <!-- //E: contentsbox -->
+	</div>
+
+      </div>
+      <!-- //E: contentsarea -->
+    </div>
+    <!-- //E: midarea -->
+    <!-- S: footer -->
+    <div class="footer">
+      <div class="bottomarea">
+        <p class="copyright">Copyright 2014 ㈜디지털대성 All rights reserved.</p>
+      </div>
+    </div>
+    <!-- //E: footer -->
+  </div>
+  <!-- //E: adminwrap -->
+  
+<div class="transparents-layer" style="display: none;"></div><div style="overflow: hidden; background: transparent; position: absolute; height: 230px; width: 225px; display: none;" id="calendarjqxWidget1725c2d5"><div id="innerCalendarjqxWidget1725c2d5" data-role="calendar" tabindex="0" class="jqx-calendar jqx-widget jqx-widget-content jqx-rc-all jqx-popup" style="width: 200px; height: 205px; outline: none; position: absolute; z-index: 2147483647; top: 0px; left: 0px;"><input type="hidden" value="Thu Feb 12 2026 23:44:52 GMT+0900 (한국 표준시)" style=""></div></div><div style="overflow: hidden; background: transparent; position: absolute; height: 230px; width: 225px; display: none;" id="calendarjqxWidgetc753cf30"><div id="innerCalendarjqxWidgetc753cf30" data-role="calendar" tabindex="0" class="jqx-calendar jqx-widget jqx-widget-content jqx-rc-all jqx-popup" style="width: 200px; height: 205px; outline: none; position: absolute; z-index: 2147483647; top: 0px; left: 0px;"><input type="hidden" value="Thu Feb 12 2026 23:44:52 GMT+0900 (한국 표준시)" style=""></div></div></body></html>

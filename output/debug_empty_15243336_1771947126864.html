@@ -1,0 +1,1259 @@
+<!DOCTYPE html><html lang="ko"><head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="Digital 大成 관리자" name="description">
+		<meta content="Digital 大成 관리자" name="keywords">
+		<meta content="Digital 大成 관리자" name="subject">
+		<link rel="stylesheet" type="text/css" href="https://img.mimacstudy.com/ADMIN/css/daesung.css">
+		<style>
+		  ul.leftmenu .expand ul{
+		    display:block;
+		  }
+		  ul.leftmenu .on ul{
+		    display:block;
+		  }
+		  ul.leftmenu ul{
+		    display:none;
+  	  }
+		</style>
+		<script src="https://pnp-appdn.cdnetworks.com/modules/agent.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="/admin/js/html5shiv.js"></script>
+		<script type="text/javascript" src="/admin/js/common.js?251121"></script>
+		<script type="text/javascript" src="/admin/js/page_util.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(event){
+	        
+
+			  $("ul.leftmenu>li>a").click(function() {
+				  if ($(this).hasClass("plus")){
+				    $(this).removeClass().addClass("minus");
+				    $(this).parent().addClass("expand");
+				  }else if ($(this).hasClass("minus")){
+				    $(this).removeClass().addClass("plus");
+				    $(this).parent().removeClass();
+				  }
+				});
+				$("ul.leftmenu ul.submenu li>a").click(function() {
+				});
+
+			  $("#logoutBtn").bind("click", logoutAction);
+
+			  $("ul.leftmenu>li>a").each(function(event){
+				  if ($(this).hasClass("minus")){
+					  $(this).parent().addClass("expand");
+				  }
+			  });
+
+
+			// 레프트 메뉴 토글
+			var leftMenuOpen = $.cookie('leftMenuOpenYN');
+
+			if(leftMenuOpen == 'Y')
+				$('.adminwrap').toggleClass('hideleft');
+
+			$('.jq_toggle_left').click(function(e) {
+				$('.adminwrap').toggleClass('hideleft');
+
+				if($('.adminwrap').hasClass("hideleft"))
+					$.cookie('leftMenuOpenYN' , 'Y', { path : '/' });
+				else
+					$.cookie('leftMenuOpenYN' , 'N', { path : '/' });
+
+			});
+		});
+
+
+        $(document).on("click", "a[name=linkAdminNm]", function(event) {
+            location.href="/admin/operation/updatePersonalInfoView.ds";
+        });
+
+
+		function menuMover(menuId, upMenuId){
+			if(upMenuId != undefined) {
+				location.href="/admin/common/getMenuContainer.ds?requestMenuId="+menuId + "&leftMainMenuId=" + upMenuId;
+			} else {
+				location.href="/admin/common/getMenuContainer.ds?requestMenuId="+menuId;
+			}
+		}
+
+		function menuPopMover(menuId){
+			var serverMode = "real";
+			if((serverMode == 'dev' && menuId == "O000000332") || (serverMode == 'real' && menuId == 'O000000387') ){
+				window.open("/admin/common/getMenuContainer.ds?requestMenuId="+menuId,'_calSys');
+			}else{
+				window.open("/admin/common/getMenuContainer.ds?requestMenuId="+menuId);
+
+			}
+		}
+
+		function logoutAction(event){
+			  location.href="/admin/member/logout.ds";
+		}
+		</script>
+		
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="Digital 大成 관리자" name="description">
+<meta content="Digital 大成 관리자" name="keywords">
+<meta content="Digital 大成 관리자" name="subject">
+<script type="text/javascript" src="/admin/js/jquery.MultiFile.js"></script>
+<script type="text/javascript" src="/admin/bbsEditor/se2/js/HuskyEZCreator.js" charset="euc-kr"></script>
+
+<link rel="stylesheet" href="/admin/css/jqwidgets/styles/jqx.base.css" type="text/css">
+<link rel="stylesheet" href="/admin/css/jqwidgets/styles/jqx_customize.css" type="text/css">
+
+<script type="text/javascript" src="/admin/js/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="/admin/js/jqwidgets/globalization/globalize.js"></script>
+<script type="text/javascript" src="/admin/js/jqwidgets/jqxcalendar.js"></script>
+<script type="text/javascript" src="/admin/common/validator.ds"></script>
+<script class="code" type="text/javascript">
+var tcd = "983";
+String.prototype.replaceAll = function(org, dest) {
+    return this.split(org).join(dest);
+}
+    var loading = null;
+    var uagent = navigator.userAgent.toLocaleLowerCase();
+    var newAnsTr = false;
+    var oEditors = [];
+    var onewAnsEditors = [];
+    var cont = "";
+    var list_cont = "";
+    
+    function replaceAll(str, searchStr, replaceStr)
+    {
+    	return str.split(searchStr).join(replaceStr);
+    }
+    $(document).on("click", "#btnAns", function() {
+
+        
+        if(tcd != "359")
+		{
+        	if (newAnsTr == false)
+	    	{
+	    		newAnsTr = true;
+	    		nhn.husky.EZCreator.createInIFrame(
+	    		{
+	    		      oAppRef: onewAnsEditors,
+	    		      elPlaceHolder: "newAnsBoard",
+	    		      sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+	    		      htParams : {
+	    		        bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	    		        bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	    		        bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	    		        fOnBeforeUnload : function(){
+	    		        }
+	    		      }, //boolean
+	    		      fOnAppLoad : function(){
+	    		      },
+	    		      fCreator: "createSEditor2"
+				});
+	    		
+	    		$('.newAnsTr').show();
+	    		$("#newAnsContBoard").show();
+	    		    	    	    
+	    	}	
+		}
+        else
+        {
+        	$.ajax({
+  		      type : "POST",
+  		      data : {bNo : $("#bNo").val(),status : "Y"},
+  		      async : false,
+  		      url : "/admin/tzone/updateQnaReplayStatusAjax.ds",
+  		      success : function(data){
+  		        console.log(data.code);				
+  				if(data.code == "02")
+  				{
+  					alert("답변이 작성중인 상태입니다.");
+  					return false;
+  				}
+  				else
+  				{
+  					if (newAnsTr == false)
+  					{
+  			    		newAnsTr = true;
+  			    		nhn.husky.EZCreator.createInIFrame(
+  			    		{
+  			    		      oAppRef: onewAnsEditors,
+  			    		      elPlaceHolder: "newAnsBoard",
+  			    		      sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+  			    		      htParams : {
+  			    		        bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+  			    		        bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+  			    		        bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+  			    		        fOnBeforeUnload : function(){
+  			    		        }
+  			    		      }, //boolean
+  			    		      fOnAppLoad : function(){
+  			    		      },
+  			    		      fCreator: "createSEditor2"
+  						});
+  			    		
+  			    		$('.newAnsTr').show();
+  			    		$("#newAnsContBoard").show();
+  			    		$("#btnReplyActive").show();    	    	    
+  					}					
+  				}  	
+  				     
+  		      },
+  		      complete:function(status){
+  		      },
+  		      error: function(xhr,  Status, error) {
+  		        alert("통신중 장애 발생");
+  		        //console.log(error);
+  		      }
+  		    });
+        }
+		
+    });
+
+    $(document).on("click", "#btnReplyActive", function() {
+		$.ajax({
+		      type : "POST",
+		      data : {bNo : $("#bNo").val(),status : "N"},
+		      async : false,
+		      url : "/admin/tzone/updateQnaReplayStatusAjax.ds",
+		      success : function(data){
+		        console.log(data.code);
+		        if(data.code == "01")
+			    {
+		        	alert("답변 가능상태로 변경됐습니다.");
+		        	$("#btnReplyActive").hide();    
+			    }
+		        else
+			    {
+				    alert("오류가 발생했습니다.");
+			    }
+		        
+		      },
+		      complete:function(status){
+		      },
+		      error: function(xhr,  Status, error) {
+		        alert("통신중 장애 발생");
+		        //console.log(error);
+		      }
+		    });
+    });
+    
+    $(document).on("click", "#btnCancel", function() {
+    	$('.newAnsTr').hide();
+    });
+
+
+
+    $(document).on("click", "button[name=btnDelAttachFile]", function() {
+        $("#attachFileListHidden").append("<input type='hidden' name='delFileNo' value='" + $(this).attr('fileNo') + "' />");
+        $(this).parent().remove();
+    });
+
+    $(document).on("click", "a[name=attFile]",  function() {
+        var fileDownUrl = "/admin/file/getFileDownload.ds";
+        var params = "?sysFileName=" + $(this).attr('fileName')
+                    + "&uploadFileName=" + encodeURIComponent(encodeURIComponent($(this).attr('upldFileName')))
+                    + "&filePath=" +  $(this).attr('filePath') + "&disp=attachment";
+        $(location).attr('target', 'hiddenFrame');
+        $(location).attr('href', fileDownUrl+params);
+    });
+
+    $(document).on("click", "#btnList", function() {
+        $("#listFrm").attr('action',"/admin/tzone/tzoneStudyQnaList.ds");
+        $("#listFrm").attr('method',"post");
+        $("#listFrm").submit();
+    });
+
+    $(document).on("click", "#btnDelQus", function() {
+    	$("#listFrm").attr('method',"post");
+		var forwardPage = "/tzone/tzoneStudyQnaList.ds";
+        var serialParams = $("#listFrm").serialize();
+
+        serialParams = serialParams.replace(/&/g, '|');
+        $("#_forward_page").val(forwardPage + '|@' + decodeURIComponent(serialParams));
+
+		if(!confirm('삭제 하시겠습니까?')) return;
+
+		$("#bbsWriteVO").attr('action',"/admin/tzone/deleteStudyQus.ds");
+        $("#bbsWriteVO").attr('method',"post");
+        $("#bbsWriteVO").submit();
+	});
+
+    $(document).on("click", "#btnDelAns", function() {
+    	$("#deleteBNo").val($(this).val());
+    	$("#listFrm").attr('method',"post");
+		var forwardPage = "/tzone/tzoneStudyQnaList.ds";
+        var serialParams = $("#listFrm").serialize();
+
+        serialParams = serialParams.replace(/&/g, '|');
+        $("#_forward_page").val(forwardPage + '|@' + decodeURIComponent(serialParams));
+
+		if(!confirm('삭제 하시겠습니까?')) return;
+
+		$("#bbsWriteVO").attr('action',"/admin/tzone/deleteStudyAns.ds");
+        $("#bbsWriteVO").attr('method',"post");
+        $("#bbsWriteVO").submit();
+	});
+
+    $(document).on("click", "#btnSave", function() {
+    	var fm = document.bbsWriteVO;
+    	if( !saveValidation() ) {
+            return;
+        }
+
+    	$("#note").val($("#txtAreaUpdateHist").val());
+
+    	$("input:file[name=attatchFiles]").each(function(){
+    		$(this).append("<input type=\"hidden\" name=\"attatchBNos\" value=\""+$(this).attr("bNo")+"\" />");
+		});
+
+    	$("input:checkbox[name=chkBestYns]").each(function(){
+    		if($(this).is(":checked")) $(this).append("<input type=\"hidden\" name=\"ansBestYns\" value=\"Y\" />");
+    		else $(this).append("<input type=\"hidden\" name=\"ansBestYns\" value=\"N\" />");
+		});
+
+        var forwardPage = "/tzone/tzoneStudyQnaList.ds";
+        var serialParams = $("#listFrm").serialize();
+
+        serialParams = serialParams.replace(/&/g, '|');
+        $("#_forward_page").val(forwardPage + '|@' + decodeURIComponent(serialParams));
+
+        loading.show();
+        if( !confirm('저장 하시겠습니까?') ) {
+            loading.hide();
+            return;
+        }
+
+        
+        	if ("levyj67" == "torin060712" || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong" ||"levyj67" =="powerfulun" ||"levyj67" =="mbf9j" ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+        	{
+		        if($('input[name=ansContType15244364]').val() == "01")
+		    	{
+		    	    $("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansContTypes\" value=\"01\" />");
+		    	    $("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansConts\" id=\"ansConts1\"/>");
+		    	    $("#ansConts1").val($("#articleContent1").val());
+		    	}
+		    	else
+		    	{
+		    		$("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansContTypes\" value=\"02\" />");
+		    	    $("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansConts\" value=\""+ fm.ansEditor1.DaulEditorGetData(true)+"\" />");
+		    	}
+    		}
+   		 
+
+   		$("input[name=ansTitles]").each(function()
+   		{
+   			$(this).val($(this).val().replaceAll(",","，"));
+   		});
+        $("#bbsWriteVO").attr('action',"/admin/tzone/studyQnaUpdateProcess.ds");
+        $("#bbsWriteVO").attr('method',"post");
+        $("#bbsWriteVO").submit();
+    });
+
+    $(document).on("click", "button[name=btnBbsInactive]", function() {
+
+        if( !confirm('처리 하시겠습니까?') ) {
+            return;
+        }
+
+
+        data = {"bNo" : $("#bNo").val(), "regUser" : $("#regUser").val(), "openYn" : ($("#openYn").val() == 'Y')? 'N' : 'Y' };
+        $.ajax({
+            type : "POST",
+            async: false,
+            dataType : "json",
+            data : data,
+            url : "/admin/tzone/inactiveTzoneQna.ds",
+            success : function(data){
+                if( data.errorYn == 'Y' ) {
+                    alert(data.errorMsg);
+                } else {
+                    alert( data.errorMsg);
+                    history.back();
+                }
+            },
+            beforeSend: function() {
+                loading.show().fadeIn('fast');
+            },
+            complete:function(status){
+                loading.fadeOut();
+            },
+            error: function(xhr,  Status, error) {
+                //console.log("통신중 장애 발생");
+                //console.log(error);
+            }
+        });
+
+    });
+    // 항목들 사이의 관계에 따른 검증 항목이 많아서 Vo를 통한 validation를 사용하지 않고 직접 검증함
+    function saveValidation() {
+    	var t = document.bbsWriteVO;
+        if( $('input[name=ansTitle]').val() == ''  ) {
+            alert('제목을 입력하세요.');
+            $("input[name=ansTitle]").focus();
+            return false;
+        }
+
+        if( $('input[name=ansWritr]').val() == ''  ) {
+            alert('작성자를 입력하세요.');
+            $("input[name=ansWritr]").focus();
+            return false;
+        }
+
+        
+	        if ("levyj67" == "torin060712" || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong"  ||"levyj67" =="powerfulun"  ||"levyj67" =="mbf9j"  ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+	    	{
+        		if($('input[name=ansContType15244364]').val() == "01")
+	        	{
+			        oEditors.getById["articleContent1"].exec("UPDATE_CONTENTS_FIELD", []);
+			        if( $.trim($("#articleContent1").val()) == '' || $("#articleContent1").val() == '<p>&nbsp;</p>' ) {
+			            alert('내용을 입력하세요.');
+			            $("#articleContent1").focus();
+			            return false;
+	        	    }
+			        $("#articleContent1").val( encodeURIComponent(replaceAll(oEditors.getById["articleContent1"].getIR(),unescape("%uFEFF"),"")));
+					//$("#articleContent1").val(btoa(unescape(encodeURI(replaceAll(oEditors.getById["articleContent1"].getIR(),unescape("%uFEFF"),"")))));
+	        	}
+	        	else
+	        	{
+
+	        		if(t.ansEditor1.DaulEditorGetText.length == 0)
+	        		{
+	        			alert("내용을 입력해 주세요");
+	        			return false;
+	        		}
+	        	}
+	    	}
+        
+
+        if($('.newAnsTr').is(':visible')){
+        	if($('input[name=newAnsContType]').val() == "01")
+        	{
+        		onewAnsEditors.getById["newAnsBoard"].exec("UPDATE_CONTENTS_FIELD", []);
+        	    if( $.trim($("#newAnsBoard").val()) == '' || $("#newAnsBoard").val() == '<p>&nbsp;</p>' ) {
+        	        alert('내용을 입력하세요');
+        	        $("#newAnsBoard").focus();
+        	        return false;
+        	    }
+        	    else
+        	    {
+        	    	$("#newAnsCont").val($("#newAnsBoard").val());
+        	    	$("#newAnsCont").val(replaceAll($("#newAnsCont").val(),unescape("%uFEFF"),""));
+        	    }
+        	}
+        	else
+        	{
+        		//t.strContent.value = t.DaulEditor.DaulEditorGetData( true );
+        		if(t.newAEditor.DaulEditorGetText.length == 0)
+        		{
+        			alert("내용을 입력해 주세요");
+        			return false;
+        		}
+        		else
+        		{
+        			/* 수식 게시판에 글작성시 1줄만 작성하면 글이 안보이고 사이트가 멈추는 현상 해결코드 */
+        			t.newAEditor.DaulEditorGotoEnd();
+        			t.newAEditor.DaulEditorInsertText('\r\n',0,1);
+        			$("#newAnsCont").val(t.newAEditor.DaulEditorGetData(true));
+        		}
+        	}
+        }
+        return true;
+    }
+    var playerObj = null;
+    function goPlayerPop(mid, type, time) 
+    {	    		
+    	var nWidth  = 1022;
+	    var nHeight = 644;
+    	if(playerObj != null && !playerObj.closed)
+		{
+			playerObj.close();
+		}
+    	playerObj = winPopupOpen("/admin/common/aquaplayer/adminAquaPlayerPop.ds?mid="+mid+"&vdType="+type+"&startTime="+time, nWidth, nHeight, "aquaPlayerPop");    	
+    }
+    function isIE()
+    {
+    	if (uagent.indexOf("trident") != -1)
+    		return true;
+    	return navigator.appName == "Microsoft Internet Explorer";
+    }
+
+
+    $(document).ready(function(){
+    	if("983" == "359" && "" == "Y" && "" != "levyj67" && "02" == "01")
+        {
+    		if("levyj67" !="kamy71" && "levyj67" !="kamy72" && "levyj67" !="kamy73" &&"levyj67" !="smj01" &&"levyj67" !="smj02" &&"levyj67" !="sado119" &&"levyj67" !="yeseulsong" &&"levyj67" !="powerfulun" &&"levyj67" !="mbf9j" &&"levyj67" !="lynyang" &&"levyj67" !="youngc93" &&"levyj67" !="ingloo0410")
+        	{
+    			alert("이미 답변중인 질문글입니다");
+                $("#listFrm").attr('action',"/admin/tzone/tzoneStudyQnaList.ds");
+                $("#listFrm").attr('method',"post");
+                $("#listFrm").submit();	
+        	}    		            
+        }
+    	else if("983" == "359" && "" == "Y" && "" == "levyj67")
+    	{
+    		$("#btnReplyActive").show();
+        }     	
+    	
+        loading = $('<div class="transparents-layer"></div>').appendTo(document.body).hide();
+
+        // 파일 추가 버튼
+
+
+		$('input:file[name=newAttatchFiles]').MultiFile({
+            max : '5', //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
+            accept : 'DOC|DOCX|PPT|PPTX|XLS|XLSX|HWP|PDF|TXT|GIF|JPEG|JPG|PNG|MP3|ZIP|doc|docx|ppt|pptx|xls|xlsx|hwp|pdf|txt|gif|jpeg|jpg|png|mp3|zip', //허용할 확장자(지정하지 않으면 모든 확장자 허용)
+            maxfile : '102400', //각 파일 최대 업로드 크기
+            STRING : { //Multi-lingual support : 메시지 수정 가능
+                remove : "<img src='https://img.mimacstudy.com/ADMIN/common/btn_del.png' style='width:11px;height:11px;vertical-align:middle' border=0 />",
+                duplicate : "$file 은 이미 선택된 파일입니다.",
+                denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
+                selected : '$file 을 선택했습니다.',
+                toomuch : "업로드할 수 있는 최대크기를 초과하였습니다.($size)",
+                toomany : "업로드할 수 있는 최대 갯수는 $max개 입니다.",
+                toobig : "$file 은 크기가 매우 큽니다. (max $size)"
+            },
+            list : "#newAttatchFileList"  //파일목록을 출력할 요소 지정가능
+        });
+
+        $('.newAnsTr').hide();
+
+        //cont = "선생님께서 '관심 분야에 있는 해외'라고 말씀하셨는데 내가 가보고 싶은 해외에서 일하는 것입니다라고 해석해도 적절한가요?<br/>감사합니다.";
+
+		
+        data = {"bNo" : $("#bNo").val()};
+        $.ajax({
+            type : "POST",
+            async: true,
+            dataType : "json",
+            data : data,
+            url : "/admin/tzone/getQnaDetailAjax.ds",
+            success : function(data){
+            	if("01" == "01")
+            	{
+            		/*
+            		var dCont = data.cont;
+            		
+            		if($("#bNo").val() == "5214378"){
+            			dCont = "";
+            		}
+            		*/
+            		$("#QnaBoardDiv").show();
+            		$("#QnaBoardDiv").html(data.cont);
+            	}            	
+            },
+            beforeSend: function() {
+                loading.show().fadeIn('fast');
+            },
+            complete:function(status){
+                loading.fadeOut();
+            },
+            error: function(xhr,  Status, error) {
+                //console.log("통신중 장애 발생");
+                //console.log(error);
+            }
+        });
+
+
+
+        
+	        $('#attachFile15244364 input:file[name=attatchFiles]').MultiFile({
+	            max : '5', //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
+	            accept : 'DOC|DOCX|PPT|PPTX|XLS|XLSX|HWP|PDF|TXT|GIF|JPEG|JPG|PNG|MP3|ZIP|doc|docx|ppt|pptx|xls|xlsx|hwp|pdf|txt|gif|jpeg|jpg|png|mp3|zip', //허용할 확장자(지정하지 않으면 모든 확장자 허용)
+	            maxfile : '102400', //각 파일 최대 업로드 크기
+	            STRING : { //Multi-lingual support : 메시지 수정 가능
+	                remove : "<img src='https://img.mimacstudy.com/ADMIN/common/btn_del.png' style='width:11px;height:11px;vertical-align:middle' border=0 />",
+	                duplicate : "$file 은 이미 선택된 파일입니다.",
+	                denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
+	                selected : '$file 을 선택했습니다.',
+	                toomuch : "업로드할 수 있는 최대크기를 초과하였습니다.($size)",
+	                toomany : "업로드할 수 있는 최대 갯수는 $max개 입니다.",
+	                toobig : "$file 은 크기가 매우 큽니다. (max $size)"
+	            },
+	            list : "#attachFileList15244364"  //파일목록을 출력할 요소 지정가능
+	        });
+	        $(document).on("click", "#attachFileList15244364 input:file[name=attatchFiles]", function(event) {
+		    	if( $("#attachFileList15244364 div span").length == '5') {
+		            alert("업로드할 수 있는 최대 갯수는 5개 입니다.");
+		            return false;
+		        }
+		    });
+
+		    /* 기존 답글게시판 수 만큼 수식게시판 생성*/
+			
+
+			 data = {"bNo" : "15244364"};
+		        $.ajax({
+		            type : "POST",
+		            async: true,
+		            dataType : "json",
+		            data : data,
+		            url : "/admin/tzone/getQnaDetailAjax.ds",
+		            success : function(data){
+		            	if ("levyj67" == "torin060712" || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong" ||"levyj67" =="powerfulun" ||"levyj67" =="mbf9j" ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+		    			{		    				
+		    			    /* 데이터 타입에 따라 각기 다르게 데이터 넣어주고 라디오버튼 액션 세팅*/
+		    			    //alert("01");
+		    			    if("01" == "01")
+		    			    {
+		    			    	$("#articleContent1").val(data.cont);
+		    			    }		    			  		    			}
+		    			else
+		    			{		    				
+		    			    /* 데이터 타입에 따라 각기 다르게 데이터 넣어주고 라디오버튼 액션 세팅*/
+		    			    //alert("01");
+		    			    if("01" == "01")
+		    			    {
+		    			    	$("#articleContent1_NOTMINE").html(data.cont);
+
+		    			    }		    			    
+		    			}
+
+		            },
+		            beforeSend: function() {
+		                loading.show().fadeIn('fast');
+		            },
+		            complete:function(status){
+		                loading.fadeOut();
+		            },
+		            error: function(xhr,  Status, error) {
+		                //console.log("통신중 장애 발생");
+		                //console.log(error);
+		            }
+		        });
+			//list_cont = "안녕하세요! KISS 영어연구소 민서 조교입니다.<div><br></div><div><span id='husky_bookmark_start_1767346360048'></span>질문 주신 문장 함께 확인해보겠습니다!</div><div><br></div><div>My long-term goal is working abroad in my field of interest.</div><div>나의 장기 목표는 내가 관심 있는 분야에서 해외에 나가 일하는 것이다.</div><div><br></div><div>working abroad in my field of interest를 '내가 가보고 싶은 해외'로 해석하셨군요!</div><div>물론 당연히 '내가 관심 있는 분야에 있는 해외'라면 당연히 '내가 가보고 싶은 곳'이겠지만,</div><div>지금 단계에서는 문장을 정확하게 해석하는 게 중요하기 때문에 선생님처럼 해석해야 된다고 이해해주시면 됩니다!</div><div><br></div><div>보어 자리에 위치한 명사구를 정확하게 해석하기 위해서는 우선 전명구를 묶어주시면 좋습니다!</div><div>working abroad &lt;in my field of interest&gt; 이렇게요!</div><div>그러면 핵심 보어는 working abroad이기 때문에 '나의 장기 목표는 해외에서 일하는 것이다'가 됩니다.</div><div>이때 in my field of interest 전명구는 working abroad라는 명사구를 형용사처럼 수식해서</div><div>'내가 관심 있는 분야에 있는 해외'로 해석해주시면 됩니다.</div><div><br></div><div>따라서 문장을 직역하면 '나의 장기 목표는 내가 관심 있는 분야에 있는 해외에서 일하는 것이다'가 되는데</div><div>교재 해설지에는 이를 조금 의역해서 '나의 장기 목표는 내가 관심 있는 분야에서 해외에 나가 일하는 것이다'라고 적혀있는 것이죠!</div><div><br></div><div>질문에 대한 좋은 답변이 되었길 바라며, 추가로 궁금한 점이 있다면 언제든 Q&amp;A 게시판을 이용해주세요!</div>새해 복 많이많이 받으시고, 행복 가득한 2026년이 되시길 바랍니다! 오늘 하루도 수고하셨어요 :)";
+
+
+
+
+		    $("#contTypeCmm15244364").click(function(){
+		    	change_board("1","01","torin060712");
+		    });
+		    $("#contTypeCal15244364").click(function(){
+		    	change_board("1","02","torin060712");
+		    });
+		    change_board("1","01","torin060712");
+  	  
+
+  	  pageMove("");
+  	  
+    });
+
+    function change_board(param1,param2,param3)
+    {
+
+    	if(param2 == "01" )
+    	{
+    		if("levyj67" == param3 || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong" ||"levyj67" =="powerfulun" ||"levyj67" =="mbf9j" ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+    		{
+	    		try{
+	    			if(!oEditors.getById["articleContent"+param1])
+	    			{
+	    				nhn.husky.EZCreator.createInIFrame({
+	            		    oAppRef: oEditors,
+	            		    elPlaceHolder: "articleContent"+param1,
+	            		    sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+	            		    htParams : {
+	            		      bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	            		      bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	            		      bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	            		      fOnBeforeUnload : function(){
+	            		      }
+	            		    }, //boolean
+	            		    fOnAppLoad : function(){
+	            		    },
+	            		    fCreator: "createSEditor2"
+	            		  });
+	    			}
+	    		}catch(e)//스마트 에디터가 최초 만들어지지 않았을경우 catch문으로 넘어온다.
+	    		{
+	    			nhn.husky.EZCreator.createInIFrame({
+	        		    oAppRef: oEditors,
+	        		    elPlaceHolder: "articleContent"+param1,
+	        		    sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+	        		    htParams : {
+	        		      bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	        		      bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	        		      bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	        		      fOnBeforeUnload : function(){
+	        		      }
+	        		    }, //boolean
+	        		    fOnAppLoad : function(){
+	        		    },
+	        		    fCreator: "createSEditor2"
+	        		  });
+	    		}
+    		}
+    		$("#AnsBoardDiv"+param1).show();	    	
+    	}
+    }
+
+function pageMove(pageIndex){
+
+	data =  {
+			"tcd"		   :  "983",
+			"pagePerCnt"   :  "10",
+			"myQcurrPage"  :   pageIndex,
+			"qnaType"      :  "",
+			"regUser"      :  "glory3749",
+			};
+	$.ajax
+	({
+		type: "POST",
+		url: "/admin/tzone/studyQnaMyQuestion.ds",
+		data: data,
+		context : $("#myQuestion"),
+		error: function(request, status, error)
+		{
+			alert("code: "+request.status + "\n"+ "message: "+request.responseText+ "\n"+ "error: "+error);
+		},
+		success: function(data)
+		{
+			$(this).html(data);
+		}
+	});
+
+}
+
+
+</script>
+
+	</head>
+<body id="" class="operation"> <!--oncopy="return false" oncut="return false" --> <!-- class는 공통 폴더명 -->
+<!-- S: adminwrap -->
+  <div class="adminwrap">
+    <!-- S: header -->
+    <div class="header">
+      <!-- S: toparea -->
+      <div class="toparea">
+        <h1><a href="/admin/simple/simple/operIndex.ds"><img src="https://img.mimacstudy.com/ADMIN/common/img_logo.png" alt="Digital 大成"></a></h1>
+        <ul class="topmenu">
+          <li class="on">
+              <a href="javascript:menuMover('TO00003103')"><span>이서현선생님 관리자홈</span></a>
+               </li>
+            </ul>
+
+      </div>
+      <!-- //E: toparea -->
+	  <button type="button" class="jq_toggle_left">열기/닫기</button>
+    </div>
+    <!-- //E: header -->
+    <!-- S: midarea -->
+    <div class="midarea">
+      <!-- S: leftarea -->
+      <div class="leftarea">
+
+        <p class="userinfo">
+            <a href="javascript:;" name="linkAdminNm"><em>이용재</em></a>님 환영합니다.
+            <button type="button" id="logoutBtn" name="logoutBtn" class="btn_logout">로그아웃</button>
+        </p>
+        <ul class="leftmenu">
+          <li>
+	             <a href="javascript:menuMover('TO00003104', 'TO00003104')"><span>강의자료실관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003112', 'TO00003112')"><span>공지사항관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003113', 'TO00003113')"><span>학습Q&amp;A관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003106', 'TO00003106')"><span>강좌제작관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003117', 'TO00003117')"><span>수강생현황</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00004963', 'TO00004963')"><span>KISS ESSENCE 자료게시판</span></a>
+	                 </li>
+	          </ul>
+      </div>
+      <!-- //E: leftarea -->
+      <!-- S: contentsarea -->
+      <div class="contentsarea">
+        <!-- class는 공통 폴더명 -->
+	<div class="studyqnaregister"><!-- 페이지 별 구분 class -->
+		<h3>학습 Q&amp;A</h3>
+		<p class="pagenavi"><span>T-zone</span><span>학습 Q&amp;A</span><span>목록</span><strong>등록</strong></p>
+		<!-- S: contentsbox -->
+		<div class="contentsbox">
+			<form id="bbsWriteVO" name="bbsWriteVO" enctype="multipart/form-data" action="" method="post" class="MultiFile-intercepted">
+				<input type="hidden" id="_forward_page" name="_forward_page" style="">
+				<input type="hidden" name="method" value="post" style="">
+				<input type="hidden" name="bNo" id="bNo" value="15243336" style="">
+				<input type="hidden" name="upBNo" value="15243336" style="">
+				<input type="hidden" name="openYn" id="openYn" value="Y" style="">
+				<input type="hidden" name="regUser" id="regUser" value="glory3749" style="">
+				<input type="hidden" name="note" id="note" style="">
+				<input type="hidden" name="deleteBNo" id="deleteBNo" style="">
+				<input type="hidden" name="relm" id="relm" value="03" style="">
+				<input type="hidden" name="questType" id="questType" value="01" style="">
+				<input type="hidden" name="pid" id="pid" value="PL00057362" style="">
+				<table cellpadding="0" cellspacing="0" class="boardwrite" summary="학습 Q&amp;A의 회사 구분, 선생님, 제목, 유형, 강좌/강의, 교재, 글쓴이, 등록일, 비밀글, 조회수, 상세정보, 첨부파일 정보를 확인하실 수 있습니다.">
+					<caption>학습 Q&amp;A</caption>
+					<colgroup>
+						<col width="120px">
+						<col width="350px">
+						<col width="120px">
+						<col width="300px">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">회사 구분</th>
+							<td>마이맥</td>
+							<th scope="row">선생님</th>
+							<td>션티</td>
+						</tr>
+						<tr>
+							<th scope="row">제목</th>
+							<td>해외</td>
+							<th scope="row">유형</th>
+							<td>강좌</td>
+						</tr>
+						<tr>
+							<th scope="row">강좌/강의</th>
+							<td>
+								<p>[[2027] KISSAVE <br><font color="#DC143C">노베이스의 구원 키트</font>]/  9차시  /  Day 9. 명사절은 명사의 문장 덩어리이다.</p>
+								<p>
+										<em>동영상 위치</em>
+										<a href="#" onclick="javascript:goPlayerPop('ML00434728', '02','00:00:53');">00:00:53</a>
+									</p>
+								</td>
+							<th scope="row">강좌수강유/무</th>
+							<td>
+							
+										강좌 수강 중
+									</td>
+						</tr>
+						<tr>
+							<th scope="row">교재</th>
+							<td>
+								</td>
+							
+							<th scope="row">교재구매 유/무</th>
+							<td>
+								
+										YES
+									</td>
+						</tr>
+						<tr>
+							<th scope="row">글쓴이</th>
+							<td>
+								<a href="#">
+								한
+										*
+										광(glory3749)	
+									</a>
+							</td>
+							<th scope="row">등록일</th>
+							<td>2026/01/02&nbsp;15:20:40</td>
+						</tr>
+						<tr>
+							<th scope="row">비밀글</th>
+							<td>NO</td>
+							<th scope="row">조회수</th>
+							<td>3</td>
+						</tr>
+						<tr>
+							<th scope="row">상세정보</th>
+							<td colspan="3">
+								<span>
+									<em>학년 :</em>
+									고3</span>
+								<span>
+									<em>계열 :</em>
+									자연계</span>
+								<span>
+									<em>과목등급 :</em>
+									2</span>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">첨부파일</th>
+							<td colspan="3">
+								</td>
+						</tr>
+						<tr id="QnaBoard">
+							<td colspan="4">
+								<div id="QnaBoardDiv" style="border:solid 1 #999999;">선생님께서 "관심 분야에 있는 해외"라고 말씀하셨는데 내가 가보고 싶은 해외에서 일하는 것입니다라고 해석해도 적절한가요?<br>감사합니다.</div>								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			<p class="btnright">
+				<!-- <button type="button" id="btnDelQus" class="btn_black_01">삭제</button> -->
+				<button type="button" id="btnReplyActive" name="btnReplyActive" class="btn_black_01" style="display:none;">답변상태변경</button>
+				<button type="button" id="btnAns" class="btn_black_01">답변하기</button>
+				<button type="button" id="btnBbsInactive" name="btnBbsInactive" class="btn_blue_01">비활성</button>
+		        	</p>
+			<table cellpadding="0" cellspacing="0" class="boardwrite" summary="학습 Q&amp;A의 질문에 대해 제목과 작성자, 답변 내용, 첨부파일을 입력하실 수 있습니다.">
+			<caption>학습 Q&amp;A</caption>
+			<colgroup>
+				<col width="120px">
+				<col width="500px">
+				<col width="120px">
+				<col width="150px">
+			</colgroup>
+			<tbody id="tbodyAns">
+			<tr>
+							<th scope="row"><strong>제목</strong></th>
+							<td class="replytit">[답변]해외</td>
+							<td colspan="2">
+								미공지</td>
+						</tr>
+						<tr>
+							<th scope="row"><strong>작성자</strong></th>
+							<td>연구실</td>
+							<th scope="row"><strong>작성일</strong></th>
+							<td>2026-01-02 18:50:19.0</td>
+						</tr>
+						<tr>
+							<th scope="col">
+								<strong>답변 내용</strong>
+							</th>
+							<td colspan="3">
+								<div id="AnsBoardDiv1" style="border:solid 1 #999999;">
+									<div id="articleContent1_NOTMINE">안녕하세요! KISS 영어연구소 민서 조교입니다.<div><br></div><div><span id="husky_bookmark_start_1767346360048"></span>질문 주신 문장 함께 확인해보겠습니다!</div><div><br></div><div>My long-term goal is working abroad in my field of interest.</div><div>나의 장기 목표는 내가 관심 있는 분야에서 해외에 나가 일하는 것이다.</div><div><br></div><div>working abroad in my field of interest를 '내가 가보고 싶은 해외'로 해석하셨군요!</div><div>물론 당연히 '내가 관심 있는 분야에 있는 해외'라면 당연히 '내가 가보고 싶은 곳'이겠지만,</div><div>지금 단계에서는 문장을 정확하게 해석하는 게 중요하기 때문에 선생님처럼 해석해야 된다고 이해해주시면 됩니다!</div><div><br></div><div>보어 자리에 위치한 명사구를 정확하게 해석하기 위해서는 우선 전명구를 묶어주시면 좋습니다!</div><div>working abroad &lt;in my field of interest&gt; 이렇게요!</div><div>그러면 핵심 보어는 working abroad이기 때문에 '나의 장기 목표는 해외에서 일하는 것이다'가 됩니다.</div><div>이때 in my field of interest 전명구는 working abroad라는 명사구를 형용사처럼 수식해서</div><div>'내가 관심 있는 분야에 있는 해외'로 해석해주시면 됩니다.</div><div><br></div><div>따라서 문장을 직역하면 '나의 장기 목표는 내가 관심 있는 분야에 있는 해외에서 일하는 것이다'가 되는데</div><div>교재 해설지에는 이를 조금 의역해서 '나의 장기 목표는 내가 관심 있는 분야에서 해외에 나가 일하는 것이다'라고 적혀있는 것이죠!</div><div><br></div><div>질문에 대한 좋은 답변이 되었길 바라며, 추가로 궁금한 점이 있다면 언제든 Q&amp;A 게시판을 이용해주세요!</div>새해 복 많이많이 받으시고, 행복 가득한 2026년이 되시길 바랍니다! 오늘 하루도 수고하셨어요 :)</div>
+
+								</div>							
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">첨부파일</th>
+							<td colspan="3" class="attachfile">
+				                <div style="text-align:left;vertical-align:top;margin-left:10px;">
+							        </div>
+				            </td>
+						</tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
+			<input type="hidden" name="newAnsContType" value="01" style="">				
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="row"><strong>제목</strong></th>
+					<td class="replytit">
+						<input type="text" class="txt" name="newAnsTitle" value="[답변]해외" style="">
+					</td>
+					<td colspan="2">
+						<input type="checkbox" name="newAnsBestYn" style="" class="checkbox" value="Y">
+						<label for="chkNoticeYn" style="margin:0 10px 0 3px;">공지로 지정</label>
+					</td>
+				</tr>
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="row"><strong>작성자</strong></th>
+					<td colspan="3">
+						<input type="text" class="txt" name="newAnsWritr" value="연구실" style="">
+							</td>
+				</tr>
+				<!-- <tr class="newAnsTr">
+					<th scope="row"><strong>게시물 종류</strong></th>
+					<td colspan="5">
+						<ul class="radioarea">
+							<li style="float:left;"><input type="radio" name="newAnsContType" id="newAnsCmm" class="radio" value="01" checked/><label for="contTypeCmm">일반 게시물</label></li>
+							<li style="float:left;"><input type="radio" name="newAnsContType" id="newAnsCal" class="radio" value="02"><label for="contTypeCal">수식 게시물</label></li>
+						</ul>
+					</td>
+				</tr> -->
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="col">
+						<strong>답변 내용</strong>
+					</th>
+					<td colspan="3">
+						<input type="hidden" name="newAnsCont" id="newAnsCont" value="" style="">
+						<div id="newAnsContBoard">
+							<textarea cols="30" rows="15" id="newAnsBoard" name="newAnsBoard" style="width: 99%;"></textarea>
+						</div>
+						
+					</td>
+				</tr>
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="row">첨부파일</th>
+					<td colspan="3">
+						<div class="addfile" id="newAttatchFileList">
+		                    <p>
+		                    <div class="MultiFile-wrap" id="attatchFiles_wrap"><input type="file" id="attatchFiles" name="newAttatchFiles" class="file MultiFile-applied" value="" style=""></div>
+		                    <button type="button" id="btnFileSelect" class="btn_gray_01">파일첨부</button>
+		                    </p><div id="attachFileList" style="text-align:left;vertical-align:top;margin-left:10px;"></div>
+		                    <p></p>
+		                </div>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			<p class="btnjustify">
+				<button type="button" id="btnList" class="btn_black_01">목록</button>
+				
+				<span>
+							<button type="button" id="btnSave" class="btn_blue_01">저장</button>
+						</span>
+					</p>
+			</form>
+		</div>
+		<div id="myQuestion" style="margin-top: 20px"><table cellpadding="0" cellspacing="0" class="databoard" summary="강사계정의 정보를 강사코드, 회사구분, 영역, 이름, 아이디, 상태, 순서, 관리, 담당자, 등록일(수정일) 순으로 확인하실 수 있습니다.">
+       <caption>학습 Q&amp;A</caption>
+       <colgroup>
+           <col width="40px">
+		<col width="80px">
+		<col>
+		<col width="80px">
+		<col width="80px">
+		<col width="80px">
+		<col width="80px">
+		<col width="80px">
+		<col width="50px">
+		<col width="80px">
+       </colgroup>
+       <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">선생님</th>
+            <th scope="col">제목</th>
+            <th scope="col">유형</th>
+            
+            <th scope="col">상태</th>
+            <th scope="col">작성자</th>
+            <th scope="col">답변자</th>
+            <th scope="col">조회수</th>
+            <th scope="col">등록일</th>
+        </tr>
+      	</thead>
+      	<tbody>
+		<tr>
+			            <td>24</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15324761&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15324761" qnatype="Q">in the same way</a>
+			            	</td>
+			            <td>교재</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(garyeong***)
+			            	</td>
+			            <td class="righttit">2</td>
+			            <td>2026/01/13</td>
+			        </tr>
+			    <tr>
+			            <td>23</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15323115&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15323115" qnatype="Q">3번 문장</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(ssalmo***)
+			            	</td>
+			            <td class="righttit">2</td>
+			            <td>2026/01/13</td>
+			        </tr>
+			    <tr>
+			            <td>22</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15301506&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15301506" qnatype="Q">18번 발췌독</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(imjid***)
+			            	</td>
+			            <td class="righttit">5</td>
+			            <td>2026/01/10</td>
+			        </tr>
+			    <tr>
+			            <td>21</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15276276&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15276276" qnatype="Q">2번 문장</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(seongji0***)
+			            	</td>
+			            <td class="righttit">1</td>
+			            <td>2026/01/07</td>
+			        </tr>
+			    <tr>
+			            <td>20</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15276004&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15276004" qnatype="Q">3번 문장</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(seongji0***)
+			            	</td>
+			            <td class="righttit">3</td>
+			            <td>2026/01/07</td>
+			        </tr>
+			    <tr>
+			            <td>19</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15275230&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15275230" qnatype="Q">문장 길이</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(rachelkim***)
+			            	</td>
+			            <td class="righttit">2</td>
+			            <td>2026/01/07</td>
+			        </tr>
+			    <tr>
+			            <td>18</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15274740&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15274740" qnatype="Q">, 콤마</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(rachelkim***)
+			            	</td>
+			            <td class="righttit">1</td>
+			            <td>2026/01/07</td>
+			        </tr>
+			    <tr>
+			            <td>17</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15264841&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15264841" qnatype="Q">5형식</a>
+			            	</td>
+			            <td>교재</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(yydolphi***)
+			            	</td>
+			            <td class="righttit">2</td>
+			            <td>2026/01/06</td>
+			        </tr>
+			    <tr>
+			            <td>16</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15259941&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15259941" qnatype="Q">for ~</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(seongji0***)
+			            	</td>
+			            <td class="righttit">1</td>
+			            <td>2026/01/05</td>
+			        </tr>
+			    <tr>
+			            <td>15</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15259880&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15259880" qnatype="Q">형식</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								한
+										*
+										광<br>(glory3749)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(seongji0***)
+			            	</td>
+			            <td class="righttit">2</td>
+			            <td>2026/01/05</td>
+			        </tr>
+			    </tbody>
+</table>
+<p class="pagnation">
+ <span><a href="#" class="on">1</a><a href="javascript:pageMove(2)">2</a><a href="javascript:pageMove(3)">3</a></span></p>
+ 
+	
+</div>
+		<!-- //E: contentsbox -->		
+		<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" frameborder="0"></iframe>
+	</div>
+	<!-- 목록으로 이동하기 위한 form 블락 시작-->
+	<form id="listFrm" name="listFrm" action="/admin/tzone/tzoneLecPdsList.ds" method="post" class="MultiFile-intercepted">
+	    <input type="hidden" name="searchCompany" value="M" style="">
+	    <input type="hidden" name="searchRelm" value="03" style="">
+	    <input type="hidden" name="searchSubj" value="" style="">
+	    <input type="hidden" name="searchTcd" value="983" style="">
+	    <input type="hidden" name="searchPdsType" value="" style="">
+	    <input type="hidden" name="searchType" value="06" style="">
+	    <input type="hidden" name="searchText" value="" style="">
+	    <input type="hidden" name="pagePerCnt" value="20" style="">
+	    <input type="hidden" name="currPage" value="3" style="">
+	    <input type="hidden" name="searchPid" value="" style="">
+	    <input type="hidden" name="searchMid" value="" style="">
+	    <input type="hidden" name="searchStartDt" value="2025/12/31" style="">
+	    <input type="hidden" name="searchQnaStatus" value="02" style="">
+	    <input type="hidden" name="searchQuestType" value="" style="">
+	    <input type="hidden" name="searchEndDt" value="2026/01/02" style="">
+	</form>
+	<!-- 목록으로 이동하기 위한 form 블락 종료-->
+
+
+
+
+
+      </div>
+      <!-- //E: contentsarea -->
+    </div>
+    <!-- //E: midarea -->
+    <!-- S: footer -->
+    <div class="footer">
+      <div class="bottomarea">
+        <p class="copyright">Copyright 2014 ㈜디지털대성 All rights reserved.</p>
+      </div>
+    </div>
+    <!-- //E: footer -->
+  </div>
+  <!-- //E: adminwrap -->
+  
+<div class="transparents-layer" style="display: block; opacity: 0.0112634;"></div></body></html>

@@ -1,0 +1,1259 @@
+<!DOCTYPE html><html lang="ko"><head>
+		<title></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="Digital 大成 관리자" name="description">
+		<meta content="Digital 大成 관리자" name="keywords">
+		<meta content="Digital 大成 관리자" name="subject">
+		<link rel="stylesheet" type="text/css" href="https://img.mimacstudy.com/ADMIN/css/daesung.css">
+		<style>
+		  ul.leftmenu .expand ul{
+		    display:block;
+		  }
+		  ul.leftmenu .on ul{
+		    display:block;
+		  }
+		  ul.leftmenu ul{
+		    display:none;
+  	  }
+		</style>
+		<script src="https://pnp-appdn.cdnetworks.com/modules/agent.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery.cookie.js"></script>
+		<script type="text/javascript" src="/admin/js/html5shiv.js"></script>
+		<script type="text/javascript" src="/admin/js/common.js?251121"></script>
+		<script type="text/javascript" src="/admin/js/page_util.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(event){
+	        
+
+			  $("ul.leftmenu>li>a").click(function() {
+				  if ($(this).hasClass("plus")){
+				    $(this).removeClass().addClass("minus");
+				    $(this).parent().addClass("expand");
+				  }else if ($(this).hasClass("minus")){
+				    $(this).removeClass().addClass("plus");
+				    $(this).parent().removeClass();
+				  }
+				});
+				$("ul.leftmenu ul.submenu li>a").click(function() {
+				});
+
+			  $("#logoutBtn").bind("click", logoutAction);
+
+			  $("ul.leftmenu>li>a").each(function(event){
+				  if ($(this).hasClass("minus")){
+					  $(this).parent().addClass("expand");
+				  }
+			  });
+
+
+			// 레프트 메뉴 토글
+			var leftMenuOpen = $.cookie('leftMenuOpenYN');
+
+			if(leftMenuOpen == 'Y')
+				$('.adminwrap').toggleClass('hideleft');
+
+			$('.jq_toggle_left').click(function(e) {
+				$('.adminwrap').toggleClass('hideleft');
+
+				if($('.adminwrap').hasClass("hideleft"))
+					$.cookie('leftMenuOpenYN' , 'Y', { path : '/' });
+				else
+					$.cookie('leftMenuOpenYN' , 'N', { path : '/' });
+
+			});
+		});
+
+
+        $(document).on("click", "a[name=linkAdminNm]", function(event) {
+            location.href="/admin/operation/updatePersonalInfoView.ds";
+        });
+
+
+		function menuMover(menuId, upMenuId){
+			if(upMenuId != undefined) {
+				location.href="/admin/common/getMenuContainer.ds?requestMenuId="+menuId + "&leftMainMenuId=" + upMenuId;
+			} else {
+				location.href="/admin/common/getMenuContainer.ds?requestMenuId="+menuId;
+			}
+		}
+
+		function menuPopMover(menuId){
+			var serverMode = "real";
+			if((serverMode == 'dev' && menuId == "O000000332") || (serverMode == 'real' && menuId == 'O000000387') ){
+				window.open("/admin/common/getMenuContainer.ds?requestMenuId="+menuId,'_calSys');
+			}else{
+				window.open("/admin/common/getMenuContainer.ds?requestMenuId="+menuId);
+
+			}
+		}
+
+		function logoutAction(event){
+			  location.href="/admin/member/logout.ds";
+		}
+		</script>
+		
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="Digital 大成 관리자" name="description">
+<meta content="Digital 大成 관리자" name="keywords">
+<meta content="Digital 大成 관리자" name="subject">
+<script type="text/javascript" src="/admin/js/jquery.MultiFile.js"></script>
+<script type="text/javascript" src="/admin/bbsEditor/se2/js/HuskyEZCreator.js" charset="euc-kr"></script>
+
+<link rel="stylesheet" href="/admin/css/jqwidgets/styles/jqx.base.css" type="text/css">
+<link rel="stylesheet" href="/admin/css/jqwidgets/styles/jqx_customize.css" type="text/css">
+
+<script type="text/javascript" src="/admin/js/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="/admin/js/jqwidgets/globalization/globalize.js"></script>
+<script type="text/javascript" src="/admin/js/jqwidgets/jqxcalendar.js"></script>
+<script type="text/javascript" src="/admin/common/validator.ds"></script>
+<script class="code" type="text/javascript">
+var tcd = "983";
+String.prototype.replaceAll = function(org, dest) {
+    return this.split(org).join(dest);
+}
+    var loading = null;
+    var uagent = navigator.userAgent.toLocaleLowerCase();
+    var newAnsTr = false;
+    var oEditors = [];
+    var onewAnsEditors = [];
+    var cont = "";
+    var list_cont = "";
+    
+    function replaceAll(str, searchStr, replaceStr)
+    {
+    	return str.split(searchStr).join(replaceStr);
+    }
+    $(document).on("click", "#btnAns", function() {
+
+        
+        if(tcd != "359")
+		{
+        	if (newAnsTr == false)
+	    	{
+	    		newAnsTr = true;
+	    		nhn.husky.EZCreator.createInIFrame(
+	    		{
+	    		      oAppRef: onewAnsEditors,
+	    		      elPlaceHolder: "newAnsBoard",
+	    		      sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+	    		      htParams : {
+	    		        bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	    		        bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	    		        bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	    		        fOnBeforeUnload : function(){
+	    		        }
+	    		      }, //boolean
+	    		      fOnAppLoad : function(){
+	    		      },
+	    		      fCreator: "createSEditor2"
+				});
+	    		
+	    		$('.newAnsTr').show();
+	    		$("#newAnsContBoard").show();
+	    		    	    	    
+	    	}	
+		}
+        else
+        {
+        	$.ajax({
+  		      type : "POST",
+  		      data : {bNo : $("#bNo").val(),status : "Y"},
+  		      async : false,
+  		      url : "/admin/tzone/updateQnaReplayStatusAjax.ds",
+  		      success : function(data){
+  		        console.log(data.code);				
+  				if(data.code == "02")
+  				{
+  					alert("답변이 작성중인 상태입니다.");
+  					return false;
+  				}
+  				else
+  				{
+  					if (newAnsTr == false)
+  					{
+  			    		newAnsTr = true;
+  			    		nhn.husky.EZCreator.createInIFrame(
+  			    		{
+  			    		      oAppRef: onewAnsEditors,
+  			    		      elPlaceHolder: "newAnsBoard",
+  			    		      sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+  			    		      htParams : {
+  			    		        bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+  			    		        bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+  			    		        bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+  			    		        fOnBeforeUnload : function(){
+  			    		        }
+  			    		      }, //boolean
+  			    		      fOnAppLoad : function(){
+  			    		      },
+  			    		      fCreator: "createSEditor2"
+  						});
+  			    		
+  			    		$('.newAnsTr').show();
+  			    		$("#newAnsContBoard").show();
+  			    		$("#btnReplyActive").show();    	    	    
+  					}					
+  				}  	
+  				     
+  		      },
+  		      complete:function(status){
+  		      },
+  		      error: function(xhr,  Status, error) {
+  		        alert("통신중 장애 발생");
+  		        //console.log(error);
+  		      }
+  		    });
+        }
+		
+    });
+
+    $(document).on("click", "#btnReplyActive", function() {
+		$.ajax({
+		      type : "POST",
+		      data : {bNo : $("#bNo").val(),status : "N"},
+		      async : false,
+		      url : "/admin/tzone/updateQnaReplayStatusAjax.ds",
+		      success : function(data){
+		        console.log(data.code);
+		        if(data.code == "01")
+			    {
+		        	alert("답변 가능상태로 변경됐습니다.");
+		        	$("#btnReplyActive").hide();    
+			    }
+		        else
+			    {
+				    alert("오류가 발생했습니다.");
+			    }
+		        
+		      },
+		      complete:function(status){
+		      },
+		      error: function(xhr,  Status, error) {
+		        alert("통신중 장애 발생");
+		        //console.log(error);
+		      }
+		    });
+    });
+    
+    $(document).on("click", "#btnCancel", function() {
+    	$('.newAnsTr').hide();
+    });
+
+
+
+    $(document).on("click", "button[name=btnDelAttachFile]", function() {
+        $("#attachFileListHidden").append("<input type='hidden' name='delFileNo' value='" + $(this).attr('fileNo') + "' />");
+        $(this).parent().remove();
+    });
+
+    $(document).on("click", "a[name=attFile]",  function() {
+        var fileDownUrl = "/admin/file/getFileDownload.ds";
+        var params = "?sysFileName=" + $(this).attr('fileName')
+                    + "&uploadFileName=" + encodeURIComponent(encodeURIComponent($(this).attr('upldFileName')))
+                    + "&filePath=" +  $(this).attr('filePath') + "&disp=attachment";
+        $(location).attr('target', 'hiddenFrame');
+        $(location).attr('href', fileDownUrl+params);
+    });
+
+    $(document).on("click", "#btnList", function() {
+        $("#listFrm").attr('action',"/admin/tzone/tzoneStudyQnaList.ds");
+        $("#listFrm").attr('method',"post");
+        $("#listFrm").submit();
+    });
+
+    $(document).on("click", "#btnDelQus", function() {
+    	$("#listFrm").attr('method',"post");
+		var forwardPage = "/tzone/tzoneStudyQnaList.ds";
+        var serialParams = $("#listFrm").serialize();
+
+        serialParams = serialParams.replace(/&/g, '|');
+        $("#_forward_page").val(forwardPage + '|@' + decodeURIComponent(serialParams));
+
+		if(!confirm('삭제 하시겠습니까?')) return;
+
+		$("#bbsWriteVO").attr('action',"/admin/tzone/deleteStudyQus.ds");
+        $("#bbsWriteVO").attr('method',"post");
+        $("#bbsWriteVO").submit();
+	});
+
+    $(document).on("click", "#btnDelAns", function() {
+    	$("#deleteBNo").val($(this).val());
+    	$("#listFrm").attr('method',"post");
+		var forwardPage = "/tzone/tzoneStudyQnaList.ds";
+        var serialParams = $("#listFrm").serialize();
+
+        serialParams = serialParams.replace(/&/g, '|');
+        $("#_forward_page").val(forwardPage + '|@' + decodeURIComponent(serialParams));
+
+		if(!confirm('삭제 하시겠습니까?')) return;
+
+		$("#bbsWriteVO").attr('action',"/admin/tzone/deleteStudyAns.ds");
+        $("#bbsWriteVO").attr('method',"post");
+        $("#bbsWriteVO").submit();
+	});
+
+    $(document).on("click", "#btnSave", function() {
+    	var fm = document.bbsWriteVO;
+    	if( !saveValidation() ) {
+            return;
+        }
+
+    	$("#note").val($("#txtAreaUpdateHist").val());
+
+    	$("input:file[name=attatchFiles]").each(function(){
+    		$(this).append("<input type=\"hidden\" name=\"attatchBNos\" value=\""+$(this).attr("bNo")+"\" />");
+		});
+
+    	$("input:checkbox[name=chkBestYns]").each(function(){
+    		if($(this).is(":checked")) $(this).append("<input type=\"hidden\" name=\"ansBestYns\" value=\"Y\" />");
+    		else $(this).append("<input type=\"hidden\" name=\"ansBestYns\" value=\"N\" />");
+		});
+
+        var forwardPage = "/tzone/tzoneStudyQnaList.ds";
+        var serialParams = $("#listFrm").serialize();
+
+        serialParams = serialParams.replace(/&/g, '|');
+        $("#_forward_page").val(forwardPage + '|@' + decodeURIComponent(serialParams));
+
+        loading.show();
+        if( !confirm('저장 하시겠습니까?') ) {
+            loading.hide();
+            return;
+        }
+
+        
+        	if ("levyj67" == "ssalmon26" || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong" ||"levyj67" =="powerfulun" ||"levyj67" =="mbf9j" ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+        	{
+		        if($('input[name=ansContType15390863]').val() == "01")
+		    	{
+		    	    $("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansContTypes\" value=\"01\" />");
+		    	    $("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansConts\" id=\"ansConts1\"/>");
+		    	    $("#ansConts1").val($("#articleContent1").val());
+		    	}
+		    	else
+		    	{
+		    		$("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansContTypes\" value=\"02\" />");
+		    	    $("#bbsWriteVO").append("<input type=\"hidden\" name=\"ansConts\" value=\""+ fm.ansEditor1.DaulEditorGetData(true)+"\" />");
+		    	}
+    		}
+   		 
+
+   		$("input[name=ansTitles]").each(function()
+   		{
+   			$(this).val($(this).val().replaceAll(",","，"));
+   		});
+        $("#bbsWriteVO").attr('action',"/admin/tzone/studyQnaUpdateProcess.ds");
+        $("#bbsWriteVO").attr('method',"post");
+        $("#bbsWriteVO").submit();
+    });
+
+    $(document).on("click", "button[name=btnBbsInactive]", function() {
+
+        if( !confirm('처리 하시겠습니까?') ) {
+            return;
+        }
+
+
+        data = {"bNo" : $("#bNo").val(), "regUser" : $("#regUser").val(), "openYn" : ($("#openYn").val() == 'Y')? 'N' : 'Y' };
+        $.ajax({
+            type : "POST",
+            async: false,
+            dataType : "json",
+            data : data,
+            url : "/admin/tzone/inactiveTzoneQna.ds",
+            success : function(data){
+                if( data.errorYn == 'Y' ) {
+                    alert(data.errorMsg);
+                } else {
+                    alert( data.errorMsg);
+                    history.back();
+                }
+            },
+            beforeSend: function() {
+                loading.show().fadeIn('fast');
+            },
+            complete:function(status){
+                loading.fadeOut();
+            },
+            error: function(xhr,  Status, error) {
+                //console.log("통신중 장애 발생");
+                //console.log(error);
+            }
+        });
+
+    });
+    // 항목들 사이의 관계에 따른 검증 항목이 많아서 Vo를 통한 validation를 사용하지 않고 직접 검증함
+    function saveValidation() {
+    	var t = document.bbsWriteVO;
+        if( $('input[name=ansTitle]').val() == ''  ) {
+            alert('제목을 입력하세요.');
+            $("input[name=ansTitle]").focus();
+            return false;
+        }
+
+        if( $('input[name=ansWritr]').val() == ''  ) {
+            alert('작성자를 입력하세요.');
+            $("input[name=ansWritr]").focus();
+            return false;
+        }
+
+        
+	        if ("levyj67" == "ssalmon26" || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong"  ||"levyj67" =="powerfulun"  ||"levyj67" =="mbf9j"  ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+	    	{
+        		if($('input[name=ansContType15390863]').val() == "01")
+	        	{
+			        oEditors.getById["articleContent1"].exec("UPDATE_CONTENTS_FIELD", []);
+			        if( $.trim($("#articleContent1").val()) == '' || $("#articleContent1").val() == '<p>&nbsp;</p>' ) {
+			            alert('내용을 입력하세요.');
+			            $("#articleContent1").focus();
+			            return false;
+	        	    }
+			        $("#articleContent1").val( encodeURIComponent(replaceAll(oEditors.getById["articleContent1"].getIR(),unescape("%uFEFF"),"")));
+					//$("#articleContent1").val(btoa(unescape(encodeURI(replaceAll(oEditors.getById["articleContent1"].getIR(),unescape("%uFEFF"),"")))));
+	        	}
+	        	else
+	        	{
+
+	        		if(t.ansEditor1.DaulEditorGetText.length == 0)
+	        		{
+	        			alert("내용을 입력해 주세요");
+	        			return false;
+	        		}
+	        	}
+	    	}
+        
+
+        if($('.newAnsTr').is(':visible')){
+        	if($('input[name=newAnsContType]').val() == "01")
+        	{
+        		onewAnsEditors.getById["newAnsBoard"].exec("UPDATE_CONTENTS_FIELD", []);
+        	    if( $.trim($("#newAnsBoard").val()) == '' || $("#newAnsBoard").val() == '<p>&nbsp;</p>' ) {
+        	        alert('내용을 입력하세요');
+        	        $("#newAnsBoard").focus();
+        	        return false;
+        	    }
+        	    else
+        	    {
+        	    	$("#newAnsCont").val($("#newAnsBoard").val());
+        	    	$("#newAnsCont").val(replaceAll($("#newAnsCont").val(),unescape("%uFEFF"),""));
+        	    }
+        	}
+        	else
+        	{
+        		//t.strContent.value = t.DaulEditor.DaulEditorGetData( true );
+        		if(t.newAEditor.DaulEditorGetText.length == 0)
+        		{
+        			alert("내용을 입력해 주세요");
+        			return false;
+        		}
+        		else
+        		{
+        			/* 수식 게시판에 글작성시 1줄만 작성하면 글이 안보이고 사이트가 멈추는 현상 해결코드 */
+        			t.newAEditor.DaulEditorGotoEnd();
+        			t.newAEditor.DaulEditorInsertText('\r\n',0,1);
+        			$("#newAnsCont").val(t.newAEditor.DaulEditorGetData(true));
+        		}
+        	}
+        }
+        return true;
+    }
+    var playerObj = null;
+    function goPlayerPop(mid, type, time) 
+    {	    		
+    	var nWidth  = 1022;
+	    var nHeight = 644;
+    	if(playerObj != null && !playerObj.closed)
+		{
+			playerObj.close();
+		}
+    	playerObj = winPopupOpen("/admin/common/aquaplayer/adminAquaPlayerPop.ds?mid="+mid+"&vdType="+type+"&startTime="+time, nWidth, nHeight, "aquaPlayerPop");    	
+    }
+    function isIE()
+    {
+    	if (uagent.indexOf("trident") != -1)
+    		return true;
+    	return navigator.appName == "Microsoft Internet Explorer";
+    }
+
+
+    $(document).ready(function(){
+    	if("983" == "359" && "" == "Y" && "" != "levyj67" && "02" == "01")
+        {
+    		if("levyj67" !="kamy71" && "levyj67" !="kamy72" && "levyj67" !="kamy73" &&"levyj67" !="smj01" &&"levyj67" !="smj02" &&"levyj67" !="sado119" &&"levyj67" !="yeseulsong" &&"levyj67" !="powerfulun" &&"levyj67" !="mbf9j" &&"levyj67" !="lynyang" &&"levyj67" !="youngc93" &&"levyj67" !="ingloo0410")
+        	{
+    			alert("이미 답변중인 질문글입니다");
+                $("#listFrm").attr('action',"/admin/tzone/tzoneStudyQnaList.ds");
+                $("#listFrm").attr('method',"post");
+                $("#listFrm").submit();	
+        	}    		            
+        }
+    	else if("983" == "359" && "" == "Y" && "" == "levyj67")
+    	{
+    		$("#btnReplyActive").show();
+        }     	
+    	
+        loading = $('<div class="transparents-layer"></div>').appendTo(document.body).hide();
+
+        // 파일 추가 버튼
+
+
+		$('input:file[name=newAttatchFiles]').MultiFile({
+            max : '5', //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
+            accept : 'DOC|DOCX|PPT|PPTX|XLS|XLSX|HWP|PDF|TXT|GIF|JPEG|JPG|PNG|MP3|ZIP|doc|docx|ppt|pptx|xls|xlsx|hwp|pdf|txt|gif|jpeg|jpg|png|mp3|zip', //허용할 확장자(지정하지 않으면 모든 확장자 허용)
+            maxfile : '102400', //각 파일 최대 업로드 크기
+            STRING : { //Multi-lingual support : 메시지 수정 가능
+                remove : "<img src='https://img.mimacstudy.com/ADMIN/common/btn_del.png' style='width:11px;height:11px;vertical-align:middle' border=0 />",
+                duplicate : "$file 은 이미 선택된 파일입니다.",
+                denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
+                selected : '$file 을 선택했습니다.',
+                toomuch : "업로드할 수 있는 최대크기를 초과하였습니다.($size)",
+                toomany : "업로드할 수 있는 최대 갯수는 $max개 입니다.",
+                toobig : "$file 은 크기가 매우 큽니다. (max $size)"
+            },
+            list : "#newAttatchFileList"  //파일목록을 출력할 요소 지정가능
+        });
+
+        $('.newAnsTr').hide();
+
+        //cont = "첫문장 Because~.의 대시는 대시앞뒤로 묶어주고 앞뒤문장만 중요하게 해석하면 되는건가요? <br/><br/><br/><br/>혹시 고2 모고 3등급이었으면 오늘키세이브 완강하고 키스키마 1강 들은 상태인데, 단어+키스키마+ 듣기모의고사만 학습해도 괜찮나요? 주간지같은거 지금부터 풀어야하나요? 키세이브 3등급 정복 테스트 풀어보니까 듣기 하나 안내문 하나 틀렸어요";
+
+		
+        data = {"bNo" : $("#bNo").val()};
+        $.ajax({
+            type : "POST",
+            async: true,
+            dataType : "json",
+            data : data,
+            url : "/admin/tzone/getQnaDetailAjax.ds",
+            success : function(data){
+            	if("01" == "01")
+            	{
+            		/*
+            		var dCont = data.cont;
+            		
+            		if($("#bNo").val() == "5214378"){
+            			dCont = "";
+            		}
+            		*/
+            		$("#QnaBoardDiv").show();
+            		$("#QnaBoardDiv").html(data.cont);
+            	}            	
+            },
+            beforeSend: function() {
+                loading.show().fadeIn('fast');
+            },
+            complete:function(status){
+                loading.fadeOut();
+            },
+            error: function(xhr,  Status, error) {
+                //console.log("통신중 장애 발생");
+                //console.log(error);
+            }
+        });
+
+
+
+        
+	        $('#attachFile15390863 input:file[name=attatchFiles]').MultiFile({
+	            max : '5', //업로드 최대 파일 갯수 (지정하지 않으면 무한대)
+	            accept : 'DOC|DOCX|PPT|PPTX|XLS|XLSX|HWP|PDF|TXT|GIF|JPEG|JPG|PNG|MP3|ZIP|doc|docx|ppt|pptx|xls|xlsx|hwp|pdf|txt|gif|jpeg|jpg|png|mp3|zip', //허용할 확장자(지정하지 않으면 모든 확장자 허용)
+	            maxfile : '102400', //각 파일 최대 업로드 크기
+	            STRING : { //Multi-lingual support : 메시지 수정 가능
+	                remove : "<img src='https://img.mimacstudy.com/ADMIN/common/btn_del.png' style='width:11px;height:11px;vertical-align:middle' border=0 />",
+	                duplicate : "$file 은 이미 선택된 파일입니다.",
+	                denied : "$ext 는(은) 업로드 할수 없는 파일확장자입니다.",
+	                selected : '$file 을 선택했습니다.',
+	                toomuch : "업로드할 수 있는 최대크기를 초과하였습니다.($size)",
+	                toomany : "업로드할 수 있는 최대 갯수는 $max개 입니다.",
+	                toobig : "$file 은 크기가 매우 큽니다. (max $size)"
+	            },
+	            list : "#attachFileList15390863"  //파일목록을 출력할 요소 지정가능
+	        });
+	        $(document).on("click", "#attachFileList15390863 input:file[name=attatchFiles]", function(event) {
+		    	if( $("#attachFileList15390863 div span").length == '5') {
+		            alert("업로드할 수 있는 최대 갯수는 5개 입니다.");
+		            return false;
+		        }
+		    });
+
+		    /* 기존 답글게시판 수 만큼 수식게시판 생성*/
+			
+
+			 data = {"bNo" : "15390863"};
+		        $.ajax({
+		            type : "POST",
+		            async: true,
+		            dataType : "json",
+		            data : data,
+		            url : "/admin/tzone/getQnaDetailAjax.ds",
+		            success : function(data){
+		            	if ("levyj67" == "ssalmon26" || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong" ||"levyj67" =="powerfulun" ||"levyj67" =="mbf9j" ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+		    			{		    				
+		    			    /* 데이터 타입에 따라 각기 다르게 데이터 넣어주고 라디오버튼 액션 세팅*/
+		    			    //alert("01");
+		    			    if("01" == "01")
+		    			    {
+		    			    	$("#articleContent1").val(data.cont);
+		    			    }		    			  		    			}
+		    			else
+		    			{		    				
+		    			    /* 데이터 타입에 따라 각기 다르게 데이터 넣어주고 라디오버튼 액션 세팅*/
+		    			    //alert("01");
+		    			    if("01" == "01")
+		    			    {
+		    			    	$("#articleContent1_NOTMINE").html(data.cont);
+
+		    			    }		    			    
+		    			}
+
+		            },
+		            beforeSend: function() {
+		                loading.show().fadeIn('fast');
+		            },
+		            complete:function(status){
+		                loading.fadeOut();
+		            },
+		            error: function(xhr,  Status, error) {
+		                //console.log("통신중 장애 발생");
+		                //console.log(error);
+		            }
+		        });
+			//list_cont = "<p><span style='font-family: 함초롬바탕;'>안녕하세요</span><span lang='EN-US' style='letter-spacing: 0pt;'>! KISS </span><span style='font-family: 함초롬바탕;'>영어연구소 연우 조교입니다</span><span lang='EN-US' style='letter-spacing: 0pt;'>.</span></p><p class='0'>  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>매달키스는 월간지이기는 하지만</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>, </span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>평가원 기출을 다루고 있는 만큼 너무 급하게 진행할 필요는 없습니다</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>.</span></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>키세이브 복습하며 키스키마 우선 집중하여 완강하신 후</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>, </span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>키스로직과 매달키스 병행하는 것도 좋습니다</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>!</span></p><p class='0'>  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>다만 키스로직과 매달키스 모두 하루 분량이 큰 커리이기 때문에</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>,</span></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>영어에 투자할 시간이 충분하지 않다면</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>,</span></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>키스로직에 집중하시고 매달키스는 실전 운영 연습을 목적으로 수강하시는 것을 추천드립니다</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>.</span></p><p class='0'>  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>특히 매달키스는 </span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>DAY 1~3</span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>까지 </span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>Half test1,</span></p><p class='0'><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>DAY 4~6</span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>까지 </span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>Half test2</span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>로 이루어져 있습니다</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>.</span></p><p class='0'>  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>키스로직을 꼼꼼히 수강한다는 가정 하에 매주 하프모고 </span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>1</span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>개씩</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>,</span></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>즉 </span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>DAY 3</span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>개씩 매달키스 수강해 주시는 것도 좋은 방법이 될 것 같습니다</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>!</span></p><p class='0'>  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>답변이 도움이 되었다면 좋겠습니다</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>:)</span></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>추가로 궁금한 점이 생기시면 언제든 </span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>Q&amp;A </span><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>게시판 이용해주세요</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>.</span></p><p class='0'><span style='font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;'>열심히 공부하시는 만큼 좋은 결과 있기를 응원합니다</span><span lang='EN-US' style='mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;'>!</span></p><div id='hwpEditorBoardContent' class='hwp_editor_board_content' data-hjsonver='1.0' data-jsonlen='11765'><!--[data-hwpjson]{<br/><br/>'documentPr': {<br/><br/>'di': '',<br/><br/>'dp': {<br/><br/>'dn': 'test.hwp',<br/><br/>'ta': 1,<br/><br/>'d1': 5,<br/><br/>'d2': 1,<br/><br/>'dv': 0,<br/><br/>'dr': 1,<br/><br/>'do': 1,<br/><br/>'vj': '1.1',<br/><br/>'an': 'Hancom Office Hangul',<br/><br/>'av': '13, 0, 0, 2986',<br/><br/>'ao': 'WIN',<br/><br/>'ab': '32',<br/><br/>'ar': 'LE'<br/><br/>},<br/><br/>'dis': false,<br/><br/>'ds': {<br/><br/>'ti': '',<br/><br/>'la': 'ko',<br/><br/>'cr': '',<br/><br/>'su': '',<br/><br/>'de': '',<br/><br/>'cd': '2026-01-20T11:58:36.320Z',<br/><br/>'ke': ''<br/><br/>}<br/><br/>},<br/><br/>'dh': {<br/><br/>'do': {<br/><br/>'pa': 1,<br/><br/>'fo': 1,<br/><br/>'en': 1,<br/><br/>'pi': 1,<br/><br/>'tb': 1,<br/><br/>'eq': 1<br/><br/>},<br/><br/>'fo': [ ],<br/><br/>'cd': {<br/><br/>'tp': 0,<br/><br/>'lc': {<br/><br/>'af': false,<br/><br/>'ui': false,<br/><br/>'fu': false,<br/><br/>'dn': false,<br/><br/>'ul': false,<br/><br/>'el': false,<br/><br/>'at': false,<br/><br/>'tq': false,<br/><br/>'da': false,<br/><br/>'dw': false,<br/><br/>'dj': false,<br/><br/>'bc': false,<br/><br/>'bu': false,<br/><br/>'al': false,<br/><br/>'ab': false,<br/><br/>'ap': false,<br/><br/>'an': false,<br/><br/>'aa': false,<br/><br/>'ds': false,<br/><br/>'de': false,<br/><br/>'as': false,<br/><br/>'cp': false,<br/><br/>'ao': false,<br/><br/>'et': false,<br/><br/>'ay': false,<br/><br/>'am': false,<br/><br/>'a1': false,<br/><br/>'bt': false,<br/><br/>'av': false,<br/><br/>'dh': false,<br/><br/>'dp': false,<br/><br/>'d1': false,<br/><br/>'mf': false,<br/><br/>'bl': false,<br/><br/>'ag': false,<br/><br/>'dg': false,<br/><br/>'ae': false,<br/><br/>'df': false,<br/><br/>'do': false,<br/><br/>'dl': false,<br/><br/>'di': false,<br/><br/>'d2': false,<br/><br/>'d3': false,<br/><br/>'ob': false,<br/><br/>'d4': false,<br/><br/>'ev': false,<br/><br/>'d5': false,<br/><br/>'d6': false,<br/><br/>'a2': false,<br/><br/>'dc': false<br/><br/>}<br/><br/>},<br/><br/>'ld': {<br/><br/>'pa': '',<br/><br/>'pi': true,<br/><br/>'fo': false<br/><br/>}<br/><br/>},<br/><br/>'bf': {<br/><br/>'01DC8A041CC706E0000002F7': {<br/><br/>'id': 1,<br/><br/>'td': false,<br/><br/>'sh': false,<br/><br/>'st': 0,<br/><br/>'sc': 0,<br/><br/>'si': false,<br/><br/>'bt': 0,<br/><br/>'bi': false,<br/><br/>'cl': 0,<br/><br/>'bc': false,<br/><br/>'lt': 0,<br/><br/>'lw': 0,<br/><br/>'lc': 0,<br/><br/>'rt': 0,<br/><br/>'rw': 0,<br/><br/>'rc': 0,<br/><br/>'tt': 0,<br/><br/>'tw': 0,<br/><br/>'tc': 0,<br/><br/>'bbt': 0,<br/><br/>'bbw': 0,<br/><br/>'bbc': 0,<br/><br/>'dt': 1,<br/><br/>'dw': 0,<br/><br/>'dc': 0,<br/><br/>'fi': { }<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F8': {<br/><br/>'id': 2,<br/><br/>'td': false,<br/><br/>'sh': false,<br/><br/>'st': 0,<br/><br/>'sc': 0,<br/><br/>'si': false,<br/><br/>'bt': 0,<br/><br/>'bi': false,<br/><br/>'cl': 0,<br/><br/>'bc': false,<br/><br/>'lt': 0,<br/><br/>'lw': 0,<br/><br/>'lc': 0,<br/><br/>'rt': 0,<br/><br/>'rw': 0,<br/><br/>'rc': 0,<br/><br/>'tt': 0,<br/><br/>'tw': 0,<br/><br/>'tc': 0,<br/><br/>'bbt': 0,<br/><br/>'bbw': 0,<br/><br/>'bbc': 0,<br/><br/>'dt': 1,<br/><br/>'dw': 0,<br/><br/>'dc': 0,<br/><br/>'fi': {<br/><br/>'wb': {<br/><br/>'fc': 4294967295,<br/><br/>'hc': 10066329,<br/><br/>'al': 0,<br/><br/>'hs': -1<br/><br/>}<br/><br/>}<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F9': {<br/><br/>'id': 3,<br/><br/>'td': false,<br/><br/>'sh': false,<br/><br/>'st': 0,<br/><br/>'sc': 0,<br/><br/>'si': false,<br/><br/>'bt': 0,<br/><br/>'bi': false,<br/><br/>'cl': 0,<br/><br/>'bc': false,<br/><br/>'lt': 0,<br/><br/>'lw': 0,<br/><br/>'lc': 0,<br/><br/>'rt': 0,<br/><br/>'rw': 0,<br/><br/>'rc': 0,<br/><br/>'tt': 0,<br/><br/>'tw': 0,<br/><br/>'tc': 0,<br/><br/>'bbt': 0,<br/><br/>'bbw': 0,<br/><br/>'bbc': 0,<br/><br/>'dt': 1,<br/><br/>'dw': 0,<br/><br/>'dc': 0,<br/><br/>'fi': {<br/><br/>'wb': {<br/><br/>'fc': 4294967295,<br/><br/>'hc': 0,<br/><br/>'al': 0,<br/><br/>'hs': -1<br/><br/>}<br/><br/>}<br/><br/>}<br/><br/>},<br/><br/>'cp': {<br/><br/>'01DC8A041CC706E0000002FA': {<br/><br/>'id': 0,<br/><br/>'he': 1000,<br/><br/>'tc': 0,<br/><br/>'sc': 4294967295,<br/><br/>'uf': false,<br/><br/>'uk': false,<br/><br/>'sm': 0,<br/><br/>'bf': '01DC8A041CC706E0000002F8',<br/><br/>'f1': '함초롬바탕',<br/><br/>'t1': 1,<br/><br/>'f2': '함초롬바탕',<br/><br/>'t2': 1,<br/><br/>'f3': '함초롬바탕',<br/><br/>'t3': 1,<br/><br/>'f4': '함초롬바탕',<br/><br/>'t4': 1,<br/><br/>'f5': '함초롬바탕',<br/><br/>'t5': 1,<br/><br/>'f6': '함초롬바탕',<br/><br/>'t6': 1,<br/><br/>'f7': '함초롬바탕',<br/><br/>'t7': 1,<br/><br/>'r1': 100,<br/><br/>'r2': 100,<br/><br/>'r3': 100,<br/><br/>'r4': 100,<br/><br/>'r5': 100,<br/><br/>'r6': 100,<br/><br/>'r7': 100,<br/><br/>'s1': 0,<br/><br/>'s2': 0,<br/><br/>'s3': 0,<br/><br/>'s4': 0,<br/><br/>'s5': 0,<br/><br/>'s6': 0,<br/><br/>'s7': 0,<br/><br/>'e1': 100,<br/><br/>'e2': 100,<br/><br/>'e3': 100,<br/><br/>'e4': 100,<br/><br/>'e5': 100,<br/><br/>'e6': 100,<br/><br/>'e7': 100,<br/><br/>'o1': 0,<br/><br/>'o2': 0,<br/><br/>'o3': 0,<br/><br/>'o4': 0,<br/><br/>'o5': 0,<br/><br/>'o6': 0,<br/><br/>'o7': 0,<br/><br/>'it': false,<br/><br/>'bo': false,<br/><br/>'ut': 0,<br/><br/>'us': 1,<br/><br/>'uc': 0,<br/><br/>'st': false,<br/><br/>'ss': 1,<br/><br/>'so': 0,<br/><br/>'ot': 0,<br/><br/>'ht': 0,<br/><br/>'hc': 0,<br/><br/>'hx': 0,<br/><br/>'hy': 0,<br/><br/>'em': false,<br/><br/>'en': false,<br/><br/>'su': false,<br/><br/>'sb': false<br/><br/>},<br/><br/>'01DC8A041CC706E0000002FB': {<br/><br/>'id': 1,<br/><br/>'he': 1000,<br/><br/>'tc': 0,<br/><br/>'sc': 4294967295,<br/><br/>'uf': false,<br/><br/>'uk': false,<br/><br/>'sm': 0,<br/><br/>'bf': '01DC8A041CC706E0000002F9',<br/><br/>'f1': '함초롬바탕',<br/><br/>'t1': 1,<br/><br/>'f2': '함초롬바탕',<br/><br/>'t2': 1,<br/><br/>'f3': '함초롬바탕',<br/><br/>'t3': 1,<br/><br/>'f4': '함초롬바탕',<br/><br/>'t4': 1,<br/><br/>'f5': '함초롬바탕',<br/><br/>'t5': 1,<br/><br/>'f6': '함초롬바탕',<br/><br/>'t6': 1,<br/><br/>'f7': '함초롬바탕',<br/><br/>'t7': 1,<br/><br/>'r1': 100,<br/><br/>'r2': 100,<br/><br/>'r3': 100,<br/><br/>'r4': 100,<br/><br/>'r5': 100,<br/><br/>'r6': 100,<br/><br/>'r7': 100,<br/><br/>'s1': 0,<br/><br/>'s2': 0,<br/><br/>'s3': 0,<br/><br/>'s4': 0,<br/><br/>'s5': 0,<br/><br/>'s6': 0,<br/><br/>'s7': 0,<br/><br/>'e1': 100,<br/><br/>'e2': 100,<br/><br/>'e3': 100,<br/><br/>'e4': 100,<br/><br/>'e5': 100,<br/><br/>'e6': 100,<br/><br/>'e7': 100,<br/><br/>'o1': 0,<br/><br/>'o2': 0,<br/><br/>'o3': 0,<br/><br/>'o4': 0,<br/><br/>'o5': 0,<br/><br/>'o6': 0,<br/><br/>'o7': 0,<br/><br/>'it': false,<br/><br/>'bo': false,<br/><br/>'ut': 0,<br/><br/>'us': 1,<br/><br/>'uc': 0,<br/><br/>'st': false,<br/><br/>'ss': 1,<br/><br/>'so': 0,<br/><br/>'ot': 0,<br/><br/>'ht': 0,<br/><br/>'hc': 0,<br/><br/>'hx': 0,<br/><br/>'hy': 0,<br/><br/>'em': false,<br/><br/>'en': false,<br/><br/>'su': false,<br/><br/>'sb': false<br/><br/>}<br/><br/>},<br/><br/>'tp': {<br/><br/>'01DC8A041CC706E0000002FC': {<br/><br/>'id': 0,<br/><br/>'al': false,<br/><br/>'ar': false,<br/><br/>'tp': [ ]<br/><br/>}<br/><br/>},<br/><br/>'nu': { },<br/><br/>'bu': { },<br/><br/>'pp': {<br/><br/>'01DC8A041CC706E0000002FD': {<br/><br/>'id': 0,<br/><br/>'ah': 0,<br/><br/>'av': 0,<br/><br/>'ht': 0,<br/><br/>'hi': '',<br/><br/>'hl': 0,<br/><br/>'tp': '01DC8A041CC706E0000002FC',<br/><br/>'kb': 0,<br/><br/>'kn': true,<br/><br/>'ko': false,<br/><br/>'kk': false,<br/><br/>'kl': false,<br/><br/>'kp': false,<br/><br/>'kw': 0,<br/><br/>'co': 0,<br/><br/>'fl': false,<br/><br/>'st': true,<br/><br/>'sl': false,<br/><br/>'ae': false,<br/><br/>'aa': false,<br/><br/>'mi': 0,<br/><br/>'ml': 0,<br/><br/>'mr': 0,<br/><br/>'mp': 0,<br/><br/>'mn': 0,<br/><br/>'lt': 0,<br/><br/>'lv': 160,<br/><br/>'bf': '01DC8A041CC706E0000002F8',<br/><br/>'bl': 0,<br/><br/>'br': 0,<br/><br/>'bt': 0,<br/><br/>'bb': 0,<br/><br/>'bc': false,<br/><br/>'bi': false<br/><br/>},<br/><br/>'01DC8A041CC706E0000002FE': {<br/><br/>'id': 1,<br/><br/>'ah': 0,<br/><br/>'av': 0,<br/><br/>'ht': 0,<br/><br/>'hi': '',<br/><br/>'hl': 0,<br/><br/>'tp': '01DC8A041CC706E0000002FC',<br/><br/>'kb': 0,<br/><br/>'kn': true,<br/><br/>'ko': false,<br/><br/>'kk': false,<br/><br/>'kl': false,<br/><br/>'kp': false,<br/><br/>'kw': 0,<br/><br/>'co': 0,<br/><br/>'fl': false,<br/><br/>'st': true,<br/><br/>'sl': false,<br/><br/>'ae': false,<br/><br/>'aa': false,<br/><br/>'mi': 0,<br/><br/>'ml': 0,<br/><br/>'mr': 0,<br/><br/>'mp': 0,<br/><br/>'mn': 0,<br/><br/>'lt': 0,<br/><br/>'lv': 160,<br/><br/>'bf': '01DC8A041CC706E0000002F9',<br/><br/>'bl': 0,<br/><br/>'br': 0,<br/><br/>'bt': 0,<br/><br/>'bb': 0,<br/><br/>'bc': false,<br/><br/>'bi': false<br/><br/>}<br/><br/>},<br/><br/>'st': {<br/><br/>'01DC8A041CC706E0000002FF': {<br/><br/>'id': 0,<br/><br/>'ty': 0,<br/><br/>'na': '바탕글',<br/><br/>'en': 'Normal',<br/><br/>'pp': '01DC8A041CC706E0000002FD',<br/><br/>'cp': '01DC8A041CC706E0000002FA',<br/><br/>'ns': '01DC8A041CC706E0000002FF',<br/><br/>'li': 1042,<br/><br/>'lf': false<br/><br/>}<br/><br/>},<br/><br/>'mp': { },<br/><br/>'ro': {<br/><br/>'hp': '01DC8A041CC706E0000002E6',<br/><br/>'01DC8A041CC706E0000002E6': {<br/><br/>'np': '01DC8A041CC706E0000002E7',<br/><br/>'id': 0,<br/><br/>'pp': '01DC8A041CC706E0000002FD',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 3,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FA',<br/><br/>'ch': [<br/><br/>{<br/><br/>'cc': 2,<br/><br/>'ci': 1936024420,<br/><br/>'co': '01DC8A041CC706E0000002E4'<br/><br/>}<br/><br/>,<br/><br/>{<br/><br/>'cc': 2,<br/><br/>'ci': 1668246628,<br/><br/>'co': '01DC8A041CC706E0000002E5'<br/><br/>}<br/><br/>,<br/><br/>{<br/><br/>'t': '안녕하세요! KISS 영어연구소 연우 조교입니다.'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002E7': {<br/><br/>'np': '01DC8A041CC706E0000002E8',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': ''<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002E8': {<br/><br/>'np': '01DC8A041CC706E0000002E9',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '매달키스는 월간지이기는 하지만, 평가원 기출을 다루고 있는 만큼 너무 급하게 진행할 필요는 없습니다.'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002E9': {<br/><br/>'np': '01DC8A041CC706E0000002EA',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '키세이브 복습하며 키스키마 우선 집중하여 완강하신 후, 키스로직과 매달키스 병행하는 것도 좋습니다!'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002EA': {<br/><br/>'np': '01DC8A041CC706E0000002EB',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': ''<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002EB': {<br/><br/>'np': '01DC8A041CC706E0000002EC',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '다만 키스로직과 매달키스 모두 하루 분량이 큰 커리이기 때문에,'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002EC': {<br/><br/>'np': '01DC8A041CC706E0000002ED',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '영어에 투자할 시간이 충분하지 않다면,'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002ED': {<br/><br/>'np': '01DC8A041CC706E0000002EE',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '키스로직에 집중하시고 매달키스는 실전 운영 연습을 목적으로 수강하시는 것을 추천드립니다.'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002EE': {<br/><br/>'np': '01DC8A041CC706E0000002EF',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': ''<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002EF': {<br/><br/>'np': '01DC8A041CC706E0000002F0',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '특히 매달키스는 DAY 1~3까지 Half test1,'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F0': {<br/><br/>'np': '01DC8A041CC706E0000002F1',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': 'DAY 4~6까지 Half test2로 이루어져 있습니다.'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F1': {<br/><br/>'np': '01DC8A041CC706E0000002F2',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': ''<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F2': {<br/><br/>'np': '01DC8A041CC706E0000002F3',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '키스로직을 꼼꼼히 수강한다는 가정 하에 매주 하프모고 1개씩, 즉 DAY 3개씩 매달키스 수강해 주시는 것도 좋은 방법이 될 것 같습니다!'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F3': {<br/><br/>'np': '01DC8A041CC706E0000002F4',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FE',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FB',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': ''<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F4': {<br/><br/>'np': '01DC8A041CC706E0000002F5',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FD',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FA',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '답변이 도움이 되었다면 좋겠습니다:)'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F5': {<br/><br/>'np': '01DC8A041CC706E0000002F6',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FD',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FA',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '추가로 궁금한 점이 생기시면 언제든 Q&A 게시판 이용해주세요.'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>},<br/><br/>'01DC8A041CC706E0000002F6': {<br/><br/>'np': '',<br/><br/>'id': -2147483648,<br/><br/>'pp': '01DC8A041CC706E0000002FD',<br/><br/>'si': '01DC8A041CC706E0000002FF',<br/><br/>'bf': 0,<br/><br/>'ru': [<br/><br/>{<br/><br/>'cp': '01DC8A041CC706E0000002FA',<br/><br/>'ch': [<br/><br/>{<br/><br/>'t': '열심히 공부하시는 만큼 좋은 결과 있기를 응원합니다!'<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>]<br/><br/>}<br/><br/>},<br/><br/>'sl': { },<br/><br/>'cs': {<br/><br/>'01DC8A041CC706E0000002E4': {<br/><br/>'cc': 2,<br/><br/>'ci': 1936024420,<br/><br/>'td': 0,<br/><br/>'tv': false,<br/><br/>'sc': 1134,<br/><br/>'ts': 8000,<br/><br/>'ms': '',<br/><br/>'os': '',<br/><br/>'gl': 0,<br/><br/>'gc': 0,<br/><br/>'gw': false,<br/><br/>'ns': 0,<br/><br/>'np': 0,<br/><br/>'ni': 0,<br/><br/>'nt': 0,<br/><br/>'ne': 0,<br/><br/>'hh': false,<br/><br/>'hf': false,<br/><br/>'hm': false,<br/><br/>'fb': false,<br/><br/>'hb': false,<br/><br/>'fi': false,<br/><br/>'hi': false,<br/><br/>'hp': false,<br/><br/>'he': false,<br/><br/>'sl': false,<br/><br/>'lr': 0,<br/><br/>'lc': 0,<br/><br/>'ld': 0,<br/><br/>'ls': 0,<br/><br/>'pp': {<br/><br/>'ls': false,<br/><br/>'wi': 59528,<br/><br/>'he': 84188,<br/><br/>'gt': 0,<br/><br/>'ml': 8504,<br/><br/>'mr': 8504,<br/><br/>'mt': 5668,<br/><br/>'mb': 4252,<br/><br/>'mh': 4252,<br/><br/>'mf': 4252,<br/><br/>'mg': 0<br/><br/>},<br/><br/>'fn': {<br/><br/>'at': 0,<br/><br/>'au': '',<br/><br/>'ap': '',<br/><br/>'ac': ')',<br/><br/>'as': false,<br/><br/>'ll': -1,<br/><br/>'lt': 1,<br/><br/>'lw': 1,<br/><br/>'lc': 0,<br/><br/>'sa': 850,<br/><br/>'sb': 567,<br/><br/>'st': 283<br/><br/>,<br/><br/>'nt': 0,<br/><br/>'nn': 1,<br/><br/>'pp': 0,<br/><br/>'pb': false<br/><br/>},<br/><br/>'en': {<br/><br/>'at': 0,<br/><br/>'au': '',<br/><br/>'ap': '',<br/><br/>'ac': ')',<br/><br/>'as': false,<br/><br/>'ll': -4,<br/><br/>'lt': 1,<br/><br/>'lw': 1,<br/><br/>'lc': 0,<br/><br/>'sa': 850,<br/><br/>'sb': 567,<br/><br/>'st': 0<br/><br/>,<br/><br/>'nt': 0,<br/><br/>'nn': 1,<br/><br/>'pp': 0,<br/><br/>'pb': false<br/><br/>},<br/><br/>'pb': [<br/><br/>{<br/><br/>'ty': 0,<br/><br/>'bf': '01DC8A041CC706E0000002F7',<br/><br/>'tb': true,<br/><br/>'hi': false,<br/><br/>'fi': false,<br/><br/>'fa': 0,<br/><br/>'ol': 1417,<br/><br/>'or': 1417,<br/><br/>'ot': 1417,<br/><br/>'ob': 1417<br/><br/>},<br/><br/>{<br/><br/>'ty': 1,<br/><br/>'bf': '01DC8A041CC706E0000002F7',<br/><br/>'tb': true,<br/><br/>'hi': false,<br/><br/>'fi': false,<br/><br/>'fa': 0,<br/><br/>'ol': 1417,<br/><br/>'or': 1417,<br/><br/>'ot': 1417,<br/><br/>'ob': 1417<br/><br/>},<br/><br/>{<br/><br/>'ty': 2,<br/><br/>'bf': '01DC8A041CC706E0000002F7',<br/><br/>'tb': true,<br/><br/>'hi': false,<br/><br/>'fi': false,<br/><br/>'fa': 0,<br/><br/>'ol': 1417,<br/><br/>'or': 1417,<br/><br/>'ot': 1417,<br/><br/>'ob': 1417<br/><br/>}<br/><br/>],<br/><br/>'mp': [ ]<br/><br/>}<br/><br/>,<br/><br/>'01DC8A041CC706E0000002E5': {<br/><br/>'cc': 2,<br/><br/>'ci': 1668246628,<br/><br/>'ty': 0,<br/><br/>'la': 0,<br/><br/>'co': 1,<br/><br/>'ss': true,<br/><br/>'sg': 0,<br/><br/>'lt': 0,<br/><br/>'lw': 0,<br/><br/>'lc': 0,<br/><br/>'cs': [ ]<br/><br/>}<br/><br/>},<br/><br/>'bi': [ ],<br/><br/>'bidt': { }<br/><br/>}--></div><p>&nbsp;</p>";
+
+
+
+
+		    $("#contTypeCmm15390863").click(function(){
+		    	change_board("1","01","ssalmon26");
+		    });
+		    $("#contTypeCal15390863").click(function(){
+		    	change_board("1","02","ssalmon26");
+		    });
+		    change_board("1","01","ssalmon26");
+  	  
+
+  	  pageMove("");
+  	  
+    });
+
+    function change_board(param1,param2,param3)
+    {
+
+    	if(param2 == "01" )
+    	{
+    		if("levyj67" == param3 || ((tcd == "359") && ("levyj67" =="kamy71" ||"levyj67" =="kamy72" ||"levyj67" =="kamy73" ||"levyj67" =="smj01" ||"levyj67" =="smj02" ||"levyj67" =="sado119" ||"levyj67" =="yeseulsong" ||"levyj67" =="powerfulun" ||"levyj67" =="mbf9j" ||"levyj67" =="lynyang" ||"levyj67" =="youngc93" ||"levyj67" =="ingloo0410")))
+    		{
+	    		try{
+	    			if(!oEditors.getById["articleContent"+param1])
+	    			{
+	    				nhn.husky.EZCreator.createInIFrame({
+	            		    oAppRef: oEditors,
+	            		    elPlaceHolder: "articleContent"+param1,
+	            		    sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+	            		    htParams : {
+	            		      bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	            		      bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	            		      bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	            		      fOnBeforeUnload : function(){
+	            		      }
+	            		    }, //boolean
+	            		    fOnAppLoad : function(){
+	            		    },
+	            		    fCreator: "createSEditor2"
+	            		  });
+	    			}
+	    		}catch(e)//스마트 에디터가 최초 만들어지지 않았을경우 catch문으로 넘어온다.
+	    		{
+	    			nhn.husky.EZCreator.createInIFrame({
+	        		    oAppRef: oEditors,
+	        		    elPlaceHolder: "articleContent"+param1,
+	        		    sSkinURI: "/admin/bbsEditor/se2/SmartEditor2Skin.html",
+	        		    htParams : {
+	        		      bUseToolbar : true,       // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+	        		      bUseVerticalResizer : true,   // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+	        		      bUseModeChanger : true,     // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+	        		      fOnBeforeUnload : function(){
+	        		      }
+	        		    }, //boolean
+	        		    fOnAppLoad : function(){
+	        		    },
+	        		    fCreator: "createSEditor2"
+	        		  });
+	    		}
+    		}
+    		$("#AnsBoardDiv"+param1).show();	    	
+    	}
+    }
+
+function pageMove(pageIndex){
+
+	data =  {
+			"tcd"		   :  "983",
+			"pagePerCnt"   :  "10",
+			"myQcurrPage"  :   pageIndex,
+			"qnaType"      :  "",
+			"regUser"      :  "xxrain08",
+			};
+	$.ajax
+	({
+		type: "POST",
+		url: "/admin/tzone/studyQnaMyQuestion.ds",
+		data: data,
+		context : $("#myQuestion"),
+		error: function(request, status, error)
+		{
+			alert("code: "+request.status + "\n"+ "message: "+request.responseText+ "\n"+ "error: "+error);
+		},
+		success: function(data)
+		{
+			$(this).html(data);
+		}
+	});
+
+}
+
+
+</script>
+
+	</head>
+<body id="" class="operation"> <!--oncopy="return false" oncut="return false" --> <!-- class는 공통 폴더명 -->
+<!-- S: adminwrap -->
+  <div class="adminwrap">
+    <!-- S: header -->
+    <div class="header">
+      <!-- S: toparea -->
+      <div class="toparea">
+        <h1><a href="/admin/simple/simple/operIndex.ds"><img src="https://img.mimacstudy.com/ADMIN/common/img_logo.png" alt="Digital 大成"></a></h1>
+        <ul class="topmenu">
+          <li class="on">
+              <a href="javascript:menuMover('TO00003103')"><span>이서현선생님 관리자홈</span></a>
+               </li>
+            </ul>
+
+      </div>
+      <!-- //E: toparea -->
+	  <button type="button" class="jq_toggle_left">열기/닫기</button>
+    </div>
+    <!-- //E: header -->
+    <!-- S: midarea -->
+    <div class="midarea">
+      <!-- S: leftarea -->
+      <div class="leftarea">
+
+        <p class="userinfo">
+            <a href="javascript:;" name="linkAdminNm"><em>이용재</em></a>님 환영합니다.
+            <button type="button" id="logoutBtn" name="logoutBtn" class="btn_logout">로그아웃</button>
+        </p>
+        <ul class="leftmenu">
+          <li>
+	             <a href="javascript:menuMover('TO00003104', 'TO00003104')"><span>강의자료실관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003112', 'TO00003112')"><span>공지사항관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003113', 'TO00003113')"><span>학습Q&amp;A관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003106', 'TO00003106')"><span>강좌제작관리</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00003117', 'TO00003117')"><span>수강생현황</span></a>
+	                 </li>
+	          <li>
+	             <a href="javascript:menuMover('TO00004963', 'TO00004963')"><span>KISS ESSENCE 자료게시판</span></a>
+	                 </li>
+	          </ul>
+      </div>
+      <!-- //E: leftarea -->
+      <!-- S: contentsarea -->
+      <div class="contentsarea">
+        <!-- class는 공통 폴더명 -->
+	<div class="studyqnaregister"><!-- 페이지 별 구분 class -->
+		<h3>학습 Q&amp;A</h3>
+		<p class="pagenavi"><span>T-zone</span><span>학습 Q&amp;A</span><span>목록</span><strong>등록</strong></p>
+		<!-- S: contentsbox -->
+		<div class="contentsbox">
+			<form id="bbsWriteVO" name="bbsWriteVO" enctype="multipart/form-data" action="" method="post" class="MultiFile-intercepted">
+				<input type="hidden" id="_forward_page" name="_forward_page" style="">
+				<input type="hidden" name="method" value="post" style="">
+				<input type="hidden" name="bNo" id="bNo" value="15389798" style="">
+				<input type="hidden" name="upBNo" value="15389798" style="">
+				<input type="hidden" name="openYn" id="openYn" value="Y" style="">
+				<input type="hidden" name="regUser" id="regUser" value="xxrain08" style="">
+				<input type="hidden" name="note" id="note" style="">
+				<input type="hidden" name="deleteBNo" id="deleteBNo" style="">
+				<input type="hidden" name="relm" id="relm" value="03" style="">
+				<input type="hidden" name="questType" id="questType" value="01" style="">
+				<input type="hidden" name="pid" id="pid" value="PL00057660" style="">
+				<table cellpadding="0" cellspacing="0" class="boardwrite" summary="학습 Q&amp;A의 회사 구분, 선생님, 제목, 유형, 강좌/강의, 교재, 글쓴이, 등록일, 비밀글, 조회수, 상세정보, 첨부파일 정보를 확인하실 수 있습니다.">
+					<caption>학습 Q&amp;A</caption>
+					<colgroup>
+						<col width="120px">
+						<col width="350px">
+						<col width="120px">
+						<col width="300px">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="row">회사 구분</th>
+							<td>마이맥</td>
+							<th scope="row">선생님</th>
+							<td>션티</td>
+						</tr>
+						<tr>
+							<th scope="row">제목</th>
+							<td>[재질문] 대시 해석 </td>
+							<th scope="row">유형</th>
+							<td>강좌</td>
+						</tr>
+						<tr>
+							<th scope="row">강좌/강의</th>
+							<td>
+								<p>[[2027] 키스키마<br><font color="#DC143C">2등급 도약을 위한 구문ㆍ독해 스키마</font>]/  1차시  /  Day 1. 구문 스키밍: 긴~ 문장 부호 </p>
+								<p>
+										<em>동영상 위치</em>
+										<a href="#" onclick="javascript:goPlayerPop('ML00437315', '02','00:00:00');">00:00:00</a>
+									</p>
+								</td>
+							<th scope="row">강좌수강유/무</th>
+							<td>
+							
+										강좌 수강 중
+									</td>
+						</tr>
+						<tr>
+							<th scope="row">교재</th>
+							<td>
+								</td>
+							
+							<th scope="row">교재구매 유/무</th>
+							<td>
+								
+										YES
+									</td>
+						</tr>
+						<tr>
+							<th scope="row">글쓴이</th>
+							<td>
+								<a href="#">
+								이
+										*
+										비(xxrain08)	
+									</a>
+							</td>
+							<th scope="row">등록일</th>
+							<td>2026/01/20&nbsp;19:23:36</td>
+						</tr>
+						<tr>
+							<th scope="row">비밀글</th>
+							<td>NO</td>
+							<th scope="row">조회수</th>
+							<td>1</td>
+						</tr>
+						<tr>
+							<th scope="row">상세정보</th>
+							<td colspan="3">
+								<span>
+									<em>학년 :</em>
+									고3</span>
+								<span>
+									<em>계열 :</em>
+									자연계</span>
+								<span>
+									<em>과목등급 :</em>
+									3</span>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">첨부파일</th>
+							<td colspan="3">
+								</td>
+						</tr>
+						<tr id="QnaBoard">
+							<td colspan="4">
+								<div id="QnaBoardDiv" style="border:solid 1 #999999;">첫문장 Because~.의 대시는 대시앞뒤로 묶어주고 앞뒤문장만 중요하게 해석하면 되는건가요? <br><br>혹시 고2 모고 3등급이었으면 오늘키세이브 완강하고 키스키마 1강 들은 상태인데, 단어+키스키마+ 듣기모의고사만 학습해도 괜찮나요? 주간지같은거 지금부터 풀어야하나요? 키세이브 3등급 정복 테스트 풀어보니까 듣기 하나 안내문 하나 틀렸어요</div>								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			<p class="btnright">
+				<!-- <button type="button" id="btnDelQus" class="btn_black_01">삭제</button> -->
+				<button type="button" id="btnReplyActive" name="btnReplyActive" class="btn_black_01" style="display:none;">답변상태변경</button>
+				<button type="button" id="btnAns" class="btn_black_01">답변하기</button>
+				<button type="button" id="btnBbsInactive" name="btnBbsInactive" class="btn_blue_01">비활성</button>
+		        	</p>
+			<table cellpadding="0" cellspacing="0" class="boardwrite" summary="학습 Q&amp;A의 질문에 대해 제목과 작성자, 답변 내용, 첨부파일을 입력하실 수 있습니다.">
+			<caption>학습 Q&amp;A</caption>
+			<colgroup>
+				<col width="120px">
+				<col width="500px">
+				<col width="120px">
+				<col width="150px">
+			</colgroup>
+			<tbody id="tbodyAns">
+			<tr>
+							<th scope="row"><strong>제목</strong></th>
+							<td class="replytit">[답변][재질문] 대시 해석 </td>
+							<td colspan="2">
+								미공지</td>
+						</tr>
+						<tr>
+							<th scope="row"><strong>작성자</strong></th>
+							<td>연구실</td>
+							<th scope="row"><strong>작성일</strong></th>
+							<td>2026-01-20 20:59:07.0</td>
+						</tr>
+						<tr>
+							<th scope="col">
+								<strong>답변 내용</strong>
+							</th>
+							<td colspan="3">
+								<div id="AnsBoardDiv1" style="border:solid 1 #999999;">
+									<div id="articleContent1_NOTMINE"><p><span style="font-family: 함초롬바탕;">안녕하세요</span><span lang="EN-US" style="letter-spacing: 0pt;">! KISS </span><span style="font-family: 함초롬바탕;">영어연구소 연우 조교입니다</span><span lang="EN-US" style="letter-spacing: 0pt;">.</span></p><p class="0">  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">매달키스는 월간지이기는 하지만</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">, </span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">평가원 기출을 다루고 있는 만큼 너무 급하게 진행할 필요는 없습니다</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">.</span></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">키세이브 복습하며 키스키마 우선 집중하여 완강하신 후</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">, </span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">키스로직과 매달키스 병행하는 것도 좋습니다</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">!</span></p><p class="0">  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">다만 키스로직과 매달키스 모두 하루 분량이 큰 커리이기 때문에</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">,</span></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">영어에 투자할 시간이 충분하지 않다면</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">,</span></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">키스로직에 집중하시고 매달키스는 실전 운영 연습을 목적으로 수강하시는 것을 추천드립니다</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">.</span></p><p class="0">  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">특히 매달키스는 </span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">DAY 1~3</span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">까지 </span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">Half test1,</span></p><p class="0"><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">DAY 4~6</span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">까지 </span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">Half test2</span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">로 이루어져 있습니다</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">.</span></p><p class="0">  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">키스로직을 꼼꼼히 수강한다는 가정 하에 매주 하프모고 </span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">1</span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">개씩</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">,</span></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">즉 </span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">DAY 3</span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">개씩 매달키스 수강해 주시는 것도 좋은 방법이 될 것 같습니다</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">!</span></p><p class="0">  <!--[if !supportEmptyParas]-->&nbsp;<!--[endif]-->  <o:p></o:p></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">답변이 도움이 되었다면 좋겠습니다</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">:)</span></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">추가로 궁금한 점이 생기시면 언제든 </span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">Q&amp;A </span><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">게시판 이용해주세요</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">.</span></p><p class="0"><span style="font-family:함초롬바탕;mso-fareast-font-family:함초롬바탕;">열심히 공부하시는 만큼 좋은 결과 있기를 응원합니다</span><span lang="EN-US" style="mso-fareast-font-family:함초롬바탕;mso-font-width:100%;letter-spacing:0pt;mso-text-raise:0pt;">!</span></p><div id="hwpEditorBoardContent" class="hwp_editor_board_content" data-hjsonver="1.0" data-jsonlen="11765"><!--[data-hwpjson]{<br/>"documentPr": {<br/>"di": "",<br/>"dp": {<br/>"dn": "test.hwp",<br/>"ta": 1,<br/>"d1": 5,<br/>"d2": 1,<br/>"dv": 0,<br/>"dr": 1,<br/>"do": 1,<br/>"vj": "1.1",<br/>"an": "Hancom Office Hangul",<br/>"av": "13, 0, 0, 2986",<br/>"ao": "WIN",<br/>"ab": "32",<br/>"ar": "LE"<br/>},<br/>"dis": false,<br/>"ds": {<br/>"ti": "",<br/>"la": "ko",<br/>"cr": "",<br/>"su": "",<br/>"de": "",<br/>"cd": "2026-01-20T11:58:36.320Z",<br/>"ke": ""<br/>}<br/>},<br/>"dh": {<br/>"do": {<br/>"pa": 1,<br/>"fo": 1,<br/>"en": 1,<br/>"pi": 1,<br/>"tb": 1,<br/>"eq": 1<br/>},<br/>"fo": [ ],<br/>"cd": {<br/>"tp": 0,<br/>"lc": {<br/>"af": false,<br/>"ui": false,<br/>"fu": false,<br/>"dn": false,<br/>"ul": false,<br/>"el": false,<br/>"at": false,<br/>"tq": false,<br/>"da": false,<br/>"dw": false,<br/>"dj": false,<br/>"bc": false,<br/>"bu": false,<br/>"al": false,<br/>"ab": false,<br/>"ap": false,<br/>"an": false,<br/>"aa": false,<br/>"ds": false,<br/>"de": false,<br/>"as": false,<br/>"cp": false,<br/>"ao": false,<br/>"et": false,<br/>"ay": false,<br/>"am": false,<br/>"a1": false,<br/>"bt": false,<br/>"av": false,<br/>"dh": false,<br/>"dp": false,<br/>"d1": false,<br/>"mf": false,<br/>"bl": false,<br/>"ag": false,<br/>"dg": false,<br/>"ae": false,<br/>"df": false,<br/>"do": false,<br/>"dl": false,<br/>"di": false,<br/>"d2": false,<br/>"d3": false,<br/>"ob": false,<br/>"d4": false,<br/>"ev": false,<br/>"d5": false,<br/>"d6": false,<br/>"a2": false,<br/>"dc": false<br/>}<br/>},<br/>"ld": {<br/>"pa": "",<br/>"pi": true,<br/>"fo": false<br/>}<br/>},<br/>"bf": {<br/>"01DC8A041CC706E0000002F7": {<br/>"id": 1,<br/>"td": false,<br/>"sh": false,<br/>"st": 0,<br/>"sc": 0,<br/>"si": false,<br/>"bt": 0,<br/>"bi": false,<br/>"cl": 0,<br/>"bc": false,<br/>"lt": 0,<br/>"lw": 0,<br/>"lc": 0,<br/>"rt": 0,<br/>"rw": 0,<br/>"rc": 0,<br/>"tt": 0,<br/>"tw": 0,<br/>"tc": 0,<br/>"bbt": 0,<br/>"bbw": 0,<br/>"bbc": 0,<br/>"dt": 1,<br/>"dw": 0,<br/>"dc": 0,<br/>"fi": { }<br/>},<br/>"01DC8A041CC706E0000002F8": {<br/>"id": 2,<br/>"td": false,<br/>"sh": false,<br/>"st": 0,<br/>"sc": 0,<br/>"si": false,<br/>"bt": 0,<br/>"bi": false,<br/>"cl": 0,<br/>"bc": false,<br/>"lt": 0,<br/>"lw": 0,<br/>"lc": 0,<br/>"rt": 0,<br/>"rw": 0,<br/>"rc": 0,<br/>"tt": 0,<br/>"tw": 0,<br/>"tc": 0,<br/>"bbt": 0,<br/>"bbw": 0,<br/>"bbc": 0,<br/>"dt": 1,<br/>"dw": 0,<br/>"dc": 0,<br/>"fi": {<br/>"wb": {<br/>"fc": 4294967295,<br/>"hc": 10066329,<br/>"al": 0,<br/>"hs": -1<br/>}<br/>}<br/>},<br/>"01DC8A041CC706E0000002F9": {<br/>"id": 3,<br/>"td": false,<br/>"sh": false,<br/>"st": 0,<br/>"sc": 0,<br/>"si": false,<br/>"bt": 0,<br/>"bi": false,<br/>"cl": 0,<br/>"bc": false,<br/>"lt": 0,<br/>"lw": 0,<br/>"lc": 0,<br/>"rt": 0,<br/>"rw": 0,<br/>"rc": 0,<br/>"tt": 0,<br/>"tw": 0,<br/>"tc": 0,<br/>"bbt": 0,<br/>"bbw": 0,<br/>"bbc": 0,<br/>"dt": 1,<br/>"dw": 0,<br/>"dc": 0,<br/>"fi": {<br/>"wb": {<br/>"fc": 4294967295,<br/>"hc": 0,<br/>"al": 0,<br/>"hs": -1<br/>}<br/>}<br/>}<br/>},<br/>"cp": {<br/>"01DC8A041CC706E0000002FA": {<br/>"id": 0,<br/>"he": 1000,<br/>"tc": 0,<br/>"sc": 4294967295,<br/>"uf": false,<br/>"uk": false,<br/>"sm": 0,<br/>"bf": "01DC8A041CC706E0000002F8",<br/>"f1": "함초롬바탕",<br/>"t1": 1,<br/>"f2": "함초롬바탕",<br/>"t2": 1,<br/>"f3": "함초롬바탕",<br/>"t3": 1,<br/>"f4": "함초롬바탕",<br/>"t4": 1,<br/>"f5": "함초롬바탕",<br/>"t5": 1,<br/>"f6": "함초롬바탕",<br/>"t6": 1,<br/>"f7": "함초롬바탕",<br/>"t7": 1,<br/>"r1": 100,<br/>"r2": 100,<br/>"r3": 100,<br/>"r4": 100,<br/>"r5": 100,<br/>"r6": 100,<br/>"r7": 100,<br/>"s1": 0,<br/>"s2": 0,<br/>"s3": 0,<br/>"s4": 0,<br/>"s5": 0,<br/>"s6": 0,<br/>"s7": 0,<br/>"e1": 100,<br/>"e2": 100,<br/>"e3": 100,<br/>"e4": 100,<br/>"e5": 100,<br/>"e6": 100,<br/>"e7": 100,<br/>"o1": 0,<br/>"o2": 0,<br/>"o3": 0,<br/>"o4": 0,<br/>"o5": 0,<br/>"o6": 0,<br/>"o7": 0,<br/>"it": false,<br/>"bo": false,<br/>"ut": 0,<br/>"us": 1,<br/>"uc": 0,<br/>"st": false,<br/>"ss": 1,<br/>"so": 0,<br/>"ot": 0,<br/>"ht": 0,<br/>"hc": 0,<br/>"hx": 0,<br/>"hy": 0,<br/>"em": false,<br/>"en": false,<br/>"su": false,<br/>"sb": false<br/>},<br/>"01DC8A041CC706E0000002FB": {<br/>"id": 1,<br/>"he": 1000,<br/>"tc": 0,<br/>"sc": 4294967295,<br/>"uf": false,<br/>"uk": false,<br/>"sm": 0,<br/>"bf": "01DC8A041CC706E0000002F9",<br/>"f1": "함초롬바탕",<br/>"t1": 1,<br/>"f2": "함초롬바탕",<br/>"t2": 1,<br/>"f3": "함초롬바탕",<br/>"t3": 1,<br/>"f4": "함초롬바탕",<br/>"t4": 1,<br/>"f5": "함초롬바탕",<br/>"t5": 1,<br/>"f6": "함초롬바탕",<br/>"t6": 1,<br/>"f7": "함초롬바탕",<br/>"t7": 1,<br/>"r1": 100,<br/>"r2": 100,<br/>"r3": 100,<br/>"r4": 100,<br/>"r5": 100,<br/>"r6": 100,<br/>"r7": 100,<br/>"s1": 0,<br/>"s2": 0,<br/>"s3": 0,<br/>"s4": 0,<br/>"s5": 0,<br/>"s6": 0,<br/>"s7": 0,<br/>"e1": 100,<br/>"e2": 100,<br/>"e3": 100,<br/>"e4": 100,<br/>"e5": 100,<br/>"e6": 100,<br/>"e7": 100,<br/>"o1": 0,<br/>"o2": 0,<br/>"o3": 0,<br/>"o4": 0,<br/>"o5": 0,<br/>"o6": 0,<br/>"o7": 0,<br/>"it": false,<br/>"bo": false,<br/>"ut": 0,<br/>"us": 1,<br/>"uc": 0,<br/>"st": false,<br/>"ss": 1,<br/>"so": 0,<br/>"ot": 0,<br/>"ht": 0,<br/>"hc": 0,<br/>"hx": 0,<br/>"hy": 0,<br/>"em": false,<br/>"en": false,<br/>"su": false,<br/>"sb": false<br/>}<br/>},<br/>"tp": {<br/>"01DC8A041CC706E0000002FC": {<br/>"id": 0,<br/>"al": false,<br/>"ar": false,<br/>"tp": [ ]<br/>}<br/>},<br/>"nu": { },<br/>"bu": { },<br/>"pp": {<br/>"01DC8A041CC706E0000002FD": {<br/>"id": 0,<br/>"ah": 0,<br/>"av": 0,<br/>"ht": 0,<br/>"hi": "",<br/>"hl": 0,<br/>"tp": "01DC8A041CC706E0000002FC",<br/>"kb": 0,<br/>"kn": true,<br/>"ko": false,<br/>"kk": false,<br/>"kl": false,<br/>"kp": false,<br/>"kw": 0,<br/>"co": 0,<br/>"fl": false,<br/>"st": true,<br/>"sl": false,<br/>"ae": false,<br/>"aa": false,<br/>"mi": 0,<br/>"ml": 0,<br/>"mr": 0,<br/>"mp": 0,<br/>"mn": 0,<br/>"lt": 0,<br/>"lv": 160,<br/>"bf": "01DC8A041CC706E0000002F8",<br/>"bl": 0,<br/>"br": 0,<br/>"bt": 0,<br/>"bb": 0,<br/>"bc": false,<br/>"bi": false<br/>},<br/>"01DC8A041CC706E0000002FE": {<br/>"id": 1,<br/>"ah": 0,<br/>"av": 0,<br/>"ht": 0,<br/>"hi": "",<br/>"hl": 0,<br/>"tp": "01DC8A041CC706E0000002FC",<br/>"kb": 0,<br/>"kn": true,<br/>"ko": false,<br/>"kk": false,<br/>"kl": false,<br/>"kp": false,<br/>"kw": 0,<br/>"co": 0,<br/>"fl": false,<br/>"st": true,<br/>"sl": false,<br/>"ae": false,<br/>"aa": false,<br/>"mi": 0,<br/>"ml": 0,<br/>"mr": 0,<br/>"mp": 0,<br/>"mn": 0,<br/>"lt": 0,<br/>"lv": 160,<br/>"bf": "01DC8A041CC706E0000002F9",<br/>"bl": 0,<br/>"br": 0,<br/>"bt": 0,<br/>"bb": 0,<br/>"bc": false,<br/>"bi": false<br/>}<br/>},<br/>"st": {<br/>"01DC8A041CC706E0000002FF": {<br/>"id": 0,<br/>"ty": 0,<br/>"na": "바탕글",<br/>"en": "Normal",<br/>"pp": "01DC8A041CC706E0000002FD",<br/>"cp": "01DC8A041CC706E0000002FA",<br/>"ns": "01DC8A041CC706E0000002FF",<br/>"li": 1042,<br/>"lf": false<br/>}<br/>},<br/>"mp": { },<br/>"ro": {<br/>"hp": "01DC8A041CC706E0000002E6",<br/>"01DC8A041CC706E0000002E6": {<br/>"np": "01DC8A041CC706E0000002E7",<br/>"id": 0,<br/>"pp": "01DC8A041CC706E0000002FD",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 3,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FA",<br/>"ch": [<br/>{<br/>"cc": 2,<br/>"ci": 1936024420,<br/>"co": "01DC8A041CC706E0000002E4"<br/>}<br/>,<br/>{<br/>"cc": 2,<br/>"ci": 1668246628,<br/>"co": "01DC8A041CC706E0000002E5"<br/>}<br/>,<br/>{<br/>"t": "안녕하세요! KISS 영어연구소 연우 조교입니다."<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002E7": {<br/>"np": "01DC8A041CC706E0000002E8",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": ""<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002E8": {<br/>"np": "01DC8A041CC706E0000002E9",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "매달키스는 월간지이기는 하지만, 평가원 기출을 다루고 있는 만큼 너무 급하게 진행할 필요는 없습니다."<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002E9": {<br/>"np": "01DC8A041CC706E0000002EA",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "키세이브 복습하며 키스키마 우선 집중하여 완강하신 후, 키스로직과 매달키스 병행하는 것도 좋습니다!"<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002EA": {<br/>"np": "01DC8A041CC706E0000002EB",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": ""<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002EB": {<br/>"np": "01DC8A041CC706E0000002EC",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "다만 키스로직과 매달키스 모두 하루 분량이 큰 커리이기 때문에,"<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002EC": {<br/>"np": "01DC8A041CC706E0000002ED",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "영어에 투자할 시간이 충분하지 않다면,"<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002ED": {<br/>"np": "01DC8A041CC706E0000002EE",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "키스로직에 집중하시고 매달키스는 실전 운영 연습을 목적으로 수강하시는 것을 추천드립니다."<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002EE": {<br/>"np": "01DC8A041CC706E0000002EF",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": ""<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002EF": {<br/>"np": "01DC8A041CC706E0000002F0",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "특히 매달키스는 DAY 1~3까지 Half test1,"<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002F0": {<br/>"np": "01DC8A041CC706E0000002F1",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "DAY 4~6까지 Half test2로 이루어져 있습니다."<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002F1": {<br/>"np": "01DC8A041CC706E0000002F2",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": ""<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002F2": {<br/>"np": "01DC8A041CC706E0000002F3",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": "키스로직을 꼼꼼히 수강한다는 가정 하에 매주 하프모고 1개씩, 즉 DAY 3개씩 매달키스 수강해 주시는 것도 좋은 방법이 될 것 같습니다!"<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002F3": {<br/>"np": "01DC8A041CC706E0000002F4",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FE",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FB",<br/>"ch": [<br/>{<br/>"t": ""<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002F4": {<br/>"np": "01DC8A041CC706E0000002F5",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FD",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FA",<br/>"ch": [<br/>{<br/>"t": "답변이 도움이 되었다면 좋겠습니다:)"<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002F5": {<br/>"np": "01DC8A041CC706E0000002F6",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FD",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FA",<br/>"ch": [<br/>{<br/>"t": "추가로 궁금한 점이 생기시면 언제든 Q&A 게시판 이용해주세요."<br/>}<br/>]<br/>}<br/>]<br/>},<br/>"01DC8A041CC706E0000002F6": {<br/>"np": "",<br/>"id": -2147483648,<br/>"pp": "01DC8A041CC706E0000002FD",<br/>"si": "01DC8A041CC706E0000002FF",<br/>"bf": 0,<br/>"ru": [<br/>{<br/>"cp": "01DC8A041CC706E0000002FA",<br/>"ch": [<br/>{<br/>"t": "열심히 공부하시는 만큼 좋은 결과 있기를 응원합니다!"<br/>}<br/>]<br/>}<br/>]<br/>}<br/>},<br/>"sl": { },<br/>"cs": {<br/>"01DC8A041CC706E0000002E4": {<br/>"cc": 2,<br/>"ci": 1936024420,<br/>"td": 0,<br/>"tv": false,<br/>"sc": 1134,<br/>"ts": 8000,<br/>"ms": "",<br/>"os": "",<br/>"gl": 0,<br/>"gc": 0,<br/>"gw": false,<br/>"ns": 0,<br/>"np": 0,<br/>"ni": 0,<br/>"nt": 0,<br/>"ne": 0,<br/>"hh": false,<br/>"hf": false,<br/>"hm": false,<br/>"fb": false,<br/>"hb": false,<br/>"fi": false,<br/>"hi": false,<br/>"hp": false,<br/>"he": false,<br/>"sl": false,<br/>"lr": 0,<br/>"lc": 0,<br/>"ld": 0,<br/>"ls": 0,<br/>"pp": {<br/>"ls": false,<br/>"wi": 59528,<br/>"he": 84188,<br/>"gt": 0,<br/>"ml": 8504,<br/>"mr": 8504,<br/>"mt": 5668,<br/>"mb": 4252,<br/>"mh": 4252,<br/>"mf": 4252,<br/>"mg": 0<br/>},<br/>"fn": {<br/>"at": 0,<br/>"au": "",<br/>"ap": "",<br/>"ac": ")",<br/>"as": false,<br/>"ll": -1,<br/>"lt": 1,<br/>"lw": 1,<br/>"lc": 0,<br/>"sa": 850,<br/>"sb": 567,<br/>"st": 283<br/>,<br/>"nt": 0,<br/>"nn": 1,<br/>"pp": 0,<br/>"pb": false<br/>},<br/>"en": {<br/>"at": 0,<br/>"au": "",<br/>"ap": "",<br/>"ac": ")",<br/>"as": false,<br/>"ll": -4,<br/>"lt": 1,<br/>"lw": 1,<br/>"lc": 0,<br/>"sa": 850,<br/>"sb": 567,<br/>"st": 0<br/>,<br/>"nt": 0,<br/>"nn": 1,<br/>"pp": 0,<br/>"pb": false<br/>},<br/>"pb": [<br/>{<br/>"ty": 0,<br/>"bf": "01DC8A041CC706E0000002F7",<br/>"tb": true,<br/>"hi": false,<br/>"fi": false,<br/>"fa": 0,<br/>"ol": 1417,<br/>"or": 1417,<br/>"ot": 1417,<br/>"ob": 1417<br/>},<br/>{<br/>"ty": 1,<br/>"bf": "01DC8A041CC706E0000002F7",<br/>"tb": true,<br/>"hi": false,<br/>"fi": false,<br/>"fa": 0,<br/>"ol": 1417,<br/>"or": 1417,<br/>"ot": 1417,<br/>"ob": 1417<br/>},<br/>{<br/>"ty": 2,<br/>"bf": "01DC8A041CC706E0000002F7",<br/>"tb": true,<br/>"hi": false,<br/>"fi": false,<br/>"fa": 0,<br/>"ol": 1417,<br/>"or": 1417,<br/>"ot": 1417,<br/>"ob": 1417<br/>}<br/>],<br/>"mp": [ ]<br/>}<br/>,<br/>"01DC8A041CC706E0000002E5": {<br/>"cc": 2,<br/>"ci": 1668246628,<br/>"ty": 0,<br/>"la": 0,<br/>"co": 1,<br/>"ss": true,<br/>"sg": 0,<br/>"lt": 0,<br/>"lw": 0,<br/>"lc": 0,<br/>"cs": [ ]<br/>}<br/>},<br/>"bi": [ ],<br/>"bidt": { }<br/>}--></div><p>&nbsp;</p></div>
+
+								</div>							
+							</td>
+						</tr>
+						<tr>
+							<th scope="row">첨부파일</th>
+							<td colspan="3" class="attachfile">
+				                <div style="text-align:left;vertical-align:top;margin-left:10px;">
+							        </div>
+				            </td>
+						</tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
+			<input type="hidden" name="newAnsContType" value="01" style="">				
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="row"><strong>제목</strong></th>
+					<td class="replytit">
+						<input type="text" class="txt" name="newAnsTitle" value="[답변][재질문] 대시 해석 " style="">
+					</td>
+					<td colspan="2">
+						<input type="checkbox" name="newAnsBestYn" style="" class="checkbox" value="Y">
+						<label for="chkNoticeYn" style="margin:0 10px 0 3px;">공지로 지정</label>
+					</td>
+				</tr>
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="row"><strong>작성자</strong></th>
+					<td colspan="3">
+						<input type="text" class="txt" name="newAnsWritr" value="연구실" style="">
+							</td>
+				</tr>
+				<!-- <tr class="newAnsTr">
+					<th scope="row"><strong>게시물 종류</strong></th>
+					<td colspan="5">
+						<ul class="radioarea">
+							<li style="float:left;"><input type="radio" name="newAnsContType" id="newAnsCmm" class="radio" value="01" checked/><label for="contTypeCmm">일반 게시물</label></li>
+							<li style="float:left;"><input type="radio" name="newAnsContType" id="newAnsCal" class="radio" value="02"><label for="contTypeCal">수식 게시물</label></li>
+						</ul>
+					</td>
+				</tr> -->
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="col">
+						<strong>답변 내용</strong>
+					</th>
+					<td colspan="3">
+						<input type="hidden" name="newAnsCont" id="newAnsCont" value="" style="">
+						<div id="newAnsContBoard">
+							<textarea cols="30" rows="15" id="newAnsBoard" name="newAnsBoard" style="width: 99%;"></textarea>
+						</div>
+						
+					</td>
+				</tr>
+				<tr class="newAnsTr" style="display: none;">
+					<th scope="row">첨부파일</th>
+					<td colspan="3">
+						<div class="addfile" id="newAttatchFileList">
+		                    <p>
+		                    <div class="MultiFile-wrap" id="attatchFiles_wrap"><input type="file" id="attatchFiles" name="newAttatchFiles" class="file MultiFile-applied" value="" style=""></div>
+		                    <button type="button" id="btnFileSelect" class="btn_gray_01">파일첨부</button>
+		                    </p><div id="attachFileList" style="text-align:left;vertical-align:top;margin-left:10px;"></div>
+		                    <p></p>
+		                </div>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+			<p class="btnjustify">
+				<button type="button" id="btnList" class="btn_black_01">목록</button>
+				
+				<span>
+							<button type="button" id="btnSave" class="btn_blue_01">저장</button>
+						</span>
+					</p>
+			</form>
+		</div>
+		<div id="myQuestion" style="margin-top: 20px"><table cellpadding="0" cellspacing="0" class="databoard" summary="강사계정의 정보를 강사코드, 회사구분, 영역, 이름, 아이디, 상태, 순서, 관리, 담당자, 등록일(수정일) 순으로 확인하실 수 있습니다.">
+       <caption>학습 Q&amp;A</caption>
+       <colgroup>
+           <col width="40px">
+		<col width="80px">
+		<col>
+		<col width="80px">
+		<col width="80px">
+		<col width="80px">
+		<col width="80px">
+		<col width="80px">
+		<col width="50px">
+		<col width="80px">
+       </colgroup>
+       <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">선생님</th>
+            <th scope="col">제목</th>
+            <th scope="col">유형</th>
+            
+            <th scope="col">상태</th>
+            <th scope="col">작성자</th>
+            <th scope="col">답변자</th>
+            <th scope="col">조회수</th>
+            <th scope="col">등록일</th>
+        </tr>
+      	</thead>
+      	<tbody>
+		<tr>
+			            <td>11</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15606749&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15606749" qnatype="Q">키스로직 수강 계획</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(tjwjdrj***)
+			            	</td>
+			            <td class="righttit">7</td>
+			            <td>2026/02/12</td>
+			        </tr>
+			    <tr>
+			            <td>10</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15595621&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15595621" qnatype="Q">간접 직접</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(cl1***)
+			            	</td>
+			            <td class="righttit">2</td>
+			            <td>2026/02/11</td>
+			        </tr>
+			    <tr>
+			            <td>9</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15541102&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15541102" qnatype="Q">[재질문] 복기</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(seongji0***)
+			            	</td>
+			            <td class="righttit">3</td>
+			            <td>2026/02/05</td>
+			        </tr>
+			    <tr>
+			            <td>8</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15527774&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15527774" qnatype="Q">복기</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(seongji0***)
+			            	</td>
+			            <td class="righttit">1</td>
+			            <td>2026/02/04</td>
+			        </tr>
+			    <tr>
+			            <td>7</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15508538&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15508538" qnatype="Q">ㄷㅐ립</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(seongji0***)
+			            	</td>
+			            <td class="righttit">1</td>
+			            <td>2026/02/02</td>
+			        </tr>
+			    <tr>
+			            <td>6</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15467538&amp;currPage=1" target="_blank" name="linkBTitle" class="blue icon_lock" bno="15467538" qnatype="Q">기출</a>
+			            	</td>
+			            <td>학습법</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(effypar***)
+			            	</td>
+			            <td class="righttit">0</td>
+			            <td>2026/01/28</td>
+			        </tr>
+			    <tr>
+			            <td>5</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15389798&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15389798" qnatype="Q">[재질문] 대시 해석 </a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(ssalmo***)
+			            	</td>
+			            <td class="righttit">1</td>
+			            <td>2026/01/20</td>
+			        </tr>
+			    <tr>
+			            <td>4</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15385221&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15385221" qnatype="Q">콤마</a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(ssalmo***)
+			            	</td>
+			            <td class="righttit">3</td>
+			            <td>2026/01/20</td>
+			        </tr>
+			    <tr>
+			            <td>3</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15385177&amp;currPage=1" target="_blank" name="linkBTitle" class="blue" bno="15385177" qnatype="Q">대시 해석 </a>
+			            	</td>
+			            <td>강좌</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(ssalmo***)
+			            	</td>
+			            <td class="righttit">2</td>
+			            <td>2026/01/20</td>
+			        </tr>
+			    <tr>
+			            <td>2</td>
+			            <td>션티<br>(sheanle***)</td>
+			            <td class="lefttit ellipsis">
+			            <a href="/admin/tzone/tzoneStudyQnaUpdatePage.ds?selectBNo=15288054&amp;currPage=1" target="_blank" name="linkBTitle" class="blue icon_lock" bno="15288054" qnatype="Q">수특</a>
+			            	</td>
+			            <td>학습법</td>
+			             <td>답변 완료</td>
+			            	<td>
+								이
+										*
+										비<br>(xxrain08)
+									</td>						            	
+			            	<td>
+			            	연*실<br>(cl1***)
+			            	</td>
+			            <td class="righttit">0</td>
+			            <td>2026/01/09</td>
+			        </tr>
+			    </tbody>
+</table>
+<p class="pagnation">
+ <span><a href="#" class="on">1</a><a href="javascript:pageMove(2)">2</a></span></p>
+ 
+	
+</div>
+		<!-- //E: contentsbox -->		
+		<iframe id="hiddenFrame" name="hiddenFrame" width="0" height="0" frameborder="0"></iframe>
+	</div>
+	<!-- 목록으로 이동하기 위한 form 블락 시작-->
+	<form id="listFrm" name="listFrm" action="/admin/tzone/tzoneLecPdsList.ds" method="post" class="MultiFile-intercepted">
+	    <input type="hidden" name="searchCompany" value="M" style="">
+	    <input type="hidden" name="searchRelm" value="03" style="">
+	    <input type="hidden" name="searchSubj" value="" style="">
+	    <input type="hidden" name="searchTcd" value="983" style="">
+	    <input type="hidden" name="searchPdsType" value="" style="">
+	    <input type="hidden" name="searchType" value="06" style="">
+	    <input type="hidden" name="searchText" value="" style="">
+	    <input type="hidden" name="pagePerCnt" value="20" style="">
+	    <input type="hidden" name="currPage" value="2" style="">
+	    <input type="hidden" name="searchPid" value="" style="">
+	    <input type="hidden" name="searchMid" value="" style="">
+	    <input type="hidden" name="searchStartDt" value="2026/01/18" style="">
+	    <input type="hidden" name="searchQnaStatus" value="02" style="">
+	    <input type="hidden" name="searchQuestType" value="" style="">
+	    <input type="hidden" name="searchEndDt" value="2026/01/20" style="">
+	</form>
+	<!-- 목록으로 이동하기 위한 form 블락 종료-->
+
+
+
+
+
+      </div>
+      <!-- //E: contentsarea -->
+    </div>
+    <!-- //E: midarea -->
+    <!-- S: footer -->
+    <div class="footer">
+      <div class="bottomarea">
+        <p class="copyright">Copyright 2014 ㈜디지털대성 All rights reserved.</p>
+      </div>
+    </div>
+    <!-- //E: footer -->
+  </div>
+  <!-- //E: adminwrap -->
+  
+<div class="transparents-layer" style="display: block; opacity: 0.0112634;"></div></body></html>
