@@ -18,7 +18,19 @@ export async function middleware(request: NextRequest) {
     // Without the proper cookie handling helper for middleware, it's tricky.
     // I will create a basic version.
 
-    return await updateSession(request)
+    try {
+        return await updateSession(request)
+    } catch (error: any) {
+        // Expose the internal error for debugging Vercel Edge crash
+        return new NextResponse(
+            JSON.stringify({
+                error: 'Middleware Invocation Failed Locally',
+                message: error?.message || String(error),
+                stack: error?.stack
+            }),
+            { status: 500, headers: { 'content-type': 'application/json' } }
+        )
+    }
 }
 
 export const config = {
