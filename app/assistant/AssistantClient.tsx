@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useInactivityLogout } from '@/hooks/useInactivityLogout'
 
 type Matches = {
     page: number
@@ -27,6 +28,8 @@ interface AssistantClientProps {
 }
 
 export default function AssistantClient({ isAdmin }: AssistantClientProps) {
+    useInactivityLogout()
+
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [originalAnswer, setOriginalAnswer] = useState('') // For reset

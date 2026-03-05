@@ -1,18 +1,29 @@
 'use client'
 
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [rememberEmail, setRememberEmail] = useState(false)
     const [mode, setMode] = useState<'signin' | 'signup'>('signin')
     const [error, setError] = useState<string | null>(null)
     const [message, setMessage] = useState<string | null>(null)
     const router = useRouter()
+    const searchParams = useSearchParams()
+    const isSessionExpired = searchParams.get('sessionExpired') === 'true'
     const supabase = createClient()
+
+    useEffect(() => {
+        const savedEmail = localStorage.getItem('savedEmail')
+        if (savedEmail) {
+            setEmail(savedEmail)
+            setRememberEmail(true)
+        }
+    }, [])
 
     async function handleAuth(e: React.FormEvent) {
         e.preventDefault()
@@ -31,6 +42,11 @@ export default function LoginPage() {
             if (error) {
                 setError(error.message)
             } else {
+                if (rememberEmail) {
+                    localStorage.setItem('savedEmail', email)
+                } else {
+                    localStorage.removeItem('savedEmail')
+                }
                 router.refresh()
                 router.push('/assistant')
             }
@@ -42,6 +58,11 @@ export default function LoginPage() {
             if (error) {
                 setError(error.message)
             } else {
+                if (rememberEmail) {
+                    localStorage.setItem('savedEmail', email)
+                } else {
+                    localStorage.removeItem('savedEmail')
+                }
                 router.refresh()
                 router.push('/assistant')
             }
@@ -101,6 +122,12 @@ export default function LoginPage() {
                                 {mode === 'signin' ? 'Access your sophisticated assistant' : 'Sign up to get started'}
                             </p>
                         </div>
+
+                        {isSessionExpired && (
+                            <div className="mb-6 p-3 bg-red-100/80 border border-red-200 text-red-700 text-sm font-bold rounded-lg backdrop-blur-sm text-center">
+                                세션이 만료되어 다시 로그인해야 합니다.
+                            </div>
+                        )}
 
                         {error && (
                             <div className="mb-6 p-3 bg-red-100/80 border border-red-200 text-red-700 text-sm rounded-lg backdrop-blur-sm">
@@ -165,6 +192,27 @@ export default function LoginPage() {
                                     />
                                 </div>
                             </div>
+
+                            {/* Remember Email Field (Signin Only) */}
+                            {mode === 'signin' && (
+                                <div className="flex items-center ml-1">
+                                    <input
+                                        id="remember"
+                                        type="checkbox"
+                                        checked={rememberEmail}
+                                        onChange={(e) => {
+                                            setRememberEmail(e.target.checked)
+                                            if (!e.target.checked) {
+                                                localStorage.removeItem('savedEmail')
+                                            }
+                                        }}
+                                        className="h-4 w-4 text-[#0B1E59] focus:ring-[#0B1E59] border-slate-300 rounded cursor-pointer"
+                                    />
+                                    <label htmlFor="remember" className="ml-2 block text-sm text-slate-700 dark:text-slate-300 cursor-pointer">
+                                        아이디 저장
+                                    </label>
+                                </div>
+                            )}
 
                             {mode === 'signup' && (
                                 <div className="space-y-1.5">
