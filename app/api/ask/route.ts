@@ -289,7 +289,7 @@ export async function POST(request: Request) {
         if (answerPolicy === "TA_CONFIRMED") {
             policyPrompt = `- This query matches a previously verified and edited answer from a TA.
 - You MUST heavily rely on the TA_EDITED_ANSWER provided in the context.
-- Adapt the TA_EDITED_ANSWER exactly into the required format (핵심 정리 + 자세한 설명).
+- Adapt the TA_EDITED_ANSWER exactly into the required format (자세한 설명).
 - DO NOT delete or distort the content of the TA_EDITED_ANSWER. 
 - You MUST include the core sentences and any added intent from the TA_EDITED_ANSWER verbatim or in highly accurate paraphrasing.
 - If QnA or 교재 concepts conflict with the TA_EDITED_ANSWER, the TA's answer takes absolute precedence.`;
@@ -310,10 +310,8 @@ export async function POST(request: Request) {
 STRICT FORMATTING RULES:
 - The output MUST exactly consist of the following structure:
   1. A greeting at the very beginning exactly matching: "안녕하세요! KISS 연구소 입니다."
-  2. "핵심 정리": A concise summary of 2-3 sentences.
-  3. "자세한 설명": A detailed explanation of 5-6 paragraphs (each 2-3 sentences).
-  4. A closing statement at the very end exactly matching: "질문에 대한 좋은 답변이 되었길 바랍니다! 추가로 궁금하신 점이 있다면 언제든 Q&A 게시판을 이용해주세요!"
-- Add the exact markdown headers "### 핵심 정리" and "### 자세한 설명" for the middle sections.
+  2. A detailed explanation of 5-6 paragraphs (each 2-3 sentences).
+  3. A closing statement at the very end exactly matching: "질문에 대한 좋은 답변이 되었길 바랍니다! 추가로 궁금하신 점이 있다면 언제든 Q&A 게시판을 이용해주세요!"
 - Tone: 밝고 에너지 넘치게 다정하고 친근한 말투('~해요!', '~습니다!'체)로 작성해주세요. 느낌표(!)를 적절히 섞어 활기찬 느낌을 살려주세요. 친근함 80%, 진지함 20% 정도로 작성해주세요. Keep it concise but explanatory (no bullet lists by default).
 - Do NOT explicitly mention page numbers in the text of your answer.
 - Textbook content is the PRIMARY source of truth, but follow the specific policy rules below based on context strength.
