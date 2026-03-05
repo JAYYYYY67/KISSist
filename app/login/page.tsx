@@ -67,8 +67,8 @@ export default function LoginPage() {
         <div className="font-sans bg-[#f6f6f8] text-slate-900 min-h-screen relative overflow-hidden flex flex-col dark:bg-[#161121] dark:text-slate-100">
             {/* Abstract Background Elements */}
             <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#5417cf]/20 blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-900/30 blur-[150px]"></div>
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#0B1E59]/20 blur-[120px]"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-950/30 blur-[150px]"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-[#161121] via-[#161121] to-[#201633] opacity-0 dark:opacity-100 transition-opacity"></div>
             </div>
 
@@ -81,7 +81,7 @@ export default function LoginPage() {
                         <div className="text-center mb-10">
                             {/* Brand Header inside card for focus */}
                             <div className="flex justify-center items-center gap-2 mb-6">
-                                <div className="bg-[#5417cf] p-2 rounded-xl flex items-center justify-center shadow-lg shadow-[#5417cf]/30">
+                                <div className="bg-[#0B1E59] p-2 rounded-xl flex items-center justify-center shadow-lg shadow-[#0B1E59]/30">
                                     <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
@@ -123,7 +123,7 @@ export default function LoginPage() {
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#5417cf]/50 focus:border-[#5417cf] transition-all"
+                                        className="w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1E59]/50 focus:border-[#0B1E59] transition-all"
                                         placeholder="name@university.edu"
                                     />
                                 </div>
@@ -137,7 +137,7 @@ export default function LoginPage() {
                                         <button
                                             type="button"
                                             onClick={handleResetPassword}
-                                            className="text-xs text-[#5417cf] dark:text-[#8253f0] font-bold hover:underline"
+                                            className="text-xs text-[#0B1E59] dark:text-[#3d5ab3] font-bold hover:underline"
                                         >
                                             Forgot password?
                                         </button>
@@ -154,7 +154,7 @@ export default function LoginPage() {
                                         required
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#5417cf]/50 focus:border-[#5417cf] transition-all"
+                                        className="w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1E59]/50 focus:border-[#0B1E59] transition-all"
                                         placeholder="••••••••"
                                     />
                                 </div>
@@ -164,7 +164,7 @@ export default function LoginPage() {
                             <div className="pt-4 space-y-4">
                                 <button
                                     type="submit"
-                                    className="w-full bg-gradient-to-r from-[#5417cf] to-indigo-600 hover:from-[#4914b5] hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-[#5417cf]/20 transition-all active:scale-[0.98] tracking-wide"
+                                    className="w-full bg-gradient-to-r from-[#0B1E59] to-blue-800 hover:from-[#081745] hover:to-blue-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-[#0B1E59]/20 transition-all active:scale-[0.98] tracking-wide"
                                 >
                                     {mode === 'signin' ? 'Sign in' : 'Complete Sign up'}
                                 </button>

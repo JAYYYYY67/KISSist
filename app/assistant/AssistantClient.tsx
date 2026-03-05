@@ -234,8 +234,8 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
         <div className="font-sans bg-[#f6f6f8] text-slate-900 min-h-screen relative overflow-hidden flex flex-col dark:bg-[#161121] dark:text-slate-100">
             {/* Abstract Background Elements */}
             <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#5417cf]/20 blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-900/30 blur-[150px]"></div>
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#0B1E59]/20 blur-[120px]"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-950/30 blur-[150px]"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-[#161121] via-[#161121] to-[#201633] opacity-0 dark:opacity-100 transition-opacity"></div>
             </div>
 
@@ -243,7 +243,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
             <header className="relative z-10 bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border-b border-slate-200 dark:border-slate-700/50 px-6 py-4 flex items-center justify-between sticky top-0">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-[#5417cf] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#5417cf]/30">
+                        <div className="w-8 h-8 bg-[#0B1E59] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#0B1E59]/30">
                             K
                         </div>
                         <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist</h1>
@@ -252,7 +252,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                     {isAdmin && (
                         <Link
                             href="/admin"
-                            className="text-xs font-bold text-[#5417cf] dark:text-[#8253f0] bg-[#5417cf]/10 dark:bg-[#5417cf]/20 px-3 py-1.5 rounded-full hover:bg-[#5417cf]/20 transition-colors flex items-center gap-1"
+                            className="text-xs font-bold text-[#0B1E59] dark:text-[#3d5ab3] bg-[#0B1E59]/10 dark:bg-[#0B1E59]/20 px-3 py-1.5 rounded-full hover:bg-[#0B1E59]/20 transition-colors flex items-center gap-1"
                         >
                             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                             Back to Admin
@@ -285,7 +285,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                     value={selectedCourse}
                                     onChange={handleCourseChange}
                                     disabled={loadingCourses}
-                                    className="appearance-none w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 py-2.5 pl-4 pr-10 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#5417cf]/50 focus:border-[#5417cf] cursor-pointer disabled:opacity-50 transition-all"
+                                    className="appearance-none w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-200 py-2.5 pl-4 pr-10 rounded-xl text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#0B1E59]/50 focus:border-[#0B1E59] cursor-pointer disabled:opacity-50 transition-all"
                                 >
                                     <option value="">All Courses</option>
                                     {courses.map(c => (
@@ -319,7 +319,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                             </span>
                             <div className="flex items-center gap-3">
                                 {loading && (
-                                    <span className="text-xs font-bold text-[#5417cf] dark:text-[#8253f0] animate-pulse">
+                                    <span className="text-xs font-bold text-[#0B1E59] dark:text-[#3d5ab3] animate-pulse">
                                         {loadingMessage}
                                     </span>
                                 )}
@@ -329,7 +329,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                     className={`px-8 py-3 rounded-xl font-bold text-white transition-all shadow-lg
                                         ${loading || !question.trim()
                                             ? 'bg-slate-300 dark:bg-slate-700 text-slate-500 cursor-not-allowed shadow-none'
-                                            : 'bg-gradient-to-r from-[#5417cf] to-indigo-600 hover:from-[#4914b5] hover:to-indigo-500 shadow-[#5417cf]/30 active:scale-[0.98]'
+                                            : 'bg-gradient-to-r from-[#0B1E59] to-blue-800 hover:from-[#081745] hover:to-blue-700 shadow-[#0B1E59]/30 active:scale-[0.98]'
                                         }`}
                                 >
                                     {loading ? 'Processing...' : 'Generate Draft'}
@@ -353,7 +353,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                             <div className="flex items-center gap-3">
                                 <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Answer Draft</span>
                                 {selectedCourse && (
-                                    <span className="text-[10px] font-bold bg-[#5417cf]/10 text-[#5417cf] dark:text-[#8253f0] px-2.5 py-1 rounded-md border border-[#5417cf]/20">
+                                    <span className="text-[10px] font-bold bg-[#0B1E59]/10 text-[#0B1E59] dark:text-[#3d5ab3] px-2.5 py-1 rounded-md border border-[#0B1E59]/20">
                                         {selectedCourseName}
                                     </span>
                                 )}
@@ -367,7 +367,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                 {originalAnswer && answer !== originalAnswer && (
                                     <button
                                         onClick={resetToDraft}
-                                        className="text-xs font-bold text-slate-500 hover:text-[#5417cf] hover:bg-[#5417cf]/10 px-3 py-1.5 rounded-lg transition-colors"
+                                        className="text-xs font-bold text-slate-500 hover:text-[#0B1E59] hover:bg-[#0B1E59]/10 px-3 py-1.5 rounded-lg transition-colors"
                                     >
                                         Reverse Changes
                                     </button>
@@ -378,7 +378,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                     className={`text-xs font-bold px-4 py-1.5 rounded-lg transition-all disabled:opacity-50
                                         ${copied
                                             ? 'bg-green-100 text-green-700'
-                                            : 'text-[#5417cf] dark:text-[#8253f0] hover:bg-[#5417cf]/10 bg-white/50 dark:bg-transparent shadow-sm'
+                                            : 'text-[#0B1E59] dark:text-[#3d5ab3] hover:bg-[#0B1E59]/10 bg-white/50 dark:bg-transparent shadow-sm'
                                         }`}
                                 >
                                     {copied ? 'Copied!' : 'Copy'}
@@ -458,14 +458,14 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                         return renderingGroups.map((group, i) => (
                                             <div key={i} className="flex flex-col gap-2.5 mb-5 last:mb-0">
                                                 <div className="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                                                    <div className="w-1.5 h-4 bg-[#5417cf] rounded-full"></div>
+                                                    <div className="w-1.5 h-4 bg-[#0B1E59] rounded-full"></div>
                                                     {group.title} <span className="text-slate-400 dark:text-slate-500 font-medium">({group.courseKey || 'All Courses'})</span>
                                                 </div>
                                                 <div className="flex flex-col gap-1.5 pl-3.5">
                                                     {group.pages.map((p, j) => (
                                                         <div key={j} className="text-sm text-slate-600 dark:text-slate-300 flex gap-3 items-start py-1.5 border-b border-slate-100 dark:border-slate-700/50 last:border-0 relative">
                                                             <div className="absolute left-[-15px] top-3.5 w-[6px] h-[6px] border-l-2 border-b-2 border-slate-300 dark:border-slate-600 rounded-bl-sm pointer-events-none"></div>
-                                                            <span className="font-bold min-w-[2.5rem] shrink-0 text-[#5417cf] dark:text-[#8253f0]">p.{p.page}</span>
+                                                            <span className="font-bold min-w-[2.5rem] shrink-0 text-[#0B1E59] dark:text-[#3d5ab3]">p.{p.page}</span>
                                                             <span className="text-slate-500 dark:text-slate-400 flex-1 leading-snug break-all sm:break-normal">{p.highlightText || '내용 요약 없음'}</span>
                                                         </div>
                                                     ))}
@@ -488,7 +488,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                         setFeedbackVisible(true);
                                         setFeedbackSuccess(false);
                                     }}
-                                    className="w-full text-center py-4 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-[#5417cf] dark:hover:text-[#8253f0] hover:bg-white/40 dark:hover:bg-slate-800/40 transition-all flex justify-center items-center gap-2"
+                                    className="w-full text-center py-4 text-sm font-bold text-slate-500 dark:text-slate-400 hover:text-[#0B1E59] dark:hover:text-[#3d5ab3] hover:bg-white/40 dark:hover:bg-slate-800/40 transition-all flex justify-center items-center gap-2"
                                 >
                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                                     조교 피드백 작성하기
@@ -504,13 +504,13 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
 
                                     {/* Edited Answer */}
                                     <div>
-                                        <label className="block text-[10px] font-bold text-[#5417cf] dark:text-[#8253f0] uppercase tracking-wider mb-2">
+                                        <label className="block text-[10px] font-bold text-[#0B1E59] dark:text-[#3d5ab3] uppercase tracking-wider mb-2">
                                             조교 최종 답안 (핵심 정리 + 설명)
                                         </label>
                                         <textarea
                                             value={finalAnswer}
                                             onChange={(e) => setFinalAnswer(e.target.value)}
-                                            className="w-full text-sm p-4 bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 focus:outline-none focus:border-[#5417cf] focus:ring-1 focus:ring-[#5417cf] min-h-[150px] resize-y overflow-y-auto shadow-inner"
+                                            className="w-full text-sm p-4 bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 focus:outline-none focus:border-[#0B1E59] focus:ring-1 focus:ring-[#0B1E59] min-h-[150px] resize-y overflow-y-auto shadow-inner"
                                             placeholder="학생에게 노출될 이상적인 답안 형태로 수정해주세요."
                                         />
                                     </div>
@@ -523,7 +523,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                         <textarea
                                             value={feedbackComment}
                                             onChange={(e) => setFeedbackComment(e.target.value)}
-                                            className="w-full text-sm p-4 bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 focus:outline-none focus:border-[#5417cf] focus:ring-1 focus:ring-[#5417cf] min-h-[80px] resize-y shadow-inner"
+                                            className="w-full text-sm p-4 bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl text-slate-800 dark:text-slate-100 focus:outline-none focus:border-[#0B1E59] focus:ring-1 focus:ring-[#0B1E59] min-h-[80px] resize-y shadow-inner"
                                             placeholder="어떤 부분이 부족했는지, 왜 수정했는지 간략히 적어주세요."
                                         />
                                     </div>
@@ -537,7 +537,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                                             <button
                                                 onClick={submitFeedback}
                                                 disabled={feedbackSubmitting}
-                                                className="px-6 py-2.5 bg-gradient-to-r from-[#5417cf] to-indigo-600 hover:from-[#4914b5] hover:to-indigo-500 text-white rounded-xl shadow-lg shadow-[#5417cf]/20 text-sm font-bold active:scale-95 disabled:opacity-50 disabled:active:scale-100 transition-all"
+                                                className="px-6 py-2.5 bg-gradient-to-r from-[#0B1E59] to-blue-800 hover:from-[#081745] hover:to-blue-700 text-white rounded-xl shadow-lg shadow-[#0B1E59]/20 text-sm font-bold active:scale-95 disabled:opacity-50 disabled:active:scale-100 transition-all"
                                             >
                                                 {feedbackSubmitting ? '저장 중...' : '저장하기'}
                                             </button>

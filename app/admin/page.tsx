@@ -36,8 +36,8 @@ export default async function AdminPage() {
         <div className="font-sans bg-[#f6f6f8] text-slate-900 min-h-screen relative overflow-hidden flex flex-col dark:bg-[#161121] dark:text-slate-100">
             {/* Abstract Background Elements */}
             <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#5417cf]/20 blur-[120px]"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-indigo-900/30 blur-[150px]"></div>
+                <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-[#0B1E59]/20 blur-[120px]"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-950/30 blur-[150px]"></div>
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-[#161121] via-[#161121] to-[#201633] opacity-0 dark:opacity-100 transition-opacity"></div>
             </div>
 
@@ -48,22 +48,22 @@ export default async function AdminPage() {
                     <p className="text-slate-500 dark:text-slate-400 font-medium">Protected Admin Area</p>
 
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <Link href="/admin/indexing" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#5417cf]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#5417cf]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
-                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#5417cf] dark:group-hover:text-[#8253f0] mb-2 flex items-center gap-2">📄 Upload Materials</h3>
+                        <Link href="/admin/indexing" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#0B1E59]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">📄 Upload Materials</h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Upload and chunk PDF textbooks for the knowledge base.</p>
-                            <span className="mt-4 flex items-center gap-1 text-sm font-bold text-[#5417cf] dark:text-[#8253f0]">Go to Indexing <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                            <span className="mt-4 flex items-center gap-1 text-sm font-bold text-[#0B1E59] dark:text-[#3d5ab3]">Go to Indexing <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
                         </Link>
-                        <div className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#5417cf]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md opacity-60">
-                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#5417cf] dark:group-hover:text-[#8253f0] mb-2">❓ Import Q&A</h3>
+                        <div className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md opacity-60">
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2">❓ Import Q&A</h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Bulk import Q&A pairs via API (UI coming soon).</p>
                             <span className="mt-4 inline-block text-sm font-bold text-slate-400">API Endpoint Active</span>
                         </div>
-                        <Link href="/assistant" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#5417cf]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#5417cf]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
-                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#5417cf] dark:group-hover:text-[#8253f0] mb-2 flex items-center gap-2">🤖 Assistant View (Test)</h3>
+                        <Link href="/assistant" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#0B1E59]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">🤖 Assistant View (Test)</h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Access the Assistant interface to test Q&A retrieval.</p>
-                            <span className="mt-4 flex items-center gap-1 text-sm font-bold text-[#5417cf] dark:text-[#8253f0]">Go to Assistant <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+                            <span className="mt-4 flex items-center gap-1 text-sm font-bold text-[#0B1E59] dark:text-[#3d5ab3]">Go to Assistant <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
                         </Link>
                     </div>
                 </div>

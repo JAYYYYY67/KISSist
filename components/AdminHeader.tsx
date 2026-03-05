@@ -16,7 +16,7 @@ export default function AdminHeader() {
     return (
         <header className="relative z-10 bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border-b border-slate-200 dark:border-slate-700/50 px-6 py-4 flex items-center justify-between sticky top-0">
             <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-[#5417cf] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#5417cf]/30">
+                <div className="w-8 h-8 bg-[#0B1E59] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#0B1E59]/30">
                     A
                 </div>
                 <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist Admin</h1>
