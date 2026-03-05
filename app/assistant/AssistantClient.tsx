@@ -246,7 +246,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                         <div className="w-8 h-8 bg-[#5417cf] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#5417cf]/30">
                             K
                         </div>
-                        <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KissEng Assistant</h1>
+                        <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist</h1>
                     </div>
                     {/* Back to Admin Label - Only visible if Admin */}
                     {isAdmin && (

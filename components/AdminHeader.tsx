@@ -19,7 +19,7 @@ export default function AdminHeader() {
                 <div className="w-8 h-8 bg-[#5417cf] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#5417cf]/30">
                     A
                 </div>
-                <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KissEng Admin</h1>
+                <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist Admin</h1>
             </div>
             <button
                 onClick={handleLogout}
