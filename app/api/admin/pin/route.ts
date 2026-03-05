@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { createClient } from '@/lib/supabase/server'
+import crypto from 'crypto'
 
 export async function POST(request: Request) {
     try {
@@ -19,8 +20,8 @@ export async function POST(request: Request) {
             return NextResponse.json({ ok: false, error: 'Not signed in' }, { status: 401 })
         }
 
-        const adminEmail = process.env.ADMIN_EMAIL
-        if (!adminEmail || user.email !== adminEmail) {
+        const adminEmails = (process.env.ADMIN_EMAILS || '').split(',').map(e => e.trim().toLowerCase())
+        if (!adminEmails.includes(user.email?.toLowerCase() || '')) {
             if (process.env.NODE_ENV === 'development') console.log("[pin] Returning 403 (Not Admin)")
             return NextResponse.json({ ok: false, error: 'Forbidden' }, { status: 403 })
         }
@@ -28,11 +29,7 @@ export async function POST(request: Request) {
         const body = await request.json()
         const pin = String(body.pin ?? "").trim()
 
-        // Log hash length only (no secrets)
         const adminPinHash = process.env.ADMIN_PIN_HASH
-        if (process.env.NODE_ENV === 'development') {
-            console.log("[pin] hashLen=", adminPinHash?.length)
-        }
 
         if (!pin) {
             if (process.env.NODE_ENV === 'development') console.log("[pin] Returning 400 (Empty PIN)")
@@ -40,11 +37,19 @@ export async function POST(request: Request) {
         }
 
         if (!adminPinHash) {
-            console.error('ADMIN_PIN_HASH is not set in environment variables.')
-            return NextResponse.json({ ok: false, error: 'ADMIN_PIN_HASH missing' }, { status: 500 })
+            if (process.env.NODE_ENV === 'development') console.log("[pin] ADMIN_PIN_HASH missing")
+            return NextResponse.json({ ok: false, error: 'ADMIN_PIN_HASH missing' }, { status: 403 })
         }
 
-        const match = await bcrypt.compare(pin, adminPinHash.trim())
+        const trimmedHash = adminPinHash.trim()
+        let match = false
+
+        if (trimmedHash.startsWith('$2a$') || trimmedHash.startsWith('$2b$')) {
+            match = await bcrypt.compare(pin, trimmedHash)
+        } else {
+            const sha256Hash = crypto.createHash('sha256').update(pin).digest('hex')
+            match = (sha256Hash === trimmedHash)
+        }
 
         if (match) {
             const response = NextResponse.json({ ok: true })
