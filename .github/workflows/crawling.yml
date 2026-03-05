@@ -1,0 +1,47 @@
+name: Automated Q&A Crawler Workflow
+
+on:
+  schedule:
+    # Runs at 18:00 UTC every day (03:00 AM KST next day)
+    - cron: '0 18 * * *'
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+        
+      - name: Run Crawler
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ADMIN_USER: ${{ secrets.ADMIN_USER }}
+          ADMIN_PASS: ${{ secrets.ADMIN_PASS }}
+          # DB_UPSERT_ONLY is implicitly false/undefined so it runs the actual crawl
+        run: npx ts-node scripts/crawl-qna.ts
+        
+      # Optional: Since you update Supabase directly, we don't necessarily NEED to commit the JSON.
+      # If you want to commit output/qna.json back to the repo, you would add a step here.
+      # - name: Commit crawler output
+      #   run: |
+      #     git config --local user.email "github-actions[bot]@users.noreply.github.com"
+      #     git config --local user.name "github-actions[bot]"
+      #     git add output/qna.json
+      #     git commit -m "chore: update daily crawler output [skip ci]" || echo "No changes to commit"
+      #     git push
