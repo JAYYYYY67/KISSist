@@ -50,7 +50,9 @@ export async function middleware(request: NextRequest) {
             const redirectResponse = NextResponse.redirect(redirectUrl)
 
             // 핵심: 로그인 만료/리다이렉트 전 갱신된 쿠키를 방출될 응답에 그대로 복사해줍니다.
-            redirectResponse.cookies.setAll(res.cookies.getAll())
+            res.cookies.getAll().forEach((cookie) => {
+                redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+            })
             return redirectResponse
         }
 
@@ -62,13 +64,17 @@ export async function middleware(request: NextRequest) {
             if (!adminEmails.includes(userEmail)) {
                 if (request.nextUrl.pathname.startsWith('/api/')) {
                     const jsonRes = NextResponse.json({ error: 'Forbidden: Admins only' }, { status: 403 })
-                    jsonRes.cookies.setAll(res.cookies.getAll())
+                    res.cookies.getAll().forEach((cookie) => {
+                        jsonRes.cookies.set(cookie.name, cookie.value, cookie)
+                    })
                     return jsonRes
                 } else {
                     const redirectUrl = request.nextUrl.clone()
                     redirectUrl.pathname = '/assistant'
                     const redirectResponse = NextResponse.redirect(redirectUrl)
-                    redirectResponse.cookies.setAll(res.cookies.getAll())
+                    res.cookies.getAll().forEach((cookie) => {
+                        redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+                    })
                     return redirectResponse
                 }
             }
