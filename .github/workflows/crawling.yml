@@ -2,8 +2,8 @@ name: Automated Q&A Crawler Workflow
 
 on:
   schedule:
-    # Runs at 18:00 UTC every day (03:00 AM KST next day)
-    - cron: '0 18 * * *'
+    # Runs at 18:00 UTC every two days (03:00 AM KST)
+    - cron: '0 18 */2 * *'
   workflow_dispatch: # Allows manual triggering from the GitHub UI
 
 jobs:
