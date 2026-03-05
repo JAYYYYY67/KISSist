@@ -7,6 +7,7 @@ import { useState } from 'react'
 export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [mode, setMode] = useState<'signin' | 'signup'>('signin')
     const [error, setError] = useState<string | null>(null)
     const [message, setMessage] = useState<string | null>(null)
@@ -19,6 +20,10 @@ export default function LoginPage() {
         setMessage(null)
 
         if (mode === 'signup') {
+            if (password !== confirmPassword) {
+                setError('비밀번호가 일치하지 않습니다.')
+                return
+            }
             const { error } = await supabase.auth.signUp({
                 email,
                 password,
@@ -127,6 +132,7 @@ export default function LoginPage() {
                                         placeholder="name@university.edu"
                                     />
                                 </div>
+                                <p className="text-xs text-slate-500 ml-1">비밀번호 찾기 시 활용됩니다.</p>
                             </div>
 
                             {/* Password Field */}
@@ -160,6 +166,27 @@ export default function LoginPage() {
                                 </div>
                             </div>
 
+                            {mode === 'signup' && (
+                                <div className="space-y-1.5">
+                                    <label className="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Confirm Password</label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                            <svg className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                            </svg>
+                                        </div>
+                                        <input
+                                            type="password"
+                                            required
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                            className="w-full bg-white dark:bg-[#161121]/50 border border-slate-300 dark:border-slate-700 rounded-xl py-3.5 pl-11 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0B1E59]/50 focus:border-[#0B1E59] transition-all"
+                                            placeholder="••••••••"
+                                        />
+                                    </div>
+                                </div>
+                            )}
+
                             {/* Actions */}
                             <div className="pt-4 space-y-4">
                                 <button
@@ -184,6 +211,7 @@ export default function LoginPage() {
                                         setMode(mode === 'signin' ? 'signup' : 'signin')
                                         setError(null)
                                         setMessage(null)
+                                        setConfirmPassword('')
                                     }}
                                     className="w-full border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-500 text-slate-700 dark:text-slate-300 font-bold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2 bg-white/50 dark:bg-transparent"
                                 >
