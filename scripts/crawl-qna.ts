@@ -603,9 +603,12 @@ async function run() {
         }
 
         try {
-            const crawlFrom = process.env.CRAWL_FROM || '2025-12-01'
-            const crawlTo = process.env.CRAWL_TO || getToday()
-            const sliceDays = parseInt(process.env.CRAWL_SLICE_DAYS || '3', 10)
+            const defaultTo = getToday()
+            const defaultFrom = subtractDays(defaultTo, 5)
+
+            const crawlFrom = process.env.CRAWL_FROM || defaultFrom
+            const crawlTo = process.env.CRAWL_TO || defaultTo
+            const sliceDays = parseInt(process.env.CRAWL_SLICE_DAYS || '2', 10)
 
             console.log(`\n📅 Date Slicing Config: ${crawlFrom} ~ ${crawlTo} (Slice: ${sliceDays} days)`)
 
