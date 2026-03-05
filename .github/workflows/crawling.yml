@@ -34,7 +34,7 @@ jobs:
           ADMIN_USER: ${{ secrets.ADMIN_USER }}
           ADMIN_PASS: ${{ secrets.ADMIN_PASS }}
           # DB_UPSERT_ONLY is implicitly false/undefined so it runs the actual crawl
-        run: npx ts-node scripts/crawl-qna.ts
+        run: npx --yes tsx scripts/crawl-qna.ts
         
       # Optional: Since you update Supabase directly, we don't necessarily NEED to commit the JSON.
       # If you want to commit output/qna.json back to the repo, you would add a step here.
