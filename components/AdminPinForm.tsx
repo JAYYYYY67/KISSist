@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export default function AdminPinForm() {
     const [pin, setPin] = useState('')
@@ -37,9 +38,12 @@ export default function AdminPinForm() {
     }
 
     return (
-        <div className="flex min-h-screen items-center justify-center bg-gray-100">
-            <div className="w-full max-w-sm p-6 bg-white rounded shadow-md">
-                <h2 className="mb-4 text-xl font-bold text-center">Admin Access PIN</h2>
+        <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-[#161121]">
+            <div className="w-full max-w-sm p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl">
+                <div className="flex justify-center mb-6">
+                    <Image src="/branding/kissist_robot_login_hero_logo.png" alt="KISSist Robot" width={64} height={64} className="object-contain drop-shadow-lg" />
+                </div>
+                <h2 className="mb-4 text-xl font-bold text-center text-slate-800 dark:text-slate-100">Admin Access PIN</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {error && <div className="p-2 text-sm text-red-600 bg-red-50 rounded">{error}</div>}
                     <div>

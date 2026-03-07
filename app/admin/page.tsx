@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import Image from 'next/image'
 import AdminPinForm from '@/components/AdminPinForm'
 import AdminHeader from '@/components/AdminHeader'
 
@@ -50,18 +51,27 @@ export default async function AdminPage() {
                     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <Link href="/admin/indexing" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#0B1E59]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
-                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">📄 Upload Materials</h3>
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">
+                                <Image src="/branding/kissist_robot_32.png" alt="Robot Upload" width={24} height={24} className="object-contain" />
+                                Upload Materials
+                            </h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Upload and chunk PDF textbooks for the knowledge base.</p>
                             <span className="mt-4 flex items-center gap-1 text-sm font-bold text-[#0B1E59] dark:text-[#3d5ab3]">Go to Indexing <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
                         </Link>
                         <div className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md opacity-60">
-                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2">❓ Import Q&A</h3>
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">
+                                <Image src="/branding/kissist_robot_32.png" alt="Robot QA" width={24} height={24} className="object-contain grayscale" />
+                                Import Q&A
+                            </h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Bulk import Q&A pairs via API (UI coming soon).</p>
                             <span className="mt-4 inline-block text-sm font-bold text-slate-400">API Endpoint Active</span>
                         </div>
                         <Link href="/assistant" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#0B1E59]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
-                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">🤖 Assistant View (Test)</h3>
+                            <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">
+                                <Image src="/branding/kissist_robot_32.png" alt="Robot Assistant" width={24} height={24} className="object-contain" />
+                                Assistant View (Test)
+                            </h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Access the Assistant interface to test Q&A retrieval.</p>
                             <span className="mt-4 flex items-center gap-1 text-sm font-bold text-[#0B1E59] dark:text-[#3d5ab3]">Go to Assistant <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
                         </Link>
