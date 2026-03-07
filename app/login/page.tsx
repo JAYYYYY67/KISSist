@@ -98,8 +98,8 @@ function LoginForm() {
                 <div className="text-center mb-10">
                     {/* Brand Header inside card for focus */}
                     <div className="flex justify-center items-center gap-2 mb-6">
-                        <div className="bg-[#0B1E59] p-2 rounded-xl flex items-center justify-center shadow-lg shadow-[#0B1E59]/30">
-                            <Image src="/kissist-icon.png" alt="KISSist Logo" width={24} height={24} className="object-contain" />
+                        <div className="flex items-center justify-center">
+                            <Image src="/branding/kissist_robot_login_hero_logo.png" alt="KISSist Logo" width={64} height={64} className="object-contain drop-shadow-lg" />
                         </div>
                         <h2 className="text-3xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist</h2>
                     </div>
