@@ -52,7 +52,7 @@ export default async function AdminPage() {
                         <Link href="/admin/indexing" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#0B1E59]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
                             <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">
-                                <Image src="/branding/kissist_robot_32.png" alt="Robot Upload" width={24} height={24} className="object-contain" />
+                                <Image src="/branding/kissist_robotK_32.png" alt="Robot Upload" width={24} height={24} className="object-contain" />
                                 Upload Materials
                             </h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Upload and chunk PDF textbooks for the knowledge base.</p>
@@ -60,7 +60,7 @@ export default async function AdminPage() {
                         </Link>
                         <div className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md opacity-60">
                             <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">
-                                <Image src="/branding/kissist_robot_32.png" alt="Robot QA" width={24} height={24} className="object-contain grayscale" />
+                                <Image src="/branding/kissist_robotK_32.png" alt="Robot QA" width={24} height={24} className="object-contain grayscale" />
                                 Import Q&A
                             </h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Bulk import Q&A pairs via API (UI coming soon).</p>
@@ -69,7 +69,7 @@ export default async function AdminPage() {
                         <Link href="/assistant" className="p-6 border border-slate-200 dark:border-slate-700/50 rounded-xl bg-white/40 dark:bg-slate-800/40 hover:bg-white/70 dark:hover:bg-slate-800/70 hover:border-[#0B1E59]/50 transition-all group cursor-pointer shadow-sm hover:shadow-md block relative overflow-hidden">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#0B1E59]/5 rounded-bl-full pointer-events-none transition-transform group-hover:scale-110"></div>
                             <h3 className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-[#0B1E59] dark:group-hover:text-[#3d5ab3] mb-2 flex items-center gap-2">
-                                <Image src="/branding/kissist_robot_32.png" alt="Robot Assistant" width={24} height={24} className="object-contain" />
+                                <Image src="/branding/kissist_robotK_32.png" alt="Robot Assistant" width={24} height={24} className="object-contain" />
                                 Assistant View (Test)
                             </h3>
                             <p className="text-sm text-slate-500 dark:text-slate-400">Access the Assistant interface to test Q&A retrieval.</p>

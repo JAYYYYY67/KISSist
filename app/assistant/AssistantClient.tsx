@@ -248,7 +248,7 @@ export default function AssistantClient({ isAdmin }: AssistantClientProps) {
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 flex items-center justify-center">
-                            <Image src="/branding/kissist_robot_header_logo.png" alt="KISSist Logo" width={32} height={32} className="object-contain" />
+                            <Image src="/branding/kissist_robotK_header_logo.png" alt="KISSist Logo" width={32} height={32} className="object-contain" />
                         </div>
                         <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist</h1>
                     </div>

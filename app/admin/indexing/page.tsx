@@ -215,7 +215,7 @@ export default function IndexingPage() {
                                     ${isDragging ? 'border-[#0B1E59] bg-[#0B1E59]/10 scale-[1.02]' : 'border-slate-300 dark:border-slate-600 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50'}`}
                                 >
                                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <Image src="/branding/kissist_robot_64.png" alt="Upload Robot" width={48} height={48} className={`mb-3 transition-transform ${isDragging ? 'scale-110 drop-shadow-[0_0_10px_rgba(11,30,89,0.3)]' : 'opacity-70 grayscale'}`} />
+                                        <Image src="/branding/kissist_robotK_64.png" alt="Upload Robot" width={48} height={48} className={`mb-3 transition-transform ${isDragging ? 'scale-110 drop-shadow-[0_0_10px_rgba(11,30,89,0.3)]' : 'opacity-70 grayscale'}`} />
                                         <p className="text-sm text-slate-500 dark:text-slate-400"><span className="font-bold">Click to upload</span> or drag and drop</p>
                                         <p className="text-xs text-slate-400 dark:text-slate-500 font-medium tracking-wide mt-1">PDF (MAX. 50MB)</p>
                                     </div>

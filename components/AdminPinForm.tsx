@@ -41,7 +41,7 @@ export default function AdminPinForm() {
         <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-[#161121]">
             <div className="w-full max-w-sm p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl">
                 <div className="flex justify-center mb-6">
-                    <Image src="/branding/kissist_robot_login_hero_logo.png" alt="KISSist Robot" width={64} height={64} className="object-contain drop-shadow-lg" />
+                    <Image src="/branding/kissist_robotK_64.png" alt="KISSist Robot" width={64} height={64} className="object-contain drop-shadow-lg" />
                 </div>
                 <h2 className="mb-4 text-xl font-bold text-center text-slate-800 dark:text-slate-100">Admin Access PIN</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
