@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export default function AdminHeader() {
     const supabase = createClient()
@@ -16,8 +17,8 @@ export default function AdminHeader() {
     return (
         <header className="relative z-10 bg-white/70 dark:bg-slate-900/40 backdrop-blur-xl border-b border-slate-200 dark:border-slate-700/50 px-6 py-4 flex items-center justify-between sticky top-0">
             <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-[#0B1E59] rounded-lg flex items-center justify-center text-white font-bold shadow-lg shadow-[#0B1E59]/30">
-                    A
+                <div className="w-8 h-8 bg-[#0B1E59] rounded-lg flex items-center justify-center shadow-lg shadow-[#0B1E59]/30">
+                    <Image src="/kissist-icon.png" alt="KISSist Logo" width={20} height={20} className="object-contain" />
                 </div>
                 <h1 className="text-xl font-bold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist Admin</h1>
             </div>

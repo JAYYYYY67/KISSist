@@ -3,6 +3,7 @@
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect, Suspense } from 'react'
+import Image from 'next/image'
 
 function LoginForm() {
     const [email, setEmail] = useState('')
@@ -98,9 +99,7 @@ function LoginForm() {
                     {/* Brand Header inside card for focus */}
                     <div className="flex justify-center items-center gap-2 mb-6">
                         <div className="bg-[#0B1E59] p-2 rounded-xl flex items-center justify-center shadow-lg shadow-[#0B1E59]/30">
-                            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                            </svg>
+                            <Image src="/kissist-icon.png" alt="KISSist Logo" width={24} height={24} className="object-contain" />
                         </div>
                         <h2 className="text-3xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100 italic">KISSist</h2>
                     </div>
